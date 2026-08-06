@@ -1,4 +1,5 @@
 import json
+import time
 import os
 from datetime import datetime
 from math import ceil
@@ -290,16 +291,10 @@ def crawl_govuk(limit=20):
         print(error)
         return []
 
-    try:
-        soup = BeautifulSoup(
-            response.text,
-            "html.parser"
-        )
-
-    except Exception as error:
-        print("GOV.UK HTML 파싱에 실패했습니다.")
-        print(error)
-        return []
+    soup = BeautifulSoup(
+        response.text,
+        "html.parser"
+    )
 
     results = soup.select("li")
 
@@ -333,10 +328,53 @@ def crawl_govuk(limit=20):
             text.split("Updated:")[-1].strip()
         )
 
+        article_url = "https://www.gov.uk" + href
+
+        # 기사 상세 페이지 본문 수집
+        content = ""
+
+        try:
+            article_response = requests.get(
+                article_url,
+                headers=headers,
+                timeout=10
+            )
+
+            article_response.raise_for_status()
+
+            article_soup = BeautifulSoup(
+                article_response.text,
+                "html.parser"
+            )
+
+            # GOV.UK 기사 본문 영역
+            content_tag = article_soup.select_one(
+                ".govspeak"
+            )
+
+            if content_tag:
+                content = content_tag.get_text(
+                    " ",
+                    strip=True
+                )
+
+        except requests.exceptions.Timeout:
+            print(
+                "기사 본문 요청 시간 초과:",
+                article_url
+            )
+
+        except requests.exceptions.RequestException as error:
+            print(
+                "기사 본문 수집 실패:",
+                article_url
+            )
+            print(error)
+
         news_data = {
             "title": title,
-            "content": "",
-            "url": "https://www.gov.uk" + href,
+            "content": content,
+            "url": article_url,
             "published_at": published_at,
             "source": "gov.uk",
             "collected_at": datetime.now().isoformat(),
@@ -344,6 +382,9 @@ def crawl_govuk(limit=20):
         }
 
         news_list.append(news_data)
+
+        # 과도한 요청 방지
+        time.sleep(1)
 
         if len(news_list) >= limit:
             break
@@ -359,7 +400,6 @@ def crawl_govuk(limit=20):
     )
 
     return news_list
-
 
 # --------------------------------------------------
 # 수집 소스 선택
