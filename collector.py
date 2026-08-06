@@ -12,9 +12,22 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
+# 로그 폴더 생성
+os.makedirs("logs", exist_ok=True)
+
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s"
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        # 로그 파일에 저장
+        logging.FileHandler(
+            "logs/collector.log",
+            encoding="utf-8"
+        ),
+
+        # 터미널에도 출력
+        logging.StreamHandler()
+    ]
 )
 
 logger = logging.getLogger(__name__)
@@ -196,9 +209,7 @@ def fetch_naver_news(limit=20):
             response.raise_for_status()
 
         except requests.exceptions.Timeout:
-            print(
-                f"네이버 뉴스 요청 시간이 초과되었습니다: {keyword}"
-            )
+            logger.error("네이버 뉴스 요청 시간이 초과되었습니다: %s", keyword)
             continue
 
         except requests.exceptions.RequestException as error:
