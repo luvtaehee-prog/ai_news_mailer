@@ -1,2 +1,388 @@
-def fetch_news():
-    print("뉴스 수집 기능을 시작합니다.")
+import json
+import os
+from datetime import datetime
+from math import ceil
+
+import feedparser
+import requests
+from bs4 import BeautifulSoup
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
+
+# --------------------------------------------------
+# 공통 raw 데이터 저장
+# --------------------------------------------------
+
+def save_raw_news(news_list, file_name):
+    os.makedirs("data/raw", exist_ok=True)
+
+    file_path = f"data/raw/{file_name}"
+
+    existing_news = []
+
+    # 기존 파일이 있으면 먼저 읽기
+    if os.path.exists(file_path):
+        try:
+            with open(file_path, "r", encoding="utf-8") as file:
+                existing_news = json.load(file)
+
+        except (json.JSONDecodeError, OSError):
+            print("기존 raw 파일을 읽지 못해 새로 저장합니다.")
+            existing_news = []
+
+    existing_urls = {
+        news.get("url")
+        for news in existing_news
+        if news.get("url")
+    }
+
+    added_count = 0
+
+    # 새 데이터 중 기존에 없는 기사만 추가
+    for news in news_list:
+        url = news.get("url")
+
+        if url and url in existing_urls:
+            continue
+
+        existing_news.append(news)
+
+        if url:
+            existing_urls.add(url)
+
+        added_count += 1
+
+    # 기존 + 신규 데이터를 다시 JSON으로 저장
+    with open(file_path, "w", encoding="utf-8") as file:
+        json.dump(
+            existing_news,
+            file,
+            ensure_ascii=False,
+            indent=4
+        )
+
+    print("저장 완료:", file_path)
+    print("새로 추가된 뉴스:", added_count)
+    print("전체 저장 뉴스:", len(existing_news))
+
+# --------------------------------------------------
+# Google News RSS 수집
+# --------------------------------------------------
+
+def fetch_google_news(limit=20):
+    rss_url = (
+        "https://news.google.com/rss/search"
+        "?q=AI&hl=ko&gl=KR&ceid=KR:ko"
+    )
+
+    try:
+        response = requests.get(
+            rss_url,
+            timeout=10
+        )
+
+        response.raise_for_status()
+
+    except requests.exceptions.Timeout:
+        print("Google News RSS 요청 시간이 초과되었습니다.")
+        return []
+
+    except requests.exceptions.RequestException as error:
+        print("Google News RSS 요청에 실패했습니다.")
+        print(error)
+        return []
+
+    feed = feedparser.parse(response.content)
+
+    if feed.bozo:
+        print("Google News RSS 파싱 중 오류가 발생했습니다.")
+        print(feed.bozo_exception)
+        return []
+
+    news_list = []
+
+    for news in feed.entries[:limit]:
+        news_data = {
+            "title": news.get("title", ""),
+            "content": news.get("summary", ""),
+            "url": news.get("link", ""),
+            "published_at": news.get("published", ""),
+            "source": "google",
+            "collected_at": datetime.now().isoformat(),
+            "collection_method": "rss"
+        }
+
+        news_list.append(news_data)
+
+    print("수집된 Google News:", len(news_list))
+
+    save_raw_news(
+        news_list,
+        "google_news.json"
+    )
+
+    return news_list
+
+
+# --------------------------------------------------
+# NAVER 뉴스 검색 API 수집
+# --------------------------------------------------
+
+def fetch_naver_news(limit=20):
+    client_id = os.getenv("NAVER_CLIENT_ID")
+    client_secret = os.getenv("NAVER_CLIENT_SECRET")
+
+    if not client_id or not client_secret:
+        print("NAVER API 인증정보가 없습니다.")
+        print(".env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.")
+        return []
+
+    url = "https://naverapihub.apigw.ntruss.com/search/v1/news"
+
+    headers = {
+        "X-NCP-APIGW-API-KEY-ID": client_id,
+        "X-NCP-APIGW-API-KEY": client_secret
+    }
+
+    keywords = [
+        "AI",
+        "인공지능",
+        "생성형 AI",
+        "LLM",
+        "AI 반도체"
+    ]
+
+    news_list = []
+    seen_urls = set()
+
+    # 검색어별로 비슷한 수량을 요청
+    per_keyword_limit = max(
+        1,
+        ceil(limit / len(keywords)) + 2
+    )
+
+    for keyword in keywords:
+        params = {
+            "query": keyword,
+            "display": min(per_keyword_limit, 100),
+            "start": 1,
+            "sort": "date",
+            "format": "json"
+        }
+
+        try:
+            response = requests.get(
+                url,
+                headers=headers,
+                params=params,
+                timeout=10
+            )
+
+            print(
+                f"검색어 '{keyword}' 응답 코드:",
+                response.status_code
+            )
+
+            response.raise_for_status()
+
+        except requests.exceptions.Timeout:
+            print(
+                f"네이버 뉴스 요청 시간이 초과되었습니다: {keyword}"
+            )
+            continue
+
+        except requests.exceptions.RequestException as error:
+            print(
+                f"네이버 뉴스 요청에 실패했습니다: {keyword}"
+            )
+            print(error)
+            continue
+
+        try:
+            data = response.json()
+
+        except requests.exceptions.JSONDecodeError:
+            print(
+                f"네이버 뉴스 JSON 응답을 읽지 못했습니다: {keyword}"
+            )
+            continue
+
+        for item in data.get("items", []):
+            article_url = (
+                item.get("originallink")
+                or item.get("link", "")
+            )
+
+            if not article_url:
+                continue
+
+            if article_url in seen_urls:
+                continue
+
+            seen_urls.add(article_url)
+
+            news_data = {
+                "title": item.get("title", ""),
+                "content": item.get("description", ""),
+                "url": article_url,
+                "published_at": item.get("pubDate", ""),
+                "source": "naver",
+                "collected_at": datetime.now().isoformat(),
+                "collection_method": "api",
+                "search_keyword": keyword
+            }
+
+            news_list.append(news_data)
+
+    # --limit 값을 최종 뉴스 개수로 사용
+    news_list = news_list[:limit]
+
+    print(
+        "중복 제거 후 수집된 NAVER 뉴스:",
+        len(news_list)
+    )
+
+    save_raw_news(
+        news_list,
+        "naver_news.json"
+    )
+
+    return news_list
+
+
+# --------------------------------------------------
+# GOV.UK AI 뉴스 크롤링
+# --------------------------------------------------
+
+def crawl_govuk(limit=20):
+    url = (
+        "https://www.gov.uk/search/news-and-communications"
+        "?parent=%2Fbusiness-and-industry%2Fartificial-intelligence"
+        "&topic=7a4fba0a-f8d5-4aed-9d73-8a455c6ba7ac"
+    )
+
+    headers = {
+        "User-Agent": "Mozilla/5.0"
+    }
+
+    try:
+        response = requests.get(
+            url,
+            headers=headers,
+            timeout=10
+        )
+
+        print(
+            "GOV.UK 응답 코드:",
+            response.status_code
+        )
+
+        response.raise_for_status()
+
+    except requests.exceptions.Timeout:
+        print("GOV.UK 요청 시간이 초과되었습니다.")
+        return []
+
+    except requests.exceptions.RequestException as error:
+        print("GOV.UK 뉴스 수집에 실패했습니다.")
+        print(error)
+        return []
+
+    try:
+        soup = BeautifulSoup(
+            response.text,
+            "html.parser"
+        )
+
+    except Exception as error:
+        print("GOV.UK HTML 파싱에 실패했습니다.")
+        print(error)
+        return []
+
+    results = soup.select("li")
+
+    news_list = []
+
+    for item in results:
+        link_tag = item.find("a")
+        text = item.get_text(" ", strip=True)
+
+        if not link_tag:
+            continue
+
+        if "Updated:" not in text:
+            continue
+
+        href = link_tag.get("href", "")
+
+        if not href.startswith("/government/"):
+            continue
+
+        title = (
+            link_tag.string.strip()
+            if link_tag.string
+            else link_tag.get_text(
+                " ",
+                strip=True
+            )
+        )
+
+        published_at = (
+            text.split("Updated:")[-1].strip()
+        )
+
+        news_data = {
+            "title": title,
+            "content": "",
+            "url": "https://www.gov.uk" + href,
+            "published_at": published_at,
+            "source": "gov.uk",
+            "collected_at": datetime.now().isoformat(),
+            "collection_method": "crawl"
+        }
+
+        news_list.append(news_data)
+
+        if len(news_list) >= limit:
+            break
+
+    print(
+        "수집된 GOV.UK AI 뉴스:",
+        len(news_list)
+    )
+
+    save_raw_news(
+        news_list,
+        "govuk_news.json"
+    )
+
+    return news_list
+
+
+# --------------------------------------------------
+# 수집 소스 선택
+# --------------------------------------------------
+
+def fetch_news(source, limit=20):
+    source = source.lower()
+
+    if source == "google":
+        return fetch_google_news(limit)
+
+    elif source == "naver":
+        return fetch_naver_news(limit)
+
+    elif source == "govuk":
+        return crawl_govuk(limit)
+
+    else:
+        print(
+            f"지원하지 않는 뉴스 소스입니다: {source}"
+        )
+        print(
+            "사용 가능한 소스: google, naver, govuk"
+        )
+        return []
