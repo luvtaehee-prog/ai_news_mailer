@@ -36,6 +36,42 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+ARTICLE_CONTENT_SELECTORS = [
+    "article",
+    "[itemprop='articleBody']",
+    ".article-body",
+    ".article_body",
+    ".article-content",
+    ".article_content",
+    ".article-view-content",
+    ".articleView",
+    ".article_view",
+    ".entry-content",
+    ".post-content",
+    ".news-content",
+    ".news_content",
+    ".newsct_article",
+    ".view_text",
+    ".view_con",
+    ".view_content",
+    "#articleBody",
+    "#articleBodyContents",
+    "#article-view-content-div",
+    "#dic_area"
+]
+
+ARTICLE_DESCRIPTION_SELECTORS = [
+    "meta[property='og:description']",
+    "meta[name='description']",
+    "meta[name='twitter:description']"
+]
+
+GOOGLE_NEWS_BATCH_URL = (
+    "https://news.google.com/_/DotsSplashUi/data/batchexecute"
+)
+
+CONTENT_EXCERPT_MAX_LENGTH = 180
+
 # --------------------------------------------------
 # 공통 raw 데이터 저장
 # --------------------------------------------------
@@ -51,16 +87,27 @@ def save_raw_news(news_list, file_name):
     if os.path.exists(file_path):
         try:
             with open(file_path, "r", encoding="utf-8") as file:
-                for line in file:
+                for line_number, line in enumerate(file, start=1):
                     line = line.strip()
 
                     if not line:
                         continue
 
-                    news = json.loads(line)
+                    try:
+                        news = json.loads(line)
 
-                    if news.get("url"):
-                        existing_urls.add(news["url"])
+                    except json.JSONDecodeError as error:
+                        logger.warning(
+                            "JSONL line skipped: %s:%d (%s)",
+                            file_path,
+                            line_number,
+                            error
+                        )
+                        continue
+
+                    for url_key in ("url", "google_news_url"):
+                        if news.get(url_key):
+                            existing_urls.add(news[url_key])
 
         except (json.JSONDecodeError, OSError) as error:
             logger.error("기존 raw 파일을 읽는 중 오류가 발생했습니다.")
@@ -72,8 +119,15 @@ def save_raw_news(news_list, file_name):
     with open(file_path, "a", encoding="utf-8") as file:
         for news in news_list:
             url = news.get("url")
+            google_news_url = news.get("google_news_url")
 
-            if url and url in existing_urls:
+            if (
+                url
+                and url in existing_urls
+            ) or (
+                google_news_url
+                and google_news_url in existing_urls
+            ):
                 continue
 
             file.write(
@@ -86,6 +140,9 @@ def save_raw_news(news_list, file_name):
             if url:
                 existing_urls.add(url)
 
+            if google_news_url:
+                existing_urls.add(google_news_url)
+
             added_count += 1
 
     logger.info("저장 완료: %s", file_path)
@@ -95,12 +152,289 @@ def save_raw_news(news_list, file_name):
 # Google News RSS 수집
 # --------------------------------------------------
 
+def clean_text(text):
+    return " ".join(
+        text.split()
+    )
+
+
+def make_content_excerpt(text, max_length=CONTENT_EXCERPT_MAX_LENGTH):
+    text = clean_text(text)
+
+    if len(text) <= max_length:
+        return text
+
+    suffix = "..."
+    excerpt = text[:max_length - len(suffix)].rstrip()
+
+    last_space = excerpt.rfind(" ")
+
+    if last_space >= max_length * 0.75:
+        excerpt = excerpt[:last_space].rstrip()
+
+    return excerpt + suffix
+
+
+def html_to_text(html):
+    if not html:
+        return ""
+
+    soup = BeautifulSoup(
+        html,
+        "html.parser"
+    )
+
+    return clean_text(
+        soup.get_text(
+            " ",
+            strip=True
+        )
+    )
+
+
+def extract_article_content(html):
+    soup = BeautifulSoup(
+        html,
+        "html.parser"
+    )
+
+    for selector in ARTICLE_DESCRIPTION_SELECTORS:
+        meta_tag = soup.select_one(selector)
+
+        if not meta_tag:
+            continue
+
+        description = clean_text(
+            meta_tag.get("content", "")
+        )
+
+        if len(description) >= 30:
+            return description
+
+    for tag in soup(
+        [
+            "script",
+            "style",
+            "noscript",
+            "nav",
+            "header",
+            "footer",
+            "aside",
+            "form"
+        ]
+    ):
+        tag.decompose()
+
+    candidates = []
+
+    for selector in ARTICLE_CONTENT_SELECTORS:
+        for tag in soup.select(selector):
+            text = clean_text(
+                tag.get_text(
+                    " ",
+                    strip=True
+                )
+            )
+
+            if text:
+                candidates.append(text)
+
+    if not candidates:
+        paragraphs = [
+            clean_text(
+                paragraph.get_text(
+                    " ",
+                    strip=True
+                )
+            )
+            for paragraph in soup.find_all("p")
+        ]
+
+        paragraphs = [
+            paragraph
+            for paragraph in paragraphs
+            if len(paragraph) >= 30
+        ]
+
+        if paragraphs:
+            candidates.append(
+                clean_text(
+                    " ".join(paragraphs)
+                )
+            )
+
+    if not candidates and soup.body:
+        candidates.append(
+            clean_text(
+                soup.body.get_text(
+                    " ",
+                    strip=True
+                )
+            )
+        )
+
+    if not candidates:
+        return ""
+
+    content = max(
+        candidates,
+        key=len
+    )
+
+    if len(content) < 200:
+        return ""
+
+    return content
+
+
+def is_google_news_url(url):
+    return (
+        "://news.google.com/" in url
+        and "/rss/articles/" in url
+    )
+
+
+def resolve_google_news_url(google_news_url, timeout, headers):
+    if not is_google_news_url(google_news_url):
+        return google_news_url
+
+    try:
+        response = requests.get(
+            google_news_url,
+            headers=headers,
+            timeout=timeout
+        )
+
+        response.raise_for_status()
+
+        soup = BeautifulSoup(
+            response.text,
+            "html.parser"
+        )
+        data_tag = soup.select_one("c-wiz[data-p]")
+
+        if not data_tag:
+            return google_news_url
+
+        request_data = json.loads(
+            data_tag.get("data-p").replace(
+                '%.@.',
+                '["garturlreq",'
+            )
+        )
+        payload = {
+            "f.req": json.dumps(
+                [
+                    [
+                        [
+                            "Fbv4je",
+                            json.dumps(
+                                request_data[:-6] + request_data[-2:]
+                            ),
+                            None,
+                            "generic"
+                        ]
+                    ]
+                ]
+            )
+        }
+        resolve_headers = {
+            **headers,
+            "Content-Type": (
+                "application/x-www-form-urlencoded;charset=UTF-8"
+            ),
+            "Referer": "https://news.google.com/"
+        }
+
+        resolve_response = requests.post(
+            GOOGLE_NEWS_BATCH_URL,
+            headers=resolve_headers,
+            data=payload,
+            timeout=timeout
+        )
+
+        resolve_response.raise_for_status()
+
+        response_text = resolve_response.text
+
+        if response_text.startswith(")]}'"):
+            response_text = response_text[4:]
+
+        array_string = json.loads(response_text)[0][2]
+        article_url = json.loads(array_string)[1]
+
+        return article_url or google_news_url
+
+    except (
+        AttributeError,
+        IndexError,
+        KeyError,
+        TypeError,
+        json.JSONDecodeError,
+        requests.exceptions.RequestException
+    ) as error:
+        logger.warning("Google News URL resolve failed: %s", google_news_url)
+        logger.warning(error)
+
+    return google_news_url
+
+
+def fetch_article_content(article_url, timeout, headers):
+    if not article_url:
+        return "", ""
+
+    article_url = resolve_google_news_url(
+        article_url,
+        timeout,
+        headers
+    )
+
+    try:
+        response = requests.get(
+            article_url,
+            headers=headers,
+            timeout=timeout,
+            allow_redirects=True
+        )
+
+        response.raise_for_status()
+
+        if not response.encoding:
+            response.encoding = response.apparent_encoding
+
+        content = extract_article_content(response.text)
+
+        return content, response.url
+
+    except requests.exceptions.Timeout:
+        logger.error("Article request timed out: %s", article_url)
+
+    except requests.exceptions.RequestException as error:
+        logger.error("Article content fetch failed: %s", article_url)
+        logger.error(error)
+
+    return "", article_url
+
+
 def fetch_google_news(limit=20):
     rss_url = config["news_sources"]["google"]["url"]
     timeout = config["request"]["timeout"]
+    request_delay = config["news_sources"]["google"].get(
+        "request_delay",
+        0.5
+    )
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/124.0 Safari/537.36"
+        )
+    }
+
     try:
         response = requests.get(
             rss_url,
+            headers=headers,
             timeout=timeout
         )
 
@@ -125,17 +459,33 @@ def fetch_google_news(limit=20):
     news_list = []
 
     for news in feed.entries[:limit]:
+        google_news_url = news.get("link", "")
+        content, article_url = fetch_article_content(
+            google_news_url,
+            timeout,
+            headers
+        )
+        content_excerpt = make_content_excerpt(content)
+        rss_summary = news.get("summary", "")
+
         news_data = {
             "title": news.get("title", ""),
-            "content": news.get("summary", ""),
-            "url": news.get("link", ""),
+            "content": content_excerpt,
+            "summary": html_to_text(rss_summary),
+            "rss_summary": rss_summary,
+            "url": article_url or google_news_url,
+            "google_news_url": google_news_url,
             "published_at": news.get("published", ""),
             "source": "google",
             "collected_at": datetime.now().isoformat(),
-            "collection_method": "rss"
+            "collection_method": "rss+crawl",
+            "content_truncated": len(content_excerpt) < len(clean_text(content)),
+            "content_max_length": CONTENT_EXCERPT_MAX_LENGTH
         }
 
         news_list.append(news_data)
+
+        time.sleep(request_delay)
 
     logger.info("수집된 Google News: %d", len(news_list))
 
