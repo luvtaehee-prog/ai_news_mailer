@@ -21,52 +21,51 @@ def save_raw_news(news_list, file_name):
 
     file_path = f"data/raw/{file_name}"
 
-    existing_news = []
+    existing_urls = set()
 
-    # 기존 파일이 있으면 먼저 읽기
+    # 기존 JSONL 파일이 있으면 저장된 URL 확인
     if os.path.exists(file_path):
         try:
             with open(file_path, "r", encoding="utf-8") as file:
-                existing_news = json.load(file)
+                for line in file:
+                    line = line.strip()
 
-        except (json.JSONDecodeError, OSError):
-            print("기존 raw 파일을 읽지 못해 새로 저장합니다.")
-            existing_news = []
+                    if not line:
+                        continue
 
-    existing_urls = {
-        news.get("url")
-        for news in existing_news
-        if news.get("url")
-    }
+                    news = json.loads(line)
+
+                    if news.get("url"):
+                        existing_urls.add(news["url"])
+
+        except (json.JSONDecodeError, OSError) as error:
+            print("기존 raw 파일을 읽는 중 오류가 발생했습니다.")
+            print(error)
 
     added_count = 0
 
-    # 새 데이터 중 기존에 없는 기사만 추가
-    for news in news_list:
-        url = news.get("url")
+    # 새로운 뉴스만 JSONL 파일 뒤에 추가
+    with open(file_path, "a", encoding="utf-8") as file:
+        for news in news_list:
+            url = news.get("url")
 
-        if url and url in existing_urls:
-            continue
+            if url and url in existing_urls:
+                continue
 
-        existing_news.append(news)
+            file.write(
+                json.dumps(
+                    news,
+                    ensure_ascii=False
+                ) + "\n"
+            )
 
-        if url:
-            existing_urls.add(url)
+            if url:
+                existing_urls.add(url)
 
-        added_count += 1
-
-    # 기존 + 신규 데이터를 다시 JSON으로 저장
-    with open(file_path, "w", encoding="utf-8") as file:
-        json.dump(
-            existing_news,
-            file,
-            ensure_ascii=False,
-            indent=4
-        )
+            added_count += 1
 
     print("저장 완료:", file_path)
     print("새로 추가된 뉴스:", added_count)
-    print("전체 저장 뉴스:", len(existing_news))
 
 # --------------------------------------------------
 # Google News RSS 수집
@@ -121,7 +120,7 @@ def fetch_google_news(limit=20):
 
     save_raw_news(
         news_list,
-        "google_news.json"
+        "google_news.jsonl"
     )
 
     return news_list
@@ -247,7 +246,7 @@ def fetch_naver_news(limit=20):
 
     save_raw_news(
         news_list,
-        "naver_news.json"
+        "naver_news.jsonl"
     )
 
     return news_list
@@ -356,7 +355,7 @@ def crawl_govuk(limit=20):
 
     save_raw_news(
         news_list,
-        "govuk_news.json"
+        "govuk_news.jsonl"
     )
 
     return news_list
