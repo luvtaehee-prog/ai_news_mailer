@@ -1,6 +1,7 @@
 import json
 import time
 import os
+import logging
 from datetime import datetime
 from math import ceil
 
@@ -11,7 +12,12 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
 
+logger = logging.getLogger(__name__)
 
 # --------------------------------------------------
 # 공통 raw 데이터 저장
@@ -40,8 +46,8 @@ def save_raw_news(news_list, file_name):
                         existing_urls.add(news["url"])
 
         except (json.JSONDecodeError, OSError) as error:
-            print("기존 raw 파일을 읽는 중 오류가 발생했습니다.")
-            print(error)
+            logger.error("기존 raw 파일을 읽는 중 오류가 발생했습니다.")
+            logger.error(error)
 
     added_count = 0
 
@@ -65,8 +71,8 @@ def save_raw_news(news_list, file_name):
 
             added_count += 1
 
-    print("저장 완료:", file_path)
-    print("새로 추가된 뉴스:", added_count)
+    logger.info("저장 완료: %s", file_path)
+    logger.info("새로 추가된 뉴스: %d", added_count)
 
 # --------------------------------------------------
 # Google News RSS 수집
@@ -87,19 +93,19 @@ def fetch_google_news(limit=20):
         response.raise_for_status()
 
     except requests.exceptions.Timeout:
-        print("Google News RSS 요청 시간이 초과되었습니다.")
+        logger.error("Google News RSS 요청 시간이 초과되었습니다.")
         return []
 
     except requests.exceptions.RequestException as error:
-        print("Google News RSS 요청에 실패했습니다.")
-        print(error)
+        logger.error("Google News RSS 요청에 실패했습니다.")
+        logger.error(error)
         return []
 
     feed = feedparser.parse(response.content)
 
     if feed.bozo:
-        print("Google News RSS 파싱 중 오류가 발생했습니다.")
-        print(feed.bozo_exception)
+        logger.error("Google News RSS 파싱 중 오류가 발생했습니다.")
+        logger.error(feed.bozo_exception)
         return []
 
     news_list = []
@@ -117,7 +123,7 @@ def fetch_google_news(limit=20):
 
         news_list.append(news_data)
 
-    print("수집된 Google News:", len(news_list))
+    logger.info("수집된 Google News: %d", len(news_list))
 
     save_raw_news(
         news_list,
@@ -136,8 +142,8 @@ def fetch_naver_news(limit=20):
     client_secret = os.getenv("NAVER_CLIENT_SECRET")
 
     if not client_id or not client_secret:
-        print("NAVER API 인증정보가 없습니다.")
-        print(".env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.")
+        logger.error("NAVER API 인증정보가 없습니다.")
+        logger.error(".env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.")
         return []
 
     url = "https://naverapihub.apigw.ntruss.com/search/v1/news"
@@ -181,8 +187,9 @@ def fetch_naver_news(limit=20):
                 timeout=10
             )
 
-            print(
-                f"검색어 '{keyword}' 응답 코드:",
+            logger.info(
+                "검색어 '%s' 응답 코드: %d",
+                keyword,
                 response.status_code
             )
 
@@ -195,19 +202,15 @@ def fetch_naver_news(limit=20):
             continue
 
         except requests.exceptions.RequestException as error:
-            print(
-                f"네이버 뉴스 요청에 실패했습니다: {keyword}"
-            )
-            print(error)
+            logger.error("네이버 뉴스 요청에 실패했습니다: %s", keyword)
+            logger.error(error)
             continue
 
         try:
             data = response.json()
 
         except requests.exceptions.JSONDecodeError:
-            print(
-                f"네이버 뉴스 JSON 응답을 읽지 못했습니다: {keyword}"
-            )
+            logger.error("네이버 뉴스 JSON 응답을 읽지 못했습니다: %s", keyword)
             continue
 
         for item in data.get("items", []):
@@ -240,10 +243,7 @@ def fetch_naver_news(limit=20):
     # --limit 값을 최종 뉴스 개수로 사용
     news_list = news_list[:limit]
 
-    print(
-        "중복 제거 후 수집된 NAVER 뉴스:",
-        len(news_list)
-    )
+    logger.info("중복 제거 후 수집된 NAVER 뉴스: %d", len(news_list))
 
     save_raw_news(
         news_list,
@@ -275,20 +275,17 @@ def crawl_govuk(limit=20):
             timeout=10
         )
 
-        print(
-            "GOV.UK 응답 코드:",
-            response.status_code
-        )
+        logger.info("GOV.UK 응답 코드: %d", response.status_code)
 
         response.raise_for_status()
 
     except requests.exceptions.Timeout:
-        print("GOV.UK 요청 시간이 초과되었습니다.")
+        logger.error("GOV.UK 요청 시간이 초과되었습니다.")
         return []
 
     except requests.exceptions.RequestException as error:
-        print("GOV.UK 뉴스 수집에 실패했습니다.")
-        print(error)
+        logger.error("GOV.UK 뉴스 수집에 실패했습니다.")
+        logger.error(error)
         return []
 
     soup = BeautifulSoup(
@@ -359,17 +356,11 @@ def crawl_govuk(limit=20):
                 )
 
         except requests.exceptions.Timeout:
-            print(
-                "기사 본문 요청 시간 초과:",
-                article_url
-            )
+            logger.error("기사 본문 요청 시간 초과: %s", article_url)
 
         except requests.exceptions.RequestException as error:
-            print(
-                "기사 본문 수집 실패:",
-                article_url
-            )
-            print(error)
+            logger.error("기사 본문 수집 실패: %s", article_url)
+            logger.error(error)
 
         news_data = {
             "title": title,
@@ -389,10 +380,7 @@ def crawl_govuk(limit=20):
         if len(news_list) >= limit:
             break
 
-    print(
-        "수집된 GOV.UK AI 뉴스:",
-        len(news_list)
-    )
+    logger.info("수집된 GOV.UK AI 뉴스: %d", len(news_list))
 
     save_raw_news(
         news_list,
@@ -418,10 +406,6 @@ def fetch_news(source, limit=20):
         return crawl_govuk(limit)
 
     else:
-        print(
-            f"지원하지 않는 뉴스 소스입니다: {source}"
-        )
-        print(
-            "사용 가능한 소스: google, naver, govuk"
-        )
+        logger.error("지원하지 않는 뉴스 소스입니다: %s", source)
+        logger.info("사용 가능한 소스: google, naver, govuk")
         return []
