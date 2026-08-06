@@ -1,0 +1,35 @@
+{
+  "news_sources": {
+    "google": {
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=AI&hl=ko&gl=KR&ceid=KR:ko"
+    },
+    "naver": {
+      "type": "api",
+      "url": "https://naverapihub.apigw.ntruss.com/search/v1/news",
+      "keywords": [
+        "AI",
+        "인공지능",
+        "생성형 AI",
+        "LLM",
+        "AI 반도체"
+      ]
+    },
+    "govuk": {
+      "type": "crawl",
+      "url": "https://www.gov.uk/search/news-and-communications?parent=%2Fbusiness-and-industry%2Fartificial-intelligence&topic=7a4fba0a-f8d5-4aed-9d73-8a455c6ba7ac",
+      "request_delay": 1
+    }
+  },
+
+  "request": {
+    "timeout": 10
+  },
+
+  "duplicate_policy": "skip",
+
+  "storage": {
+    "raw_directory": "data/raw",
+    "format": "jsonl"
+  }
+}

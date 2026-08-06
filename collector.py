@@ -12,6 +12,10 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
+
+with open("config.json", "r", encoding="utf-8") as file:
+    config = json.load(file)
+
 # 로그 폴더 생성
 os.makedirs("logs", exist_ok=True)
 
@@ -92,15 +96,12 @@ def save_raw_news(news_list, file_name):
 # --------------------------------------------------
 
 def fetch_google_news(limit=20):
-    rss_url = (
-        "https://news.google.com/rss/search"
-        "?q=AI&hl=ko&gl=KR&ceid=KR:ko"
-    )
-
+    rss_url = config["news_sources"]["google"]["url"]
+    timeout = config["request"]["timeout"]
     try:
         response = requests.get(
             rss_url,
-            timeout=10
+            timeout=timeout
         )
 
         response.raise_for_status()
@@ -159,21 +160,15 @@ def fetch_naver_news(limit=20):
         logger.error(".env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.")
         return []
 
-    url = "https://naverapihub.apigw.ntruss.com/search/v1/news"
+    url = config["news_sources"]["naver"]["url"]
 
     headers = {
         "X-NCP-APIGW-API-KEY-ID": client_id,
         "X-NCP-APIGW-API-KEY": client_secret
     }
 
-    keywords = [
-        "AI",
-        "인공지능",
-        "생성형 AI",
-        "LLM",
-        "AI 반도체"
-    ]
-
+    keywords = config["news_sources"]["naver"]["keywords"]
+    timeout = config["request"]["timeout"]
     news_list = []
     seen_urls = set()
 
@@ -197,7 +192,7 @@ def fetch_naver_news(limit=20):
                 url,
                 headers=headers,
                 params=params,
-                timeout=10
+                timeout=timeout
             )
 
             logger.info(
@@ -269,11 +264,9 @@ def fetch_naver_news(limit=20):
 # --------------------------------------------------
 
 def crawl_govuk(limit=20):
-    url = (
-        "https://www.gov.uk/search/news-and-communications"
-        "?parent=%2Fbusiness-and-industry%2Fartificial-intelligence"
-        "&topic=7a4fba0a-f8d5-4aed-9d73-8a455c6ba7ac"
-    )
+    url = config["news_sources"]["govuk"]["url"]
+    request_delay = config["news_sources"]["govuk"]["request_delay"]
+    timeout = config["request"]["timeout"]
 
     headers = {
         "User-Agent": "Mozilla/5.0"
@@ -283,7 +276,7 @@ def crawl_govuk(limit=20):
         response = requests.get(
             url,
             headers=headers,
-            timeout=10
+            timeout=timeout
         )
 
         logger.info("GOV.UK 응답 코드: %d", response.status_code)
@@ -345,7 +338,7 @@ def crawl_govuk(limit=20):
             article_response = requests.get(
                 article_url,
                 headers=headers,
-                timeout=10
+                timeout=timeout
             )
 
             article_response.raise_for_status()
@@ -386,7 +379,7 @@ def crawl_govuk(limit=20):
         news_list.append(news_data)
 
         # 과도한 요청 방지
-        time.sleep(1)
+        time.sleep(request_delay)
 
         if len(news_list) >= limit:
             break
