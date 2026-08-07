@@ -10,20 +10,24 @@ AI 뉴스 트렌드 분석 팀 프로젝트
 ```text
 project/
 │
-├── main.py              # CLI 실행 및 각 기능 연결
+├── main.py              # CLI 실행 (현재 fetch 서브커맨드만 연결됨)
 ├── collector.py         # 뉴스 수집 (API/RSS, 크롤링)
-├── cleaner.py           # 뉴스 데이터 정제
-├── analyzer.py          # AI 뉴스 요약 및 트렌드 분석
-├── reporter.py          # 시각화 및 리포트 생성
+├── cleaner.py           # 정제 핵심 로직 (필드 검증, 텍스트 정규화, 날짜 통일, 결측값 처리)
+├── store.py             # raw 읽기 / clean 저장 / 중복 처리(skip·upsert)
+├── clean_command.py     # clean 서브커맨드 진입점 (main.py 미연결, 단독 실행)
+├── log_setup.py         # clean 파이프라인 로깅 설정
+├── analyzer.py          # AI 뉴스 요약 및 트렌드 분석 (예정, 미구현)
+├── reporter.py          # 시각화 및 리포트 생성 (예정, 미구현)
 │
 ├── data/
-│   ├── raw/             # 수집한 원본 뉴스 데이터
-│   └── clean/           # 정제된 뉴스 데이터
+│   ├── raw/             # 수집한 원본 뉴스 데이터 (google/naver/govuk_news.jsonl)
+│   └── clean/           # 정제된 뉴스 데이터 (news_clean.jsonl)
 │
-├── output/              # 차트, 리포트, 내보내기 결과
-├── logs/                # 실행 및 오류 로그
+├── output/              # 차트, 리포트, 내보내기 결과 (예정, 미구현)
+├── logs/                # 실행 로그 (collector.log 등)
 │
-├── config.json          # 뉴스 소스, 중복 처리 정책 등 설정
+├── .github/workflows/   # 정기 수집 자동화 (GitHub Actions)
+├── config.json          # 뉴스 소스, 정제 설정, 중복 처리 정책 등
 ├── requirements.txt     # Python 패키지 목록
 └── README.md
 ```
@@ -33,7 +37,7 @@ project/
 | 역할            | 담당 기능                                  |
 | -------------- | ------------------------------------- |
 |   뉴스 수집     | RSS / API / 웹 크롤링을 통한 AI 뉴스 수집   |
-|   데이터 정제   | 뉴HTML 제거, 날짜 통일, 중복 제거          |
+|   데이터 정제   | HTML 제거, 날짜 통일, 중복 제거          |
 |     AI 분석     | 뉴스 요약, 카테고리 분류, 키워드 추출         |
 | 리포트 생성  | A계 집계 및 Markdown 리포트 생성      |
 
@@ -47,7 +51,8 @@ collector.py에서 뉴스 데이터를 수집합니다.
 ### Google News
  - Google News RSS 사용
  - AI 관련 뉴스 수집
- - 수집 방법: rss
+ - RSS는 제목만 반복되고 본문이 없어, 각 기사 원문 페이지를 크롤링해 본문을 채움
+ - 수집 방법: rss+crawl
 
 ### NAVER News
  - NAVER 뉴스 검색 API 사용
@@ -59,7 +64,16 @@ collector.py에서 뉴스 데이터를 수집합니다.
             LLM
             AI 반도체
  - URL 기준 중복 뉴스 제거
- - 수집 방법: api
+ - API가 주는 description은 검색어 주변만 뽑은 스니펫이라 문장이 끊기는 경우가 많아,
+   Google과 동일하게 기사 원문(`originallink`)을 크롤링해 본문을 채움
+ - 크롤링이 차단되는 등 실패한 경우에만 API description으로 대체 (`content_source` 필드로 구분)
+ - 수집 방법: api+crawl
+
+### 본문 크롤링 공통 로직 (Google · NAVER)
+ - 기사 원문 페이지에서 본문 영역(article, 본문 전용 class/id 등)을 우선 추출
+ - 본문 영역을 찾지 못한 경우에만 메타 설명(`og:description` 등)으로 대체
+   (메타 설명은 사이트가 미리 짧게 잘라둔 값이라 문장이 중간에 끊기는 경우가 많아 최후 수단으로만 사용)
+ - 본문 길이는 최대 3000자로 제한 (초과 시 단어 단위로 끊어 "…" 표시, `content_truncated` 필드로 확인 가능)
 
 ### GOV.UK
  - BeautifulSoup을 이용한 웹 크롤링
@@ -74,16 +88,20 @@ collector.py에서 뉴스 데이터를 수집합니다.
 ```text
 {
   "title": "뉴스 제목",
-  "content": "뉴스 본문 또는 요약",
+  "content": "뉴스 본문 (최대 3000자)",
   "url": "뉴스 URL",
   "published_at": "발행 시각",
   "source": "뉴스 소스",
   "collected_at": "수집 시각",
-  "collection_method": "rss | api | crawl"
+  "collection_method": "rss+crawl | api+crawl | crawl",
+  "content_truncated": "본문이 3000자 상한으로 잘렸는지 여부",
+  "content_max_length": "본문 길이 상한 (3000)"
 }
 ```
 
-- NAVER 뉴스의 경우 수집에 사용된 검색어를 확인할 수 있도록 search_keyword 필드가 추가됩니다.
+- NAVER 뉴스의 경우 수집에 사용된 검색어를 확인할 수 있도록 `search_keyword` 필드가 추가됩니다.
+- NAVER 뉴스는 크롤링 성공 여부를 나타내는 `content_source`(`crawl` | `api_description`) 필드와,
+  원본 API 스니펫을 보관하는 `api_description` 필드가 추가됩니다.
 
 ## Raw 데이터 저장
 
@@ -155,7 +173,23 @@ NAVER API 인증정보와 같은 비밀값은 .env 파일에서 관리하며 Git
 
 ## 2. 데이터 정제
 
-정제 담당 구현 후 작성 예정.
+cleaner.py / store.py / clean_command.py에서 raw 뉴스를 정제해 clean 저장소에 저장합니다.
+자세한 내용은 [README_clean.md](README_clean.md) 참고.
+
+정제 규칙:
+ - 필수 필드 검증 (title, url, published_at)
+ - 텍스트 정규화 (HTML 태그/엔티티 제거, 공백 정리)
+ - 날짜 형식 통일 (한국시간 KST ISO)
+ - 결측값 처리 (본문 없으면 제목으로 대체, 카테고리 기본값 적용)
+ - 중복 처리 정책 적용 (skip / upsert)
+
+실행 (아직 main.py에는 연결되지 않아 단독 실행):
+```text
+python clean_command.py
+python clean_command.py --policy upsert
+```
+
+정제된 데이터는 raw와 분리된 `data/clean/news_clean.jsonl`에 저장됩니다.
 
 ## 3. AI 분석
 
