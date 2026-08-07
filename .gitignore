@@ -15,3 +15,6 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# 로컬 전용 메모 (팀 공유 안 함)
+local_notes.md
