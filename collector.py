@@ -1,4 +1,5 @@
 import json
+import re
 import time
 import os
 import logging
@@ -71,6 +72,25 @@ GOOGLE_NEWS_BATCH_URL = (
 )
 
 CONTENT_EXCERPT_MAX_LENGTH = 3000
+
+# 본문 셀렉터가 기사와 함께 긁어오는 페이지 부가 텍스트(저작권 안내, 기자 이메일,
+# 공유/댓글 UI 문구 등)의 시작 지점을 찾기 위한 패턴. 완벽한 커버리지는 아니고
+# 흔한 패턴 위주의 휴리스틱이라, 언론사에 따라 못 걸러내는 경우가 있을 수 있다.
+TRAILING_BOILERPLATE_PATTERNS = [
+    r"저작권자\s*[ⓒ©]",
+    r"무단\s*전재",
+    r"재배포\s*금지",
+    r"AI\s*학습\s*및\s*활용\s*금지",
+    r"이 기사를 공유합니다",
+    r"다른\s*기사\s*보기",
+    r"기자\s*[\w.+-]+@[\w.-]+\.[a-zA-Z]{2,}",
+    r"구독하기",
+    r"기사의 본문 내용은 이 글자크기로 변경됩니다",
+]
+
+_TRAILING_BOILERPLATE_RE = re.compile(
+    "|".join(TRAILING_BOILERPLATE_PATTERNS)
+)
 
 # --------------------------------------------------
 # 공통 raw 데이터 저장
@@ -192,6 +212,23 @@ def html_to_text(html):
     )
 
 
+def strip_trailing_boilerplate(text, min_keep=200, search_window=1200):
+    # 기사 앞부분(바이라인 등)에도 비슷한 문구가 있을 수 있어, 끝부분 구간에서만 찾는다
+    window_start = max(0, len(text) - search_window)
+    match = _TRAILING_BOILERPLATE_RE.search(text, window_start)
+
+    if not match:
+        return text
+
+    trimmed = text[:match.start()].rstrip()
+
+    # 오탐으로 본문 앞부분까지 잘려나가면 원본을 그대로 둔다
+    if len(trimmed) < min_keep:
+        return text
+
+    return trimmed
+
+
 def extract_article_content(html):
     soup = BeautifulSoup(
         html,
@@ -264,6 +301,7 @@ def extract_article_content(html):
         )
 
     content = max(candidates, key=len) if candidates else ""
+    content = strip_trailing_boilerplate(content)
 
     if len(content) >= 200:
         return content
