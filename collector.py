@@ -198,19 +198,9 @@ def extract_article_content(html):
         "html.parser"
     )
 
-    for selector in ARTICLE_DESCRIPTION_SELECTORS:
-        meta_tag = soup.select_one(selector)
-
-        if not meta_tag:
-            continue
-
-        description = clean_text(
-            meta_tag.get("content", "")
-        )
-
-        if len(description) >= 30:
-            return description
-
+    # 메타 설명(og:description 등)은 사이트가 미리 짧게 잘라둔 값이라
+    # 문장이 중간에 끊기는 경우가 많다. 그래서 실제 본문 셀렉터를 먼저 시도하고,
+    # 본문을 못 찾을 때만 메타 설명으로 폴백한다.
     for tag in soup(
         [
             "script",
@@ -273,18 +263,26 @@ def extract_article_content(html):
             )
         )
 
-    if not candidates:
-        return ""
+    content = max(candidates, key=len) if candidates else ""
 
-    content = max(
-        candidates,
-        key=len
-    )
+    if len(content) >= 200:
+        return content
 
-    if len(content) < 200:
-        return ""
+    # 본문 셀렉터로 못 찾았을 때만 메타 설명으로 폴백
+    for selector in ARTICLE_DESCRIPTION_SELECTORS:
+        meta_tag = soup.select_one(selector)
 
-    return content
+        if not meta_tag:
+            continue
+
+        description = clean_text(
+            meta_tag.get("content", "")
+        )
+
+        if len(description) >= 30:
+            return description
+
+    return ""
 
 
 def is_google_news_url(url):
@@ -466,13 +464,10 @@ def fetch_google_news(limit=20):
             headers
         )
         content_excerpt = make_content_excerpt(content)
-        rss_summary = news.get("summary", "")
 
         news_data = {
             "title": news.get("title", ""),
             "content": content_excerpt,
-            "summary": html_to_text(rss_summary),
-            "rss_summary": rss_summary,
             "url": article_url or google_news_url,
             "google_news_url": google_news_url,
             "published_at": news.get("published", ""),
@@ -519,7 +514,8 @@ def fetch_naver_news(limit=20):
 
     keywords = config["news_sources"]["naver"]["keywords"]
     timeout = config["request"]["timeout"]
-    news_list = []
+    request_delay = config["news_sources"]["naver"].get("request_delay", 0.5)
+    items_found = []
     seen_urls = set()
 
     # 검색어별로 비슷한 수량을 요청
@@ -582,22 +578,52 @@ def fetch_naver_news(limit=20):
                 continue
 
             seen_urls.add(article_url)
+            items_found.append((item, article_url, keyword))
 
-            news_data = {
-                "title": item.get("title", ""),
-                "content": item.get("description", ""),
-                "url": article_url,
-                "published_at": item.get("pubDate", ""),
-                "source": "naver",
-                "collected_at": datetime.now().isoformat(),
-                "collection_method": "api",
-                "search_keyword": keyword
-            }
+    # --limit 값을 최종 뉴스 개수로 사용 (크롤링은 이 개수만큼만 수행)
+    items_found = items_found[:limit]
 
-            news_list.append(news_data)
+    news_list = []
 
-    # --limit 값을 최종 뉴스 개수로 사용
-    news_list = news_list[:limit]
+    # naver API의 description은 검색어 주변만 뽑은 스니펫이라 문맥이 끊기므로,
+    # google과 동일하게 원문 페이지를 크롤링해 본문을 채운다.
+    # 크롤링 실패 시에는 API description으로 대체한다.
+    for item, article_url, keyword in items_found:
+        api_description = item.get("description", "")
+
+        content, resolved_url = fetch_article_content(
+            article_url,
+            timeout,
+            headers
+        )
+
+        if content:
+            content_excerpt = make_content_excerpt(content)
+            content_truncated = len(content_excerpt) < len(clean_text(content))
+            content_source = "crawl"
+        else:
+            content_excerpt = html_to_text(api_description)
+            content_truncated = False
+            content_source = "api_description"
+
+        news_data = {
+            "title": item.get("title", ""),
+            "content": content_excerpt,
+            "api_description": html_to_text(api_description),
+            "url": article_url,
+            "published_at": item.get("pubDate", ""),
+            "source": "naver",
+            "collected_at": datetime.now().isoformat(),
+            "collection_method": "api+crawl",
+            "search_keyword": keyword,
+            "content_source": content_source,
+            "content_truncated": content_truncated,
+            "content_max_length": CONTENT_EXCERPT_MAX_LENGTH
+        }
+
+        news_list.append(news_data)
+
+        time.sleep(request_delay)
 
     logger.info("중복 제거 후 수집된 NAVER 뉴스: %d", len(news_list))
 

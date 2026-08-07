@@ -74,3 +74,47 @@
 2026-08-07 22:29:55,545 [INFO] 수집된 Google News: 3
 2026-08-07 22:29:55,546 [INFO] 저장 완료: data/raw/google_news.jsonl
 2026-08-07 22:29:55,547 [INFO] 새로 추가된 뉴스: 0
+2026-08-07 22:43:11,896 [INFO] 검색어 'AI' 응답 코드: 200
+2026-08-07 22:43:12,008 [INFO] 검색어 '인공지능' 응답 코드: 200
+2026-08-07 22:43:12,087 [INFO] 검색어 '생성형 AI' 응답 코드: 200
+2026-08-07 22:43:12,183 [INFO] 검색어 'LLM' 응답 코드: 200
+2026-08-07 22:43:12,278 [INFO] 검색어 'AI 반도체' 응답 코드: 200
+2026-08-07 22:43:13,026 [ERROR] Article content fetch failed: https://www.cbci.co.kr/news/articleView.html?idxno=595963
+2026-08-07 22:43:13,026 [ERROR] 403 Client Error: Forbidden for url: https://www.cbci.co.kr/news/articleView.html?idxno=595963
+2026-08-07 22:43:13,602 [ERROR] Article content fetch failed: https://biz.heraldcorp.com/article/10834437?ref=naver
+2026-08-07 22:43:13,602 [ERROR] 403 Client Error: Forbidden for url: https://biz.heraldcorp.com/article/10834437?ref=naver
+2026-08-07 22:43:14,103 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 3
+2026-08-07 22:43:14,104 [INFO] 저장 완료: data/raw/naver_news.jsonl
+2026-08-07 22:43:14,105 [INFO] 새로 추가된 뉴스: 3
+2026-08-07 22:45:17,656 [INFO] 수집된 Google News: 20
+2026-08-07 22:45:17,657 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-07 22:45:17,657 [INFO] 새로 추가된 뉴스: 20
+2026-08-07 22:45:23,321 [INFO] 검색어 'AI' 응답 코드: 200
+2026-08-07 22:45:23,436 [INFO] 검색어 '인공지능' 응답 코드: 200
+2026-08-07 22:45:23,531 [INFO] 검색어 '생성형 AI' 응답 코드: 200
+2026-08-07 22:45:23,610 [INFO] 검색어 'LLM' 응답 코드: 200
+2026-08-07 22:45:23,721 [INFO] 검색어 'AI 반도체' 응답 코드: 200
+2026-08-07 22:45:24,373 [ERROR] Article content fetch failed: https://www.cbci.co.kr/news/articleView.html?idxno=595963
+2026-08-07 22:45:24,373 [ERROR] 403 Client Error: Forbidden for url: https://www.cbci.co.kr/news/articleView.html?idxno=595963
+2026-08-07 22:45:26,358 [ERROR] Article content fetch failed: https://biz.heraldcorp.com/article/10834437?ref=naver
+2026-08-07 22:45:26,358 [ERROR] 403 Client Error: Forbidden for url: https://biz.heraldcorp.com/article/10834437?ref=naver
+2026-08-07 22:45:32,821 [ERROR] Article content fetch failed: https://ditoday.com/ai-%ec%82%ac%ec%9a%a9-%ed%91%9c%ea%b8%b0%ed%96%88%eb%8b%a4%ea%b3%a0-%eb%81%9d%ec%9d%b4-%ec%95%84%eb%8b%88%eb%8b%a4-%ec%8b%9c%ed%94%84%ed%8a%b8%ec%97%85%ec%9d%b4-%ec%a7%81%eb%a9%b4%ed%95%9c-ai/
+2026-08-07 22:45:32,821 [ERROR] 403 Client Error: Forbidden for url: https://ditoday.com/ai-%EC%82%AC%EC%9A%A9-%ED%91%9C%EA%B8%B0%ED%96%88%EB%8B%A4%EA%B3%A0-%EB%81%9D%EC%9D%B4-%EC%95%84%EB%8B%88%EB%8B%A4-%EC%8B%9C%ED%94%84%ED%8A%B8%EC%97%85%EC%9D%B4-%EC%A7%81%EB%A9%B4%ED%95%9C-ai/
+2026-08-07 22:45:37,645 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 20
+2026-08-07 22:45:37,646 [INFO] 저장 완료: data/raw/naver_news.jsonl
+2026-08-07 22:45:37,646 [INFO] 새로 추가된 뉴스: 20
+2026-08-07 22:56:42,640 [INFO] 수집된 Google News: 20
+2026-08-07 22:56:42,640 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-07 22:56:42,640 [INFO] 새로 추가된 뉴스: 20
+2026-08-07 22:56:48,857 [INFO] 검색어 'AI' 응답 코드: 200
+2026-08-07 22:56:48,968 [INFO] 검색어 '인공지능' 응답 코드: 200
+2026-08-07 22:56:49,064 [INFO] 검색어 '생성형 AI' 응답 코드: 200
+2026-08-07 22:56:49,160 [INFO] 검색어 'LLM' 응답 코드: 200
+2026-08-07 22:56:49,255 [INFO] 검색어 'AI 반도체' 응답 코드: 200
+2026-08-07 22:56:58,922 [ERROR] Article content fetch failed: https://ditoday.com/ai-%ec%82%ac%ec%9a%a9-%ed%91%9c%ea%b8%b0%ed%96%88%eb%8b%a4%ea%b3%a0-%eb%81%9d%ec%9d%b4-%ec%95%84%eb%8b%88%eb%8b%a4-%ec%8b%9c%ed%94%84%ed%8a%b8%ec%97%85%ec%9d%b4-%ec%a7%81%eb%a9%b4%ed%95%9c-ai/
+2026-08-07 22:56:58,922 [ERROR] 403 Client Error: Forbidden for url: https://ditoday.com/ai-%EC%82%AC%EC%9A%A9-%ED%91%9C%EA%B8%B0%ED%96%88%EB%8B%A4%EA%B3%A0-%EB%81%9D%EC%9D%B4-%EC%95%84%EB%8B%88%EB%8B%A4-%EC%8B%9C%ED%94%84%ED%8A%B8%EC%97%85%EC%9D%B4-%EC%A7%81%EB%A9%B4%ED%95%9C-ai/
+2026-08-07 22:57:03,123 [ERROR] Article content fetch failed: https://biz.heraldcorp.com/article/10834437?ref=naver
+2026-08-07 22:57:03,123 [ERROR] 403 Client Error: Forbidden for url: https://biz.heraldcorp.com/article/10834437?ref=naver
+2026-08-07 22:57:04,245 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 20
+2026-08-07 22:57:04,245 [INFO] 저장 완료: data/raw/naver_news.jsonl
+2026-08-07 22:57:04,245 [INFO] 새로 추가된 뉴스: 20
