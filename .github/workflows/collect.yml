@@ -1,0 +1,46 @@
+name: 정기 뉴스 수집
+
+on:
+  schedule:
+    # 매일 06:00 KST (UTC 기준 21:00, 하루 전날)
+    - cron: "0 21 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: Google News 수집
+        run: python main.py fetch --source google --limit 20
+
+      - name: NAVER News 수집
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+        run: python main.py fetch --source naver --limit 20
+
+      - name: GOV.UK 수집
+        run: python main.py fetch --source govuk --limit 20
+
+      - name: 결과 커밋 및 푸시
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/raw/*.jsonl logs/collector.log
+          git diff --cached --quiet && echo "변경사항 없음" || git commit -m "chore: 정기 뉴스 수집 결과 반영 ($(date -u +%Y-%m-%d))"
+          git push

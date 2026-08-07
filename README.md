@@ -199,4 +199,50 @@ NAVER_CLIENT_SECRET=your_client_secret
 
 실제 API 키가 포함된 .env 파일은 GitHub에 업로드하지 않습니다
 
+## 정기 실행 스케줄링
+
+뉴스 수집을 매일 자동으로 실행하도록 예약할 수 있습니다. 환경에 따라 아래 방법 중 하나를 사용합니다.
+
+### 방법 1. GitHub Actions (권장, 본 저장소에 적용됨)
+
+PC를 켜두지 않아도 GitHub의 클라우드 러너가 매일 정해진 시각에 자동으로 수집을 실행하고, 결과를 저장소에 커밋합니다.
+
+- 워크플로 정의: `.github/workflows/collect.yml`
+- 스케줄: 매일 06:00 KST (cron 표현식 `0 21 * * *`, UTC 기준)
+- 동작 순서: Google → NAVER → GOV.UK 순으로 각 20개씩 수집 → `data/raw/*.jsonl` 변경사항을 자동 커밋 및 푸시
+- 저장소 Settings → Secrets and variables → Actions에 아래 두 값을 등록해야 NAVER 수집이 동작합니다.
+  - `NAVER_CLIENT_ID`
+  - `NAVER_CLIENT_SECRET`
+- 예약 시각 외에도 Actions 탭에서 `Run workflow` 버튼으로 즉시 수동 실행이 가능합니다(`workflow_dispatch`).
+
+cron 표현식은 `분 시 일 월 요일` 순서로 실행 시각을 지정합니다. 예: `0 21 * * *`는 "매일 UTC 21시 정각"을 의미합니다.
+
+### 방법 2. Linux / macOS - cron
+
+터미널에서 `crontab -e` 실행 후 아래와 같이 등록합니다.
+
+```text
+0 6 * * * cd /path/to/project && python main.py fetch --source google --limit 20
+0 6 * * * cd /path/to/project && python main.py fetch --source naver --limit 20
+0 6 * * * cd /path/to/project && python main.py fetch --source govuk --limit 20
+```
+
+위 예시는 매일 06:00에 세 소스를 각각 20개씩 수집하도록 등록한 것입니다.
+
+### 방법 3. Windows - 작업 스케줄러(Task Scheduler)
+
+1. `Win + R` → `taskschd.msc` 실행
+2. "작업 만들기" 선택 후 트리거를 "매일 06:00"으로 설정
+3. 동작으로 "프로그램 시작"을 선택하고 아래와 같이 입력
+   - 프로그램/스크립트: `python`
+   - 인수 추가: `main.py fetch --source google --limit 20`
+   - 시작 위치: 프로젝트 루트 폴더 경로
+4. NAVER, GOV.UK 소스에 대해서도 동일하게 작업을 하나씩 추가로 등록
+
+또는 PowerShell에서 `schtasks` 명령으로 동일한 작업을 등록할 수 있습니다.
+
+```powershell
+schtasks /create /tn "AI뉴스수집_google" /tr "python C:\path\to\project\main.py fetch --source google --limit 20" /sc daily /st 06:00
+```
+
 
