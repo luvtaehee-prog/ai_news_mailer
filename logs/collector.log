@@ -146,3 +146,28 @@
 2026-08-07 23:26:48,317 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 20
 2026-08-07 23:26:48,319 [INFO] 저장 완료: data/raw/naver_news.jsonl
 2026-08-07 23:26:48,319 [INFO] 새로 추가된 뉴스: 20
+2026-08-07 21:39:22,009 [ERROR] Article content fetch failed: https://www.businesspost.co.kr/BP?command=article_view&num=444124
+2026-08-07 21:39:22,010 [ERROR] 403 Client Error: Forbidden for url: https://www.businesspost.co.kr/BP?command=article_view&num=444124
+2026-08-07 21:39:27,644 [INFO] 수집된 Google News: 20
+2026-08-07 21:39:27,646 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-07 21:39:27,646 [INFO] 새로 추가된 뉴스: 15
+2026-08-07 21:39:30,127 [INFO] 검색어 'AI' 응답 코드: 200
+2026-08-07 21:39:31,053 [INFO] 검색어 '인공지능' 응답 코드: 200
+2026-08-07 21:39:31,959 [INFO] 검색어 '생성형 AI' 응답 코드: 200
+2026-08-07 21:39:32,822 [INFO] 검색어 'LLM' 응답 코드: 200
+2026-08-07 21:39:33,734 [INFO] 검색어 'AI 반도체' 응답 코드: 200
+2026-08-07 21:39:34,515 [ERROR] Article content fetch failed: https://biz.sbs.co.kr/article_hub/20000327446?division=NAVER
+2026-08-07 21:39:34,515 [ERROR] 403 Client Error: Forbidden for url: https://biz.sbs.co.kr/article_hub/20000327446?division=NAVER
+2026-08-07 21:39:42,884 [ERROR] Article content fetch failed: https://biz.heraldcorp.com/article/10834613?ref=naver
+2026-08-07 21:39:42,884 [ERROR] 403 Client Error: Forbidden for url: https://biz.heraldcorp.com/article/10834613?ref=naver
+2026-08-07 21:39:44,234 [ERROR] Article content fetch failed: https://biz.heraldcorp.com/article/10834212?ref=naver
+2026-08-07 21:39:44,234 [ERROR] 403 Client Error: Forbidden for url: https://biz.heraldcorp.com/article/10834212?ref=naver
+2026-08-07 21:39:57,166 [ERROR] Article content fetch failed: https://www.mk.co.kr/article/12121617
+2026-08-07 21:39:57,166 [ERROR] 403 Client Error: Forbidden for url: https://www.mk.co.kr/article/12121617
+2026-08-07 21:40:12,904 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 20
+2026-08-07 21:40:12,906 [INFO] 저장 완료: data/raw/naver_news.jsonl
+2026-08-07 21:40:12,906 [INFO] 새로 추가된 뉴스: 19
+2026-08-07 21:40:14,764 [INFO] GOV.UK 응답 코드: 200
+2026-08-07 21:40:44,862 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-07 21:40:44,863 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-07 21:40:44,864 [INFO] 새로 추가된 뉴스: 0
