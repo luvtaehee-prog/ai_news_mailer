@@ -52,3 +52,22 @@
 2026-08-07 21:35:17,688 [INFO] 수집된 GOV.UK AI 뉴스: 20
 2026-08-07 21:35:17,702 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-07 21:35:17,702 [INFO] 새로 추가된 뉴스: 0
+2026-08-07 12:47:48,496 [ERROR] Article request timed out: https://www.etnews.com/20260807000309
+2026-08-07 12:47:59,446 [ERROR] Article request timed out: https://www.etnews.com/20260807000331
+2026-08-07 12:48:17,958 [ERROR] Article content fetch failed: https://www.businesspost.co.kr/BP?command=article_view&num=444247
+2026-08-07 12:48:17,958 [ERROR] 403 Client Error: Forbidden for url: https://www.businesspost.co.kr/BP?command=article_view&num=444247
+2026-08-07 12:48:22,683 [INFO] 수집된 Google News: 20
+2026-08-07 12:48:22,684 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-07 12:48:22,684 [INFO] 새로 추가된 뉴스: 6
+2026-08-07 12:48:25,961 [INFO] 검색어 'AI' 응답 코드: 200
+2026-08-07 12:48:28,276 [INFO] 검색어 '인공지능' 응답 코드: 200
+2026-08-07 12:48:30,304 [INFO] 검색어 '생성형 AI' 응답 코드: 200
+2026-08-07 12:48:32,611 [INFO] 검색어 'LLM' 응답 코드: 200
+2026-08-07 12:48:34,640 [INFO] 검색어 'AI 반도체' 응답 코드: 200
+2026-08-07 12:48:34,641 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 20
+2026-08-07 12:48:34,642 [INFO] 저장 완료: data/raw/naver_news.jsonl
+2026-08-07 12:48:34,642 [INFO] 새로 추가된 뉴스: 7
+2026-08-07 12:48:36,276 [INFO] GOV.UK 응답 코드: 200
+2026-08-07 12:49:15,101 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-07 12:49:15,103 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-07 12:49:15,103 [INFO] 새로 추가된 뉴스: 0
