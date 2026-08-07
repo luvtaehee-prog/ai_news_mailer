@@ -31,5 +31,23 @@
   "storage": {
     "raw_directory": "data/raw",
     "format": "jsonl"
+  },
+
+  "paths": {
+    "raw": "data/raw",
+    "clean": "data/clean"
+  },
+
+  "clean": {
+    "min_title_length": 2,
+    "max_content_length": 3000,
+    "dedup_by_title": true,
+    "press_in_title_sources": ["google"],
+    "category_by_source": {
+      "google": "IT",
+      "naver": "IT",
+      "gov.uk": "정책/정부"
+    },
+    "default_category": "미분류"
   }
 }

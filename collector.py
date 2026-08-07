@@ -70,7 +70,7 @@ GOOGLE_NEWS_BATCH_URL = (
     "https://news.google.com/_/DotsSplashUi/data/batchexecute"
 )
 
-CONTENT_EXCERPT_MAX_LENGTH = 180
+CONTENT_EXCERPT_MAX_LENGTH = 3000
 
 # --------------------------------------------------
 # 공통 raw 데이터 저장
