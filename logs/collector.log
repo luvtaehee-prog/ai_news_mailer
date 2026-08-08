@@ -171,3 +171,27 @@
 2026-08-07 21:40:44,862 [INFO] 수집된 GOV.UK AI 뉴스: 20
 2026-08-07 21:40:44,863 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-07 21:40:44,864 [INFO] 새로 추가된 뉴스: 0
+2026-08-08 21:30:08,590 [ERROR] Google News RSS 요청에 실패했습니다.
+2026-08-08 21:30:08,590 [ERROR] 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=AI&hl=ko&gl=KR&ceid=KR:ko
+2026-08-08 21:30:10,651 [INFO] 검색어 'AI' 응답 코드: 200
+2026-08-08 21:30:11,594 [INFO] 검색어 '인공지능' 응답 코드: 200
+2026-08-08 21:30:12,533 [INFO] 검색어 '생성형 AI' 응답 코드: 200
+2026-08-08 21:30:13,477 [INFO] 검색어 'LLM' 응답 코드: 200
+2026-08-08 21:30:14,404 [INFO] 검색어 'AI 반도체' 응답 코드: 200
+2026-08-08 21:30:24,098 [ERROR] Article content fetch failed: https://biz.heraldcorp.com/article/10834915?ref=naver
+2026-08-08 21:30:24,099 [ERROR] 403 Client Error: Forbidden for url: https://biz.heraldcorp.com/article/10834915?ref=naver
+2026-08-08 21:30:37,929 [ERROR] Article content fetch failed: https://www.ddaily.co.kr/page/view/2026080717234647743
+2026-08-08 21:30:37,929 [ERROR] 403 Client Error: Forbidden for url: https://www.ddaily.co.kr/page/view/2026080717234647743
+2026-08-08 21:30:48,068 [ERROR] Article content fetch failed: https://www.ddaily.co.kr/page/view/2026080717583276488
+2026-08-08 21:30:48,068 [ERROR] 403 Client Error: Forbidden for url: https://www.ddaily.co.kr/page/view/2026080717583276488
+2026-08-08 21:30:49,240 [ERROR] Article content fetch failed: https://www.ddaily.co.kr/page/view/2026080811170834748
+2026-08-08 21:30:49,241 [ERROR] 403 Client Error: Forbidden for url: https://www.ddaily.co.kr/page/view/2026080811170834748
+2026-08-08 21:30:54,672 [ERROR] Article content fetch failed: https://www.nytimes.com/2026/08/08/business/dealbook/loafers-sneakers-work.html?partner=naver
+2026-08-08 21:30:54,672 [ERROR] 403 Client Error: Forbidden for url: https://www.nytimes.com/2026/08/08/business/dealbook/loafers-sneakers-work.html?partner=naver
+2026-08-08 21:30:55,173 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 20
+2026-08-08 21:30:55,176 [INFO] 저장 완료: data/raw/naver_news.jsonl
+2026-08-08 21:30:55,176 [INFO] 새로 추가된 뉴스: 20
+2026-08-08 21:30:56,585 [INFO] GOV.UK 응답 코드: 200
+2026-08-08 21:31:25,066 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-08 21:31:25,067 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-08 21:31:25,067 [INFO] 새로 추가된 뉴스: 0
