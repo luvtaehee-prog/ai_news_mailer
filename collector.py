@@ -459,6 +459,14 @@ def fetch_google_news(limit=20):
         "request_delay",
         0.5
     )
+    max_retries = config["news_sources"]["google"].get(
+        "max_retries",
+        3
+    )
+    retry_delay = config["news_sources"]["google"].get(
+        "retry_delay",
+        5
+    )
     headers = {
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -467,22 +475,44 @@ def fetch_google_news(limit=20):
         )
     }
 
-    try:
-        response = requests.get(
-            rss_url,
-            headers=headers,
-            timeout=timeout
+    response = None
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = requests.get(
+                rss_url,
+                headers=headers,
+                timeout=timeout
+            )
+
+            response.raise_for_status()
+            break
+
+        except requests.exceptions.Timeout:
+            logger.error(
+                "Google News RSS 요청 시간이 초과되었습니다. (%d/%d회 시도)",
+                attempt,
+                max_retries
+            )
+            response = None
+
+        except requests.exceptions.RequestException as error:
+            logger.error(
+                "Google News RSS 요청에 실패했습니다. (%d/%d회 시도)",
+                attempt,
+                max_retries
+            )
+            logger.error(error)
+            response = None
+
+        if attempt < max_retries:
+            time.sleep(retry_delay)
+
+    if response is None:
+        logger.error(
+            "Google News RSS 요청이 %d회 모두 실패했습니다.",
+            max_retries
         )
-
-        response.raise_for_status()
-
-    except requests.exceptions.Timeout:
-        logger.error("Google News RSS 요청 시간이 초과되었습니다.")
-        return []
-
-    except requests.exceptions.RequestException as error:
-        logger.error("Google News RSS 요청에 실패했습니다.")
-        logger.error(error)
         return []
 
     feed = feedparser.parse(response.content)
