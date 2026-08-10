@@ -197,15 +197,19 @@ def build_report(stats: dict, trend: dict, chart_paths: list = None,
     parts.append(f"- 대상 기간({label} 기준): {stats['period'] or '데이터 없음'}")
     parts.append(f"- 분석 대상: 총 {stats['total']}건 "
                  f"(AI 요약 완료 {stats['summarized']}건)\n")
+    parts.append("> 항목마다 세는 대상이 다릅니다. 수집·정제 현황은 정제 완료 "
+                 f"{stats['total']}건 전체를, 키워드와 AI 인사이트는 요약이 끝난 "
+                 f"{stats['summarized']}건을 기준으로 합니다. "
+                 "키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.\n")
 
     # 1. 품질 지표
-    parts.append("## 1. 데이터 품질 지표\n")
+    parts.append(f"## 1. 데이터 품질 지표 (정제 완료 {stats['total']}건 기준)\n")
     parts.append(_md_table(
         ["지표", "값"], [[k, v] for k, v in stats["quality"].items()]))
     parts.append("")
 
     # 2. 분포 집계
-    parts.append("## 2. 수집 분포\n")
+    parts.append(f"## 2. 수집 분포 (정제 완료 {stats['total']}건 기준)\n")
     parts.append("### 카테고리별 뉴스 수\n")
     parts.append(_md_table(
         ["카테고리", "건수"],
@@ -227,13 +231,15 @@ def build_report(stats: dict, trend: dict, chart_paths: list = None,
 
     # 3. TOP N
     parts.append("## 3. TOP N 집계\n")
-    parts.append(f"### AI 추출 키워드 TOP {len(stats['top_keywords'])}\n")
+    parts.append(f"### AI 추출 키워드 TOP {len(stats['top_keywords'])} "
+                 f"(AI 요약 완료 {stats['summarized']}건 기준)\n")
     parts.append(_md_table(
         ["순위", "키워드", "등장 기사 수"],
         [[i, kw, c] for i, (kw, c) in enumerate(stats["top_keywords"], 1)]
         or [["-", "-", 0]]))
     parts.append("")
-    parts.append(f"### 언론사 TOP {len(stats['top_press'])}\n")
+    parts.append(f"### 언론사 TOP {len(stats['top_press'])} "
+                 f"(정제 완료 {stats['total']}건 기준)\n")
     parts.append(_md_table(
         ["순위", "언론사", "기사 수"],
         [[i, p, c] for i, (p, c) in enumerate(stats["top_press"], 1)]
@@ -241,7 +247,8 @@ def build_report(stats: dict, trend: dict, chart_paths: list = None,
     parts.append("")
 
     # 4. AI 인사이트 (analyzer.py 가 만든 trend_report.json 활용)
-    parts.append("## 4. AI 인사이트 분석\n")
+    parts.append("## 4. AI 인사이트 분석 "
+                 f"(AI 요약 완료 {stats['summarized']}건 기준)\n")
     if trend:
         overall = trend.get("overall_summary")
         if overall:
@@ -332,7 +339,7 @@ def console_summary(stats: dict, trend: dict) -> str:
     for k, v in stats["quality"].items():
         lines.append(f"  - {k}: {v}")
     lines.append("-" * 52)
-    lines.append(" [키워드 TOP 5]")
+    lines.append(f" [키워드 TOP 5] (요약 완료 {stats['summarized']}건 기준)")
     for i, (kw, c) in enumerate(stats["top_keywords"][:5], 1):
         lines.append(f"  {i}. {kw} ({c}건)")
     if not stats["top_keywords"]:

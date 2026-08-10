@@ -68,6 +68,17 @@ def _prepare(out_path: str):
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
 
 
+def _base_note(fig, text: str) -> None:
+    """차트 우측 하단에 '무엇을 기준으로 센 수치인지'를 적는다.
+
+    차트를 리포트에서 떼어내 발표 자료 등에 단독으로 붙여도
+    모집단을 오해하지 않도록 그림 안에 함께 남긴다.
+    """
+    if text:
+        fig.text(0.99, 0.01, text, ha="right", va="bottom",
+                 fontsize=9, color="#888888")
+
+
 def _finish(fig, out_path: str) -> str:
     """공통 마무리: 여백 정리 → 저장 → figure 닫기(메모리 누수 방지)."""
     fig.tight_layout()
@@ -87,7 +98,8 @@ def _empty_notice(title: str, out_path: str) -> str:
     return _finish(fig, out_path)
 
 
-def chart_category_counts(counts: dict, out_path: str) -> str:
+def chart_category_counts(counts: dict, out_path: str,
+                          base_note: str = "") -> str:
     """카테고리별 뉴스 수 (세로 막대)."""
     _prepare(out_path)
     if not counts:
@@ -113,11 +125,12 @@ def chart_category_counts(counts: dict, out_path: str) -> str:
 
     if len(labels) > 6:
         plt.setp(ax.get_xticklabels(), rotation=20, ha="right")
+    _base_note(fig, base_note)
     return _finish(fig, out_path)
 
 
 def chart_daily_trend(daily: list, out_path: str,
-                      date_label: str = "발행일") -> str:
+                      date_label: str = "발행일", base_note: str = "") -> str:
     """일자별 수집 추이 (꺾은선).
 
     daily: [(날짜문자열, 건수), ...] — 날짜 오름차순으로 정렬되어 있다고 가정한다.
@@ -151,10 +164,12 @@ def chart_daily_trend(daily: list, out_path: str,
                 xy=(peak, values[peak]),
                 xytext=(0, 12), textcoords="offset points",
                 ha="center", fontsize=10, color=COLOR_SUB)
+    _base_note(fig, base_note)
     return _finish(fig, out_path)
 
 
-def chart_top_keywords(keywords: list, out_path: str, top_n: int = 10) -> str:
+def chart_top_keywords(keywords: list, out_path: str, top_n: int = 10,
+                       base_note: str = "") -> str:
     """AI가 뽑은 키워드 TOP N (가로 막대).
 
     keywords: [(키워드, 빈도), ...]
@@ -179,10 +194,12 @@ def chart_top_keywords(keywords: list, out_path: str, top_n: int = 10) -> str:
     for y, value in enumerate(values):
         ax.text(value + max(values) * 0.015, y, str(value),
                 va="center", fontsize=10)
+    _base_note(fig, base_note)
     return _finish(fig, out_path)
 
 
-def chart_source_share(counts: dict, out_path: str) -> str:
+def chart_source_share(counts: dict, out_path: str,
+                       base_note: str = "") -> str:
     """수집 소스별 비중 (원 그래프)."""
     _prepare(out_path)
     if not counts:
@@ -205,6 +222,7 @@ def chart_source_share(counts: dict, out_path: str) -> str:
     )
     ax.set_title("소스별 수집 비중", fontsize=15, pad=14)
     ax.axis("equal")
+    _base_note(fig, base_note)
     return _finish(fig, out_path)
 
 
@@ -216,16 +234,26 @@ def render_all(stats: dict, out_dir: str = "output/charts") -> list:
     """
     setup_korean_font()
     date_label = "발행일" if stats.get("date_field") == "published" else "수집일"
+
+    # 차트마다 모집단이 다르다. 수집·정제 현황은 전체 뉴스를 세지만,
+    # 키워드는 AI가 뽑는 값이라 요약이 끝난 기사에만 존재한다.
+    # 차트를 따로 떼어 봐도 알 수 있도록 기준을 그림 안에 적어 둔다.
+    all_note = f"정제 완료 {stats['total']}건 기준"
+    ai_note = f"AI 요약 완료 {stats['summarized']}건 기준"
+
     paths = [
         chart_category_counts(
-            stats["category_counts"], os.path.join(out_dir, "category_counts.png")),
+            stats["category_counts"],
+            os.path.join(out_dir, "category_counts.png"), all_note),
         chart_daily_trend(
             stats["daily_counts"], os.path.join(out_dir, "daily_trend.png"),
-            date_label),
+            date_label, all_note),
         chart_top_keywords(
-            stats["top_keywords"], os.path.join(out_dir, "top_keywords.png")),
+            stats["top_keywords"], os.path.join(out_dir, "top_keywords.png"),
+            base_note=ai_note),
         chart_source_share(
-            stats["source_counts"], os.path.join(out_dir, "source_share.png")),
+            stats["source_counts"],
+            os.path.join(out_dir, "source_share.png"), all_note),
     ]
     return paths
 
