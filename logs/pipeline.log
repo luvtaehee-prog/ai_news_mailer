@@ -88,3 +88,21 @@
 2026-08-11 01:47:11,172 [INFO] report: 차트 저장: output/charts/source_share.png
 2026-08-11 01:47:11,172 [INFO] report: 리포트 저장: output/reports/report_20260811_014711.md
 2026-08-11 01:47:11,173 [INFO] report: 리포트 저장: output/reports/report_20260811_014711.txt
+2026-08-11 01:48:42,685 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 01:48:42,686 [INFO] report: 리포트 저장: output/reports/report_20260811_014842.md
+2026-08-11 01:48:42,738 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 01:49:22,331 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 01:49:22,332 [INFO] report: 한글 폰트 적용: AppleGothic
+2026-08-11 01:49:22,387 [INFO] report: 차트 저장: output/charts/category_counts.png
+2026-08-11 01:49:22,444 [INFO] report: 차트 저장: output/charts/daily_trend.png
+2026-08-11 01:49:22,484 [INFO] report: 차트 저장: output/charts/top_keywords.png
+2026-08-11 01:49:22,506 [INFO] report: 차트 저장: output/charts/source_share.png
+2026-08-11 01:49:22,507 [INFO] report: 리포트 저장: output/reports/report_20260811_014922.md
+2026-08-11 01:52:39,410 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 01:52:39,410 [INFO] report: 한글 폰트 적용: AppleGothic
+2026-08-11 01:52:39,490 [INFO] report: 차트 저장: output/charts/category_counts.png
+2026-08-11 01:52:39,562 [INFO] report: 차트 저장: output/charts/daily_trend.png
+2026-08-11 01:52:39,610 [INFO] report: 차트 저장: output/charts/top_keywords.png
+2026-08-11 01:52:39,638 [INFO] report: 차트 저장: output/charts/source_share.png
+2026-08-11 01:52:39,638 [INFO] report: 리포트 저장: output/reports/report_20260811_015239.md
+2026-08-11 01:52:39,638 [INFO] report: 리포트 저장: output/reports/report_20260811_015239.txt

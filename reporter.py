@@ -27,8 +27,21 @@ DEFAULT_PATHS = {
     "output": "output",
 }
 
-# 본문이 이 길이 미만이면 '본문 확보 실패'로 본다 (제목만 남은 기사 등)
+# 본문이 이 길이 미만이면 '본문 확보 실패'로 본다.
+# 크롤링이 기사 본문 영역을 못 찾으면 메타 설명(og:description)으로 대체되는데,
+# 그 값이 보통 150~200자다. 그보다 넉넉히 잡아 진짜 본문인지 가르는 기준으로 쓴다.
 MIN_USABLE_CONTENT = 300
+
+# 지표 이름만으로는 뜻이 통하지 않아 리포트에 함께 싣는 설명
+QUALITY_DESC = {
+    "총 뉴스 수": "정제를 통과해 저장된 기사 수",
+    "요약 완료율": "AI 요약이 끝난 기사 비율",
+    "본문 확보율": f"본문이 {MIN_USABLE_CONTENT}자 이상 확보된 비율. "
+               "미만은 크롤링이 본문을 못 찾아 메타 설명으로 대체된 경우",
+    "평균 본문 길이": "기사 한 건당 평균 본문 글자 수",
+    "본문 잘림 비율": "본문 길이 상한을 넘어 뒷부분이 잘린 비율. "
+                "잘린 기사는 AI가 원문 일부만 보고 요약하게 됨",
+}
 
 
 def load_jsonl(path: str) -> list:
@@ -146,22 +159,17 @@ def build_stats(data: dict, top_n: int = 10,
                for r in clean]
     usable = sum(1 for n in lengths if n >= MIN_USABLE_CONTENT)
     truncated = sum(1 for r in clean if r.get("truncated"))
-    dated = sum(1 for r in clean if r.get("published_date"))
 
     def pct(part: int, whole: int) -> float:
         """0으로 나누는 상황을 막으면서 백분율을 계산한다."""
         return round(part / whole * 100, 1) if whole else 0.0
 
     quality = {
-        "총 뉴스 수": total,
+        "총 뉴스 수": f"{total}건",
         "요약 완료율": f"{pct(summarized_in_clean, total)}% "
                    f"({summarized_in_clean}/{total}건)",
-        "본문 확보율": f"{pct(usable, total)}% ({usable}/{total}건, "
-                   f"{MIN_USABLE_CONTENT}자 이상)",
+        "본문 확보율": f"{pct(usable, total)}% ({usable}/{total}건)",
         "평균 본문 길이": f"{round(sum(lengths) / total) if total else 0}자",
-        "발행일 보유율": f"{pct(dated, total)}% ({dated}/{total}건)",
-        "언론사 확보율": f"{pct(len(with_press), total)}% "
-                    f"({len(with_press)}/{total}건)",
         "본문 잘림 비율": f"{pct(truncated, total)}% ({truncated}/{total}건)",
     }
 
@@ -213,7 +221,8 @@ def build_report(stats: dict, trend: dict, chart_paths: list = None,
     # 1. 품질 지표
     parts.append(f"## 1. 데이터 품질 지표 (정제 완료 {stats['total']}건 기준)\n")
     parts.append(_md_table(
-        ["지표", "값"], [[k, v] for k, v in stats["quality"].items()]))
+        ["지표", "값", "의미"],
+        [[k, v, QUALITY_DESC.get(k, "")] for k, v in stats["quality"].items()]))
     parts.append("")
 
     # 2. 분포 집계
