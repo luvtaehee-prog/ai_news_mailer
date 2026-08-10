@@ -129,8 +129,13 @@ def build_stats(data: dict, top_n: int = 10,
             if kw:
                 keyword_counter[kw] += 1
     top_keywords = keyword_counter.most_common(top_n)
-    top_press = Counter(
-        r.get("press") or "미상" for r in clean).most_common(top_n)
+
+    # 언론사는 소스에 따라 아예 없을 수 있다 (NAVER·GOV.UK 는 제목에 언론사가 없음).
+    # 값이 없는 기사를 '미상'으로 함께 세면 그게 1위를 차지해 순위가 무의미해지므로,
+    # 언론사가 확인된 기사만 대상으로 집계하고 모집단을 따로 남긴다.
+    press_values = [(r.get("press") or "").strip() for r in clean]
+    with_press = [p for p in press_values if p]
+    top_press = Counter(with_press).most_common(top_n)
 
     # --- 품질 지표 ---------------------------------------------------
     summarized_ids = {s.get("id") for s in summaries if s.get("id")}
@@ -155,6 +160,8 @@ def build_stats(data: dict, top_n: int = 10,
                    f"{MIN_USABLE_CONTENT}자 이상)",
         "평균 본문 길이": f"{round(sum(lengths) / total) if total else 0}자",
         "발행일 보유율": f"{pct(dated, total)}% ({dated}/{total}건)",
+        "언론사 확보율": f"{pct(len(with_press), total)}% "
+                    f"({len(with_press)}/{total}건)",
         "본문 잘림 비율": f"{pct(truncated, total)}% ({truncated}/{total}건)",
     }
 
@@ -172,6 +179,7 @@ def build_stats(data: dict, top_n: int = 10,
         "daily_counts": daily_counts,
         "top_keywords": top_keywords,
         "top_press": top_press,
+        "press_total": len(with_press),
         "quality": quality,
     }
 
@@ -238,12 +246,18 @@ def build_report(stats: dict, trend: dict, chart_paths: list = None,
         [[i, kw, c] for i, (kw, c) in enumerate(stats["top_keywords"], 1)]
         or [["-", "-", 0]]))
     parts.append("")
+    press_total = stats.get("press_total", 0)
     parts.append(f"### 언론사 TOP {len(stats['top_press'])} "
-                 f"(정제 완료 {stats['total']}건 기준)\n")
+                 f"(언론사 확인 {press_total}건 기준)\n")
     parts.append(_md_table(
         ["순위", "언론사", "기사 수"],
         [[i, p, c] for i, (p, c) in enumerate(stats["top_press"], 1)]
         or [["-", "-", 0]]))
+    missing = stats["total"] - press_total
+    if missing:
+        parts.append(f"\n> 언론사 정보가 없는 {missing}건은 순위에서 제외했습니다. "
+                     "NAVER·GOV.UK 기사는 제목에 언론사가 포함되지 않아 "
+                     "정제 단계에서 값이 비어 있습니다.")
     parts.append("")
 
     # 4. AI 인사이트 (analyzer.py 가 만든 trend_report.json 활용)
