@@ -220,3 +220,20 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-09 21:34:25,906 [INFO] 수집된 GOV.UK AI 뉴스: 20
 2026-08-09 21:34:25,908 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-09 21:34:25,908 [INFO] 새로 추가된 뉴스: 0
+2026-08-10 21:42:08,441 [INFO] 수집된 Google News: 20
+2026-08-10 21:42:08,444 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-10 21:42:08,444 [INFO] 새로 추가된 뉴스: 17
+2026-08-10 21:42:09,799 [INFO] 검색어 'AI' 응답 코드: 200
+2026-08-10 21:42:10,694 [INFO] 검색어 '인공지능' 응답 코드: 200
+2026-08-10 21:42:11,573 [INFO] 검색어 '생성형 AI' 응답 코드: 200
+2026-08-10 21:42:12,470 [INFO] 검색어 'LLM' 응답 코드: 200
+2026-08-10 21:42:13,363 [INFO] 검색어 'AI 반도체' 응답 코드: 200
+2026-08-10 21:42:53,717 [ERROR] Article content fetch failed: https://biz.heraldcorp.com/article/10836624?ref=naver
+2026-08-10 21:42:53,717 [ERROR] 403 Client Error: Forbidden for url: https://biz.heraldcorp.com/article/10836624?ref=naver
+2026-08-10 21:42:54,219 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 20
+2026-08-10 21:42:54,222 [INFO] 저장 완료: data/raw/naver_news.jsonl
+2026-08-10 21:42:54,222 [INFO] 새로 추가된 뉴스: 20
+2026-08-10 21:42:55,715 [INFO] GOV.UK 응답 코드: 200
+2026-08-10 21:43:32,211 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-10 21:43:32,212 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-10 21:43:32,213 [INFO] 새로 추가된 뉴스: 0
