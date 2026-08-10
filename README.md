@@ -10,21 +10,31 @@ AI 뉴스 트렌드 분석 팀 프로젝트
 ```text
 project/
 │
-├── main.py              # CLI 실행 (현재 fetch 서브커맨드만 연결됨)
+├── main.py              # CLI 실행 (모든 서브커맨드 연결)
 ├── collector.py         # 뉴스 수집 (API/RSS, 크롤링)
 ├── cleaner.py           # 정제 핵심 로직 (필드 검증, 텍스트 정규화, 날짜 통일, 결측값 처리)
 ├── store.py             # raw 읽기 / clean 저장 / 중복 처리(skip·upsert)
-├── clean_command.py     # clean 서브커맨드 진입점 (main.py 미연결, 단독 실행)
-├── log_setup.py         # clean 파이프라인 로깅 설정
-├── analyzer.py          # AI 뉴스 요약 및 트렌드 분석 (예정, 미구현)
-├── reporter.py          # 시각화 및 리포트 생성 (예정, 미구현)
+├── clean_command.py     # clean 서브커맨드 진입점
+├── log_setup.py         # 파이프라인 공통 로깅 설정
+├── analyzer.py          # AI 뉴스 요약 및 트렌드 분석
+├── analyze_command.py   # summarize / analyze 서브커맨드 진입점
+├── reporter.py          # 집계·품질지표·리포트 문서 생성
+├── visualizer.py        # matplotlib 차트 생성 (PNG)
+├── exporter.py          # CSV / JSONL / Excel 내보내기
+├── report_command.py    # report 서브커맨드 진입점
+├── export_command.py    # export 서브커맨드 진입점
+├── query_command.py     # list / show 조회 서브커맨드 (보너스)
 │
 ├── data/
 │   ├── raw/             # 수집한 원본 뉴스 데이터 (google/naver/govuk_news.jsonl)
-│   └── clean/           # 정제된 뉴스 데이터 (news_clean.jsonl)
+│   ├── clean/           # 정제된 뉴스 데이터 (news_clean.jsonl)
+│   └── analyzed/        # AI 요약·트렌드 분석 결과
 │
-├── output/              # 차트, 리포트, 내보내기 결과 (예정, 미구현)
-├── logs/                # 실행 로그 (collector.log 등)
+├── output/
+│   ├── charts/          # 차트 PNG
+│   ├── reports/         # 리포트 MD / TXT
+│   └── exports/         # CSV / JSONL / Excel
+├── logs/                # 실행 로그 (collector.log, pipeline.log)
 │
 ├── .github/workflows/   # 정기 수집 자동화 (GitHub Actions)
 ├── config.json          # 뉴스 소스, 정제 설정, 중복 처리 정책 등
@@ -39,7 +49,26 @@ project/
 |   뉴스 수집     | RSS / API / 웹 크롤링을 통한 AI 뉴스 수집   |
 |   데이터 정제   | HTML 제거, 날짜 통일, 중복 제거          |
 |     AI 분석     | 뉴스 요약, 카테고리 분류, 키워드 추출         |
-| 리포트 생성  | A계 집계 및 Markdown 리포트 생성      |
+| 시각화·리포트  | 차트 생성, 집계·리포트, CSV/Excel 내보내기      |
+
+
+## CLI 한눈에 보기
+
+모든 기능은 `main.py` 의 서브커맨드로 실행합니다.
+
+```text
+python main.py fetch      --source google --limit 20     # 1. 뉴스 수집
+python main.py clean      --policy skip                  # 2. 데이터 정제
+python main.py summarize  --unsummarized                 # 3. AI 요약
+python main.py analyze                                   # 3. AI 트렌드 분석
+python main.py report     --format both                  # 4. 차트 + 리포트
+python main.py export     --format excel                 # 4. 파일 내보내기
+
+python main.py list --category IT --page 1               # (보너스) 목록 조회
+python main.py show <뉴스 id>                             # (보너스) 상세 조회
+```
+
+각 커맨드의 옵션은 `python main.py <커맨드> --help` 로 확인할 수 있습니다.
 
 
 ## 1. 뉴스 수집
@@ -182,10 +211,10 @@ cleaner.py / store.py / clean_command.py에서 raw 뉴스를 정제해 clean 저
  - 결측값 처리 (본문 없으면 제목으로 대체, 카테고리 기본값 적용)
  - 중복 처리 정책 적용 (skip / upsert)
 
-실행 (아직 main.py에는 연결되지 않아 단독 실행):
+실행:
 ```text
-python clean_command.py
-python clean_command.py --policy upsert
+python main.py clean
+python main.py clean --policy upsert
 ```
 
 정제된 데이터는 raw와 분리된 `data/clean/news_clean.jsonl`에 저장됩니다.
@@ -194,32 +223,163 @@ python clean_command.py --policy upsert
 
 AI 분석 담당 구현 후 작성 예정.
 
-## 4. 리포트 생성
+## 4. 시각화 및 리포트 생성
 
-리포트 담당 구현 후 작성 예정.
+정제·분석까지 끝난 데이터를 사람이 읽는 결과물로 바꾸는 단계입니다.
+모듈은 역할별로 나눠 두었습니다.
 
-전체 파이프라인
+| 파일 | 역할 |
+| --- | --- |
+| `reporter.py` | 데이터 로드, 품질 지표·TOP N 집계, 리포트 문서(Markdown/TXT) 작성 |
+| `visualizer.py` | matplotlib 차트 생성 (PNG) |
+| `exporter.py` | CSV / JSONL / Excel 내보내기 |
+| `report_command.py` | `report` 서브커맨드 (집계 → 차트 → 리포트) |
+| `export_command.py` | `export` 서브커맨드 (필터 → 파일 저장) |
 
-모든 모듈 구현 완료 후 다음 명령으로 전체 파이프라인을 실행합니다.
+집계(`reporter`)와 그리기(`visualizer`)를 나눈 이유는, 집계 기준을 바꿔도
+차트 코드를 건드릴 필요가 없게 하기 위해서입니다.
 
-python main.py run --source google --limit 20
+### 4-1. 리포트 실행
 
-최종 파이프라인:
+```text
+python main.py report                                  # 차트 + 리포트(MD) 생성
+python main.py report --format both                    # MD와 TXT 동시 저장
+python main.py report --category IT --top 15           # IT 카테고리만, TOP 15
+python main.py report --date-from 2026-08-01 --date-to 2026-08-09
+python main.py report --no-charts                      # 집계·리포트만 (차트 생략)
+python main.py report --date-field collected           # 수집일 기준 추이로 전환
+```
+
+주요 옵션
+
+| 옵션 | 설명 |
+| --- | --- |
+| `--category` | 특정 카테고리만 집계 |
+| `--date-from` / `--date-to` | 기간 지정 (YYYY-MM-DD, 양끝 포함) |
+| `--top` | TOP N 집계 개수 (기본 10) |
+| `--format` | `md` / `txt` / `both` (기본 md) |
+| `--date-field` | 추이 기준 날짜 — `published`(발행일, 기본) / `collected`(수집일) |
+| `--no-charts` | 차트 생성 생략 |
+| `--quiet` | 콘솔 요약 출력 생략 |
+
+기간·카테고리 필터를 걸면 요약 데이터도 같은 조건으로 좁혀서 집계하기 때문에,
+키워드 TOP N이 필터 범위 밖의 기사까지 세는 문제가 생기지 않습니다.
+
+### 4-2. 차트
+
+`output/charts/` 에 PNG로 저장됩니다.
+
+| 파일 | 내용 |
+| --- | --- |
+| `category_counts.png` | 카테고리별 뉴스 수 (막대) |
+| `daily_trend.png` | 일자별 수집 추이 (꺾은선, 최다일 표시) |
+| `top_keywords.png` | AI가 뽑은 키워드 TOP N (가로 막대) |
+| `source_share.png` | 소스별 수집 비중 (원 그래프) |
+
+한글 폰트는 실행 환경에 설치된 것을 자동으로 찾아 적용합니다.
+(macOS `AppleGothic` → Windows `Malgun Gothic` → 리눅스 `NanumGothic` 순으로 탐색)
+찾지 못하면 경고 로그를 남기고, 차트의 한글이 네모(□)로 보일 수 있습니다.
+리눅스에서는 `sudo apt install fonts-nanum` 으로 설치할 수 있습니다.
+
+화면이 없는 환경(GitHub Actions 등)에서도 동작하도록 matplotlib 백엔드는
+파일 저장 전용(`Agg`)으로 고정했습니다.
+
+### 4-3. 리포트 구성
+
+`output/reports/report_날짜시각.md` (또는 `.txt`) 로 저장되고, 실행 시 콘솔에도 요약이 출력됩니다.
+
+1. **데이터 품질 지표**
+   - 요약 완료율 — 전체 뉴스 중 AI 요약이 끝난 비율
+   - 본문 확보율 — 본문이 300자 이상 확보된 비율 (크롤링이 제대로 됐는지 판단)
+   - 평균 본문 길이
+   - 발행일 보유율 — 날짜 정제가 성공한 비율
+   - 본문 잘림 비율 — 3000자 상한에 걸려 잘린 기사 비율
+2. **수집 분포** — 카테고리별 / 소스별 건수, 일자별 추이 요약(집계 일수·최다일·일평균)
+3. **TOP N 집계** — 키워드 TOP N, 언론사 TOP N
+4. **AI 인사이트** — `data/analyzed/trend_report.json` 의 주요 트렌드·시사점·종합 요약
+5. **차트** — 생성된 PNG를 리포트 기준 상대경로로 첨부 (MD 뷰어에서 바로 보입니다)
+
+AI 분석 결과가 아직 없으면 4번 항목 자리에 안내 문구가 들어가고,
+나머지 집계는 그대로 생성됩니다.
+
+### 4-4. 데이터 내보내기
+
+`output/exports/` 에 저장됩니다. clean 뉴스와 AI 요약을 뉴스 id 기준으로 합쳐,
+한 줄에 기사 정보와 요약·키워드가 모두 담기게 만듭니다.
+
+```text
+python main.py export --format csv                     # CSV
+python main.py export --format excel                   # Excel(.xlsx)
+python main.py export --format jsonl                   # JSONL
+python main.py export --format all                     # 세 포맷 모두
+python main.py export --status summarized              # 요약 완료 건만
+python main.py export --category IT --limit 50 --filename it_top50.csv
+```
+
+| 옵션 | 설명 |
+| --- | --- |
+| `--format` | `csv` / `jsonl` / `excel` / `all` |
+| `--status` | `all`(기본) / `summarized` / `unsummarized` |
+| `--category`, `--date-from`, `--date-to` | 조건 필터 |
+| `--limit` | 최신순 최대 건수 |
+| `--filename` | 저장 파일명 지정 |
+
+- CSV는 `utf-8-sig`(BOM 포함)로 저장합니다. 그래야 윈도우 엑셀에서 열었을 때 한글이 깨지지 않습니다.
+- Excel은 헤더 고정·열 필터가 적용된 `뉴스` 시트와, 품질 지표·카테고리·키워드가 담긴 `요약 통계` 시트로 구성됩니다.
+- 파일명에 날짜시각(초 단위)이 붙어 이전 결과를 덮어쓰지 않습니다.
+
+### 4-5. 뉴스 조회 (보너스)
+
+```text
+python main.py list                                    # 최신순 목록 (기본 20건)
+python main.py list --category IT --keyword 반도체      # 조건 검색
+python main.py list --status unsummarized --page 2     # 페이지 이동
+python main.py show 613de6543210                       # 상세 조회
+python main.py show 613de6543210 --full                # 본문 전체 보기
+```
+
+`list` 는 카테고리·기간·검색어·요약 상태 필터와 페이지네이션(`--page`, `--size`)을 지원하고,
+`show` 는 기사 메타 정보 + AI 요약 + 키워드 + 본문을 함께 보여줍니다.
+
+## 전체 파이프라인
+
+각 단계는 앞 단계의 결과 파일을 입력으로 받습니다. 순서대로 실행하면 됩니다.
+
+```text
+python main.py fetch --source google --limit 20   # 수집  → data/raw/*.jsonl
+python main.py clean                              # 정제  → data/clean/news_clean.jsonl
+python main.py summarize                          # 요약  → data/analyzed/news_summary.jsonl
+python main.py analyze                            # 분석  → data/analyzed/trend_report.json
+python main.py report --format both               # 리포트 → output/charts, output/reports
+python main.py export --format all                # 내보내기 → output/exports
+```
 
 ```text
 뉴스 수집
    ↓
 Raw JSONL 저장
    ↓
-데이터 정제
+데이터 정제 (clean JSONL)
    ↓
-AI 요약 / 분류 / 키워드 추출
+AI 요약 / 키워드 추출
    ↓
-통계 집계
+AI 트렌드 분석
    ↓
-Markdown 리포트 생성
+통계 집계 + 차트 + 리포트 + 내보내기
 ```
 
+
+### 실행 준비
+
+Python 3.10 이상이 필요합니다.
+
+```text
+python -m venv .venv
+source .venv/bin/activate      # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+차트·엑셀 기능에는 `matplotlib`, `openpyxl` 이 필요하며 requirements.txt에 포함돼 있습니다.
 
 ### 환경변수
 
@@ -228,7 +388,11 @@ Markdown 리포트 생성
 
 NAVER_CLIENT_ID=your_client_id
 NAVER_CLIENT_SECRET=your_client_secret
+GOOGLE_API_KEY=your_gemini_api_key
 ```
+
+- `NAVER_*` : NAVER 뉴스 검색 API (수집 단계)
+- `GOOGLE_API_KEY` : Gemini API (AI 요약·분석 단계)
 
 실제 API 키가 포함된 .env 파일은 GitHub에 업로드하지 않습니다
 

@@ -18,3 +18,6 @@ Thumbs.db
 
 # 로컬 전용 메모 (팀 공유 안 함)
 local_notes.md
+
+# 내보내기 결과 (data/ 에 원본이 있어 언제든 다시 만들 수 있음)
+output/exports/

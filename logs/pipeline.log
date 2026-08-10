@@ -1,0 +1,73 @@
+2026-08-11 00:46:08,444 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:46:08,444 [INFO] report: 한글 폰트 적용: AppleGothic
+2026-08-11 00:46:08,839 [INFO] report: 차트 저장: output/charts/category_counts.png
+2026-08-11 00:46:08,927 [INFO] report: 차트 저장: output/charts/daily_trend.png
+2026-08-11 00:46:08,972 [INFO] report: 차트 저장: output/charts/top_keywords.png
+2026-08-11 00:46:08,998 [INFO] report: 차트 저장: output/charts/source_share.png
+2026-08-11 00:46:08,998 [INFO] report: 리포트 저장: output/reports/report_20260811_0046.md
+2026-08-11 00:46:08,999 [INFO] report: 리포트 저장: output/reports/report_20260811_0046.txt
+2026-08-11 00:46:13,330 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:46:13,333 [INFO] report: CSV 저장: output/exports/news_export_20260811_0046.csv (167행)
+2026-08-11 00:46:13,334 [INFO] report: JSONL 저장: output/exports/news_export_20260811_0046.jsonl (167행)
+2026-08-11 00:46:13,421 [INFO] report: Excel 저장: output/exports/news_export_20260811_0046.xlsx (167행)
+2026-08-11 00:46:13,461 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:46:13,462 [INFO] report: CSV 저장: output/exports/test_sample.csv (3행)
+2026-08-11 00:46:35,839 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:46:35,839 [INFO] report: 필터 적용: 167건 -> 63건
+2026-08-11 00:46:35,839 [INFO] report: 리포트 저장: output/reports/report_20260811_0046.md
+2026-08-11 00:46:36,046 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:46:36,046 [INFO] report: 필터 적용: 167건 -> 0건
+2026-08-11 00:46:36,046 [WARNING] report: 조건에 맞는 뉴스가 없습니다. 필터를 확인하세요.
+2026-08-11 00:46:36,250 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:46:36,250 [INFO] report: 한글 폰트 적용: AppleGothic
+2026-08-11 00:46:36,308 [INFO] report: 차트 저장: output/charts/category_counts.png
+2026-08-11 00:46:36,353 [INFO] report: 차트 저장: output/charts/daily_trend.png
+2026-08-11 00:46:36,398 [INFO] report: 차트 저장: output/charts/top_keywords.png
+2026-08-11 00:46:36,424 [INFO] report: 차트 저장: output/charts/source_share.png
+2026-08-11 00:46:36,424 [INFO] report: 리포트 저장: output/reports/report_20260811_0046.md
+2026-08-11 00:47:56,397 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:47:56,445 [INFO] report: Excel 저장: output/exports/news_export_20260811_004756.xlsx (93행)
+2026-08-11 00:48:17,550 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:48:17,584 [INFO] report: Excel 저장: output/exports/check.xlsx (93행)
+2026-08-11 00:49:19,950 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:49:20,156 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:49:42,627 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:49:56,278 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:49:56,278 [INFO] report: 한글 폰트 적용: AppleGothic
+2026-08-11 00:49:56,340 [INFO] report: 차트 저장: output/charts/category_counts.png
+2026-08-11 00:49:56,411 [INFO] report: 차트 저장: output/charts/daily_trend.png
+2026-08-11 00:49:56,456 [INFO] report: 차트 저장: output/charts/top_keywords.png
+2026-08-11 00:49:56,482 [INFO] report: 차트 저장: output/charts/source_share.png
+2026-08-11 00:49:56,483 [INFO] report: 리포트 저장: output/reports/report_20260811_004956.md
+2026-08-11 00:49:56,483 [INFO] report: 리포트 저장: output/reports/report_20260811_004956.txt
+2026-08-11 00:49:59,629 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 00:49:59,631 [INFO] report: CSV 저장: output/exports/news_export_20260811_004959.csv (167행)
+2026-08-11 00:49:59,632 [INFO] report: JSONL 저장: output/exports/news_export_20260811_004959.jsonl (167행)
+2026-08-11 00:49:59,688 [INFO] report: Excel 저장: output/exports/news_export_20260811_004959.xlsx (167행)
+2026-08-11 01:01:14,736 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 01:01:14,736 [INFO] report: 한글 폰트 적용: AppleGothic
+2026-08-11 01:01:14,826 [INFO] report: 차트 저장: output/charts/category_counts.png
+2026-08-11 01:01:14,881 [INFO] report: 차트 저장: output/charts/daily_trend.png
+2026-08-11 01:01:14,917 [INFO] report: 차트 저장: output/charts/top_keywords.png
+2026-08-11 01:01:14,943 [INFO] report: 차트 저장: output/charts/source_share.png
+2026-08-11 01:01:14,943 [INFO] report: 리포트 저장: output/reports/report_20260811_010114.md
+2026-08-11 01:07:00,509 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 01:07:00,510 [INFO] report: 리포트 저장: output/reports/report_20260811_010700.md
+2026-08-11 01:07:00,719 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 01:07:37,888 [ERROR] analyze: AI 관련 패키지를 불러오지 못했습니다: No module named 'google'
+2026-08-11 01:07:37,888 [ERROR] analyze: 설치 후 다시 시도하세요: pip install -r requirements.txt
+2026-08-11 01:07:37,888 [ERROR] analyze: (요약·분석 기능에만 필요합니다. report / export / list 는 이것 없이도 동작합니다.)
+2026-08-11 01:07:38,100 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 01:07:38,100 [INFO] report: 리포트 저장: output/reports/report_20260811_010738.md
+2026-08-11 01:17:56,201 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 01:17:56,203 [INFO] report: CSV 저장: output/exports/news_export_20260811_011756.csv (167행)
+2026-08-11 01:18:08,009 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 01:18:08,010 [INFO] report: 리포트 저장: output/reports/report_20260811_011808.md
+2026-08-11 01:27:03,781 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
+2026-08-11 01:27:03,781 [INFO] report: 한글 폰트 적용: AppleGothic
+2026-08-11 01:27:03,851 [INFO] report: 차트 저장: output/charts/category_counts.png
+2026-08-11 01:27:03,923 [INFO] report: 차트 저장: output/charts/daily_trend.png
+2026-08-11 01:27:03,967 [INFO] report: 차트 저장: output/charts/top_keywords.png
+2026-08-11 01:27:03,993 [INFO] report: 차트 저장: output/charts/source_share.png
+2026-08-11 01:27:03,994 [INFO] report: 리포트 저장: output/reports/report_20260811_012703.md
+2026-08-11 01:27:03,994 [INFO] report: 리포트 저장: output/reports/report_20260811_012703.txt

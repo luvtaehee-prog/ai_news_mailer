@@ -37,7 +37,14 @@
 
   "paths": {
     "raw": "data/raw",
-    "clean": "data/clean"
+    "clean": "data/clean",
+    "analyzed": "data/analyzed"
+  },
+
+  "report": {
+    "output_directory": "output",
+    "top_n": 10,
+    "date_field": "published"
   },
 
   "clean": {
