@@ -299,7 +299,7 @@ python main.py report --date-field collected           # 수집일 기준 추이
    - 수집 방식별 비교는 `rss+crawl` / `api+crawl` / `crawl` 각각의 건수·평균 본문
      길이·본문 확보율을 나란히 보여준다. API·RSS 방식과 크롤링 방식의 장단점을
      숫자로 확인할 수 있다
-3. **TOP N 집계** — 키워드 TOP N, 언론사 TOP N
+3. **TOP N 집계** — AI가 추출한 키워드 TOP N
 4. **AI 인사이트** — `data/analyzed/trend_report.json` 의 주요 트렌드·시사점·종합 요약
 5. **차트** — 생성된 PNG를 리포트 기준 상대경로로 첨부 (MD 뷰어에서 바로 보입니다)
 
