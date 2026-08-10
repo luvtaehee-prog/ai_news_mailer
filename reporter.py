@@ -43,6 +43,17 @@ QUALITY_DESC = {
                 "잘린 기사는 AI가 원문 일부만 보고 요약하게 됨",
 }
 
+# 수집 방식별 비교 표 아래에 붙는 해설
+METHOD_NOTE = (
+    "> `rss+crawl` / `api+crawl` 은 RSS·API 로 기사 목록을 받은 뒤 원문을 "
+    "크롤링한 방식이고, `crawl` 은 목록부터 본문까지 모두 크롤링한 방식입니다.\n"
+    ">\n"
+    "> RSS·API 는 목록을 빠르고 안정적으로 받아오지만 본문은 주지 않아 결국 "
+    "크롤링이 필요하고, 실패하면 짧은 메타 설명으로 대체되어 본문 확보율이 "
+    "떨어집니다. 반면 전체 크롤링은 본문 확보율이 높은 대신 사이트 구조에 "
+    "맞춘 코드가 따로 필요하고 요청 간 지연을 둬야 해 느립니다."
+)
+
 
 def load_jsonl(path: str) -> list:
     """JSONL 파일을 레코드 리스트로 읽는다. 파일이 없으면 빈 리스트."""
@@ -126,6 +137,27 @@ def build_stats(data: dict, top_n: int = 10,
     source_counts = dict(
         Counter(r.get("source") or "unknown" for r in clean).most_common())
 
+    # 수집 방식별 비교 (API/RSS 와 크롤링의 차이를 숫자로 확인하기 위한 집계)
+    method_groups = {}
+    for r in clean:
+        method_groups.setdefault(r.get("collection_method") or "미상", []).append(r)
+
+    method_stats = []
+    for method, records in sorted(method_groups.items(),
+                                  key=lambda kv: -len(kv[1])):
+        sizes = [r.get("content_length") or len(r.get("content") or "")
+                 for r in records]
+        method_stats.append({
+            "method": method,
+            "count": len(records),
+            "sources": ", ".join(sorted({r.get("source", "?")
+                                         for r in records})),
+            "avg_length": round(sum(sizes) / len(sizes)) if sizes else 0,
+            "usable_pct": round(
+                sum(1 for n in sizes if n >= MIN_USABLE_CONTENT)
+                / len(sizes) * 100, 1) if sizes else 0.0,
+        })
+
     key = "published_date" if date_field == "published" else "collected_at"
     day_counter = Counter()
     for r in clean:
@@ -184,6 +216,7 @@ def build_stats(data: dict, top_n: int = 10,
         "date_field": date_field,
         "category_counts": category_counts,
         "source_counts": source_counts,
+        "method_stats": method_stats,
         "daily_counts": daily_counts,
         "top_keywords": top_keywords,
         "top_press": top_press,
@@ -237,6 +270,18 @@ def build_report(stats: dict, trend: dict, chart_paths: list = None,
         ["소스", "건수"],
         list(stats["source_counts"].items()) or [["-", 0]]))
     parts.append("")
+
+    methods = stats.get("method_stats") or []
+    if methods:
+        parts.append("### 수집 방식별 비교\n")
+        parts.append(_md_table(
+            ["수집 방식", "소스", "건수", "평균 본문", "본문 확보율"],
+            [[m["method"], m["sources"], f"{m['count']}건",
+              f"{m['avg_length']}자", f"{m['usable_pct']}%"]
+             for m in methods]))
+        parts.append("")
+        parts.append(METHOD_NOTE)
+        parts.append("")
 
     daily = stats["daily_counts"]
     if daily:
@@ -367,6 +412,11 @@ def console_summary(stats: dict, trend: dict) -> str:
         lines.append(f"  {i}. {kw} ({c}건)")
     if not stats["top_keywords"]:
         lines.append("  (AI 요약 데이터 없음)")
+    lines.append("-" * 52)
+    lines.append(" [수집 방식별]")
+    for m in stats.get("method_stats", []):
+        lines.append(f"  - {m['method']}: {m['count']}건 "
+                     f"(평균 {m['avg_length']}자, 본문확보 {m['usable_pct']}%)")
     lines.append("-" * 52)
     lines.append(" [카테고리 분포]")
     for cat, c in list(stats["category_counts"].items())[:5]:
