@@ -51,7 +51,6 @@ collector.py에서 뉴스 데이터를 수집합니다.
 ### Google News
  - Google News RSS 사용
  - AI 관련 뉴스 수집
- - RSS는 제목만 반복되고 본문이 없어, 각 기사 원문 페이지를 크롤링해 본문을 채움
  - 수집 방법: rss+crawl
 
 ### NAVER News
