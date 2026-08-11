@@ -44,12 +44,14 @@ project/
 
 ### 팀 역할
 
-| 역할            | 담당 기능                                  |
-| -------------- | ------------------------------------- |
-|   뉴스 수집     | RSS / API / 웹 크롤링을 통한 AI 뉴스 수집   |
-|   데이터 정제   | HTML 제거, 날짜 통일, 중복 제거          |
-|     AI 분석     | 뉴스 요약, 키워드 추출, 감성 분석, 트렌드 분석    |
-| 시각화·리포트  | 차트 생성, 집계·리포트, CSV/Excel 내보내기      |
+| 파트 | 담당자 | 담당 기능 | 주요 파일 |
+| --- | --- | --- | --- |
+| 1. 뉴스 수집 | 박수진 | RSS / API / 웹 크롤링을 통한 AI 뉴스 수집 | `collector.py` |
+| 2. 데이터 정제 | 강민주 | HTML 제거, 날짜 통일, 결측·중복 처리 | `cleaner.py`, `store.py`, `clean_command.py` |
+| 3. AI 분석 | 김태희 | 뉴스 요약, 키워드 추출, 감성 분석, 트렌드 분석 | `analyzer.py`, `analyze_command.py` |
+| 4. 시각화·리포트 | 전지영 | 차트 생성, 집계·리포트, CSV/Excel 내보내기 | `reporter.py`, `visualizer.py`, `exporter.py`, `report_command.py`, `export_command.py` |
+
+공통 모듈은 `main.py`(CLI 연결), `log_setup.py`(로깅), `query_command.py`(보너스 조회 CLI)입니다.
 
 
 ## CLI 한눈에 보기
@@ -239,6 +241,8 @@ API 키는 `.env`의 `OPENAI_API_KEY`에서 읽습니다.
 
 ```text
 python main.py summarize                     # 아직 요약되지 않은 뉴스 전체
+python main.py summarize --unsummarized      # 위와 동일 (기본값을 명시)
+python main.py summarize --all               # 전체 뉴스 대상 (이미 요약된 건은 스킵)
 python main.py summarize --limit 20          # 최대 20건만
 python main.py summarize --id 606b1d302cef   # 특정 뉴스 1건만
 python main.py summarize --batch-size 3      # 한 번의 호출에 묶을 기사 수 (기본 5)
@@ -313,8 +317,12 @@ AI에게 숫자를 세게 하면 틀리기 때문에, 세는 일은 `Counter`가
 ### 3-5. 다른 파트와의 연결
 
 - `news_summary.jsonl`의 `id`로 clean 데이터와 조인할 수 있습니다.
-- 4번 파트(시각화·리포트)는 `trend_report.json`만 읽으면 키워드 빈도, 카테고리 분포,
-  트렌드, 시사점을 그대로 쓸 수 있습니다. 별도 집계가 필요 없습니다.
+- 4번 파트(시각화·리포트)는 `trend_report.json`의 트렌드·시사점·종합 요약을
+  그대로 가져다 씁니다.
+- 다만 키워드 빈도와 카테고리 분포는 `reporter.py`가 `news_summary.jsonl`에서
+  다시 집계합니다. `report --category IT` 처럼 조건을 걸었을 때 집계도 함께
+  좁혀져야 하기 때문입니다. (`trend_report.json`의 통계는 `analyze` 실행 시점의
+  전체 기준 값이라 필터를 따라가지 못합니다.)
 
 ### 3-6. 안정성 처리
 

@@ -119,8 +119,12 @@ def cmd_report(args) -> dict:
         chart_paths = visualizer.render_all(stats, out_dir=chart_dir)
 
     # 5) 리포트 문서 생성 및 저장
+    # 필터를 걸면 집계는 좁아지지만 AI 인사이트(trend_report.json)는 그대로라
+    # 두 기준이 어긋난다. 리포트에 그 사실을 밝히도록 알려 준다.
+    filtered = any(getattr(args, k, None)
+                   for k in ("category", "date_from", "date_to"))
     markdown = reporter.build_report(stats, data["trend"], chart_paths,
-                                     report_dir=report_dir)
+                                     report_dir=report_dir, filtered=filtered)
     fmt = getattr(args, "format", "md")
     formats = ["md", "txt"] if fmt == "both" else [fmt]
     report_paths = [reporter.save_report(markdown, report_dir, f)

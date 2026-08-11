@@ -243,8 +243,14 @@ def _md_table(headers: list, rows: list) -> str:
 
 
 def build_report(stats: dict, trend: dict, chart_paths: list = None,
-                 report_dir: str = "output/reports") -> str:
-    """집계 + AI 인사이트를 합쳐 Markdown 리포트 본문을 만든다."""
+                 report_dir: str = "output/reports",
+                 filtered: bool = False) -> str:
+    """집계 + AI 인사이트를 합쳐 Markdown 리포트 본문을 만든다.
+
+    filtered = True 이면 집계는 필터 결과 기준인데 AI 인사이트만 전체 기준이라는
+    사실을 리포트에 밝힌다. trend_report.json 은 analyze 가 만든 그대로를 읽어
+    쓰기 때문에, 필터를 건 리포트에서는 두 기준이 어긋날 수 있다.
+    """
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
     label = "발행일" if stats["date_field"] == "published" else "수집일"
     parts = []
@@ -312,6 +318,12 @@ def build_report(stats: dict, trend: dict, chart_paths: list = None,
     # 4. AI 인사이트 (analyzer.py 가 만든 trend_report.json 활용)
     parts.append("## 4. AI 인사이트 분석 "
                  f"(AI 요약 완료 {stats['summarized']}건 기준)\n")
+
+    if filtered and trend:
+        parts.append(
+            f"> ⚠️ 아래 트렌드·시사점은 `analyze` 를 마지막으로 실행했을 때의 "
+            f"대상 **{trend.get('article_count', '?')}건** 기준입니다. "
+            f"이 리포트의 다른 집계(필터 적용분)와 모집단이 다를 수 있습니다.\n")
 
     # 감성 분포도 AI 가 뽑은 값이라 이 절에 함께 둔다.
     # trend_report.json 이 아니라 요약 레코드에서 직접 집계한다.
