@@ -97,9 +97,12 @@ _TRAILING_BOILERPLATE_RE = re.compile(
 # --------------------------------------------------
 
 def save_raw_news(news_list, file_name):
-    os.makedirs("data/raw", exist_ok=True)
+    # 저장 경로는 config.json 의 paths.raw 를 따른다.
+    # 정제·리포트 단계도 같은 키를 보고 있어, 한 곳만 바꾸면 전체가 함께 움직인다.
+    raw_dir = config.get("paths", {}).get("raw", "data/raw")
+    os.makedirs(raw_dir, exist_ok=True)
 
-    file_path = f"data/raw/{file_name}"
+    file_path = os.path.join(raw_dir, file_name)
 
     existing_urls = set()
 

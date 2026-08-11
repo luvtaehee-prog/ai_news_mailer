@@ -34,11 +34,6 @@
 
   "duplicate_policy": "skip",
 
-  "storage": {
-    "raw_directory": "data/raw",
-    "format": "jsonl"
-  },
-
   "paths": {
     "raw": "data/raw",
     "clean": "data/clean",

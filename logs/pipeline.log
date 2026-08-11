@@ -238,3 +238,8 @@
 2026-08-11 15:51:33,702 [INFO] report: 데이터 로드: clean 203건, 요약 203건, 트렌드 있음
 2026-08-11 15:51:34,283 [INFO] report: 데이터 로드: clean 203건, 요약 203건, 트렌드 있음
 2026-08-11 15:51:34,286 [INFO] report: CSV 저장: output\exports\news_export_20260811_155134.csv (2행)
+2026-08-11 15:56:09,845 [INFO] report: 데이터 로드: clean 203건, 요약 203건, 트렌드 있음
+2026-08-11 15:56:10,414 [INFO] report: 데이터 로드: clean 203건, 요약 203건, 트렌드 있음
+2026-08-11 15:56:10,415 [INFO] report: 리포트 저장: output\reports\report_20260811_155610.md
+2026-08-11 15:56:10,972 [INFO] report: 데이터 로드: clean 203건, 요약 203건, 트렌드 있음
+2026-08-11 15:56:10,974 [INFO] report: CSV 저장: output\exports\news_export_20260811_155610.csv (2행)
