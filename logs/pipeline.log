@@ -131,3 +131,85 @@
 2026-08-11 02:15:51,793 [INFO] report: 리포트 저장: output/reports/report_20260811_021551.txt
 2026-08-11 02:15:52,018 [INFO] report: 데이터 로드: clean 167건, 요약 93건, 트렌드 있음
 2026-08-11 02:15:52,020 [INFO] report: CSV 저장: output/exports/t.csv (2행)
+2026-08-11 14:46:14,967 [INFO] report: 데이터 로드: clean 203건, 요약 93건, 트렌드 있음
+2026-08-11 14:46:22,481 [INFO] report: 데이터 로드: clean 203건, 요약 93건, 트렌드 있음
+2026-08-11 14:46:22,482 [INFO] report: 한글 폰트 적용: Malgun Gothic
+2026-08-11 14:46:22,635 [INFO] report: 차트 저장: output\charts\category_counts.png
+2026-08-11 14:46:22,807 [INFO] report: 차트 저장: output\charts\daily_trend.png
+2026-08-11 14:46:22,925 [INFO] report: 차트 저장: output\charts\top_keywords.png
+2026-08-11 14:46:22,991 [INFO] report: 차트 저장: output\charts\source_share.png
+2026-08-11 14:46:22,992 [INFO] report: 리포트 저장: output\reports\report_20260811_144622.md
+2026-08-11 14:46:22,995 [INFO] report: 리포트 저장: output\reports\report_20260811_144622.txt
+2026-08-11 14:46:40,945 [INFO] report: 데이터 로드: clean 203건, 요약 93건, 트렌드 있음
+2026-08-11 14:46:40,948 [INFO] report: CSV 저장: output\exports\news_export_20260811_144640.csv (5행)
+2026-08-11 14:46:40,949 [INFO] report: JSONL 저장: output\exports\news_export_20260811_144640.jsonl (5행)
+2026-08-11 14:46:41,147 [INFO] report: Excel 저장: output\exports\news_export_20260811_144640.xlsx (5행)
+2026-08-11 14:53:57,655 [INFO] analyze: clean 데이터 203건 로드
+2026-08-11 15:08:23,839 [INFO] analyze: clean 데이터 203건 로드
+2026-08-11 15:08:23,892 [INFO] analyze: 이미 완료: 93건 / 남은 작업: 1건
+2026-08-11 15:08:23,892 [INFO] analyze: [배치 1/1] 1건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:08:27,245 [INFO] analyze: 요약 완료: 1건 성공, 0건 실패 -> data/analyzed/news_summary.jsonl
+2026-08-11 15:14:37,621 [INFO] analyze: clean 데이터 203건 로드
+2026-08-11 15:14:37,674 [INFO] analyze: 이미 완료: 94건 / 남은 작업: 109건
+2026-08-11 15:14:37,674 [INFO] analyze: [배치 1/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:14:46,813 [INFO] analyze: [배치 2/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:14:56,591 [INFO] analyze: [배치 3/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:15:04,554 [INFO] analyze: [배치 4/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:15:12,696 [INFO] analyze: [배치 5/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:15:20,664 [INFO] analyze: [배치 6/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:15:27,205 [INFO] analyze: [배치 7/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:15:34,356 [INFO] analyze: [배치 8/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:15:41,703 [INFO] analyze: [배치 9/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:15:48,828 [INFO] analyze: [배치 10/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:15:57,411 [INFO] analyze: [배치 11/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:16:05,884 [INFO] analyze: [배치 12/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:16:13,232 [INFO] analyze: [배치 13/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:16:21,477 [INFO] analyze: [배치 14/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:16:29,482 [INFO] analyze: [배치 15/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:16:38,054 [INFO] analyze: [배치 16/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:16:46,255 [INFO] analyze: [배치 17/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:16:52,475 [INFO] analyze: [배치 18/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:17:01,617 [INFO] analyze: [배치 19/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:17:10,333 [INFO] analyze: [배치 20/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:17:17,372 [INFO] analyze: [배치 21/22] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:17:25,144 [INFO] analyze: [배치 22/22] 4건 처리 중... (모델: gpt-5.4)
+2026-08-11 15:17:31,725 [INFO] analyze: 요약 완료: 109건 성공, 0건 실패 -> data/analyzed/news_summary.jsonl
+2026-08-11 15:20:45,081 [INFO] analyze: 감성 분석 대상: 203건 / 전체 203건
+2026-08-11 15:20:45,082 [INFO] analyze: [감성 1/21] 10건 처리 중...
+2026-08-11 15:20:47,626 [INFO] analyze: [감성 2/21] 10건 처리 중...
+2026-08-11 15:20:49,221 [INFO] analyze: [감성 3/21] 10건 처리 중...
+2026-08-11 15:20:51,043 [INFO] analyze: [감성 4/21] 10건 처리 중...
+2026-08-11 15:20:52,792 [INFO] analyze: [감성 5/21] 10건 처리 중...
+2026-08-11 15:20:54,362 [INFO] analyze: [감성 6/21] 10건 처리 중...
+2026-08-11 15:20:56,077 [INFO] analyze: [감성 7/21] 10건 처리 중...
+2026-08-11 15:20:58,119 [INFO] analyze: [감성 8/21] 10건 처리 중...
+2026-08-11 15:20:59,610 [INFO] analyze: [감성 9/21] 10건 처리 중...
+2026-08-11 15:21:01,195 [INFO] analyze: [감성 10/21] 10건 처리 중...
+2026-08-11 15:21:02,756 [INFO] analyze: [감성 11/21] 10건 처리 중...
+2026-08-11 15:21:04,434 [INFO] analyze: [감성 12/21] 10건 처리 중...
+2026-08-11 15:21:06,008 [INFO] analyze: [감성 13/21] 10건 처리 중...
+2026-08-11 15:21:07,689 [INFO] analyze: [감성 14/21] 10건 처리 중...
+2026-08-11 15:21:09,378 [INFO] analyze: [감성 15/21] 10건 처리 중...
+2026-08-11 15:21:11,283 [INFO] analyze: [감성 16/21] 10건 처리 중...
+2026-08-11 15:21:12,935 [INFO] analyze: [감성 17/21] 10건 처리 중...
+2026-08-11 15:21:14,647 [INFO] analyze: [감성 18/21] 10건 처리 중...
+2026-08-11 15:21:16,643 [INFO] analyze: [감성 19/21] 10건 처리 중...
+2026-08-11 15:21:19,516 [INFO] analyze: [감성 20/21] 10건 처리 중...
+2026-08-11 15:21:21,141 [INFO] analyze: [감성 21/21] 3건 처리 중...
+2026-08-11 15:21:22,308 [INFO] analyze: 감성 분석 완료: 203건 성공, 0건 실패 -> data/analyzed/news_summary.jsonl
+2026-08-11 15:21:29,342 [INFO] analyze: 트렌드 분석 중... (모델: gpt-5.4, 대상 203건)
+2026-08-11 15:21:43,979 [INFO] analyze: 완료: data/analyzed/trend_report.json
+2026-08-11 15:21:49,190 [INFO] report: 데이터 로드: clean 203건, 요약 203건, 트렌드 있음
+2026-08-11 15:21:49,191 [INFO] report: 한글 폰트 적용: Malgun Gothic
+2026-08-11 15:21:49,299 [INFO] report: 차트 저장: output\charts\category_counts.png
+2026-08-11 15:21:49,461 [INFO] report: 차트 저장: output\charts\daily_trend.png
+2026-08-11 15:21:49,570 [INFO] report: 차트 저장: output\charts\top_keywords.png
+2026-08-11 15:21:49,629 [INFO] report: 차트 저장: output\charts\source_share.png
+2026-08-11 15:21:49,702 [INFO] report: 차트 저장: output\charts\sentiment.png
+2026-08-11 15:21:49,704 [INFO] report: 리포트 저장: output\reports\report_20260811_152149.md
+2026-08-11 15:21:49,707 [INFO] report: 리포트 저장: output\reports\report_20260811_152149.txt
+2026-08-11 15:22:01,977 [INFO] report: 데이터 로드: clean 203건, 요약 203건, 트렌드 있음
+2026-08-11 15:22:01,979 [INFO] report: CSV 저장: output\exports\news_export_20260811_152201.csv (3행)
+2026-08-11 15:22:01,980 [INFO] report: JSONL 저장: output\exports\news_export_20260811_152201.jsonl (3행)
+2026-08-11 15:22:02,182 [INFO] report: Excel 저장: output\exports\news_export_20260811_152201.xlsx (3행)
+2026-08-11 15:30:26,556 [INFO] report: 데이터 로드: clean 203건, 요약 203건, 트렌드 있음
