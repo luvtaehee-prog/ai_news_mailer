@@ -22,10 +22,10 @@ jobs:
 
     steps:
       - name: 저장소 체크아웃
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Python 설정
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
 
@@ -88,7 +88,7 @@ jobs:
       # exports 는 .gitignore 대상이라 커밋되지 않는다.
       # 대신 워크플로 아티팩트로 올려 두어 필요할 때 내려받을 수 있게 한다.
       - name: 내보내기 결과 업로드
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: news-export
           path: ${{ env.OUTPUT_DIR }}/exports/
