@@ -90,7 +90,12 @@ def cmd_summarize(args):
 
     # 감성 값이 빠진 레코드를 이어서 채운다.
     # (요약보다 감성 분석을 나중에 추가했기 때문에 기존 레코드에는 값이 없다)
-    analyzer.backfill_sentiment()
+    #
+    # --id 나 --limit 으로 범위를 좁혀 실행했다면 감성도 그 범위만 채운다.
+    # 안 그러면 1건만 요약하려고 실행했는데 감성은 전체를 훑어 과금된다.
+    scoped = target_id or getattr(args, "limit", None)
+    analyzer.backfill_sentiment(
+        only_ids={r.get("id") for r in records} if scoped else None)
 
 
 def add_analyze_parser(subparsers) -> None:

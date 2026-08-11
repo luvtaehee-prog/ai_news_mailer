@@ -304,12 +304,15 @@ def classify_sentiment_batch(batch):
 
 
 def backfill_sentiment(output_path="data/analyzed/news_summary.jsonl",
-                       batch_size=10):
+                       batch_size=10, only_ids=None):
     """감성 값이 비어 있는 요약 레코드를 채운다.
 
     요약을 먼저 끝낸 뒤 감성 분석을 추가했기 때문에, 기존 레코드에는
     sentiment 가 없다. 요약을 다시 돌리면 비싸므로 제목+요약만 보내
     감성만 채우고 파일을 다시 쓴다.
+
+    only_ids 를 주면 그 id 들만 대상으로 한다. --id 나 --limit 으로
+    범위를 좁혀 실행했는데 감성만 전체를 훑어 과금되는 일을 막는다.
     """
     try:
         get_client()
@@ -319,6 +322,8 @@ def backfill_sentiment(output_path="data/analyzed/news_summary.jsonl",
 
     records = load_summaries(output_path)
     todo = [r for r in records if not r.get("sentiment")]
+    if only_ids is not None:
+        todo = [r for r in todo if r.get("id") in only_ids]
     if not todo:
         log.info("감성 분석: 채울 레코드가 없습니다 (전체 %d건 완료)", len(records))
         return
