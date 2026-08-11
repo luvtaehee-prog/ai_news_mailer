@@ -32,6 +32,17 @@ jobs:
       - name: 의존성 설치
         run: pip install -r requirements.txt
 
+      # matplotlib 은 시스템에 설치된 폰트만 쓴다. ubuntu 러너에는 한글 폰트가
+      # 없어서, 설치하지 않으면 차트의 한글이 전부 네모(□)로 깨진다.
+      # visualizer.KOREAN_FONT_CANDIDATES 가 NanumGothic 을 찾으므로 그것을 깐다.
+      - name: 한글 폰트 설치
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-nanum
+          fc-cache -f
+          # matplotlib 이 폰트 목록을 캐시해 두기 때문에, 지워야 새로 깐 폰트를 인식한다
+          rm -rf ~/.cache/matplotlib
+
       # 저장 경로를 config.json 에서 읽어 온다. 여기서 하드코딩하면
       # config 의 paths 를 바꿨을 때 커밋 단계가 엉뚱한 위치를 보게 된다.
       - name: 저장 경로 확인
