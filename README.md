@@ -16,7 +16,7 @@ project/
 ├── store.py             # raw 읽기 / clean 저장 / 중복 처리(skip·upsert)
 ├── clean_command.py     # clean 서브커맨드 진입점
 ├── log_setup.py         # 파이프라인 공통 로깅 설정
-├── analyzer.py          # AI 뉴스 요약 및 트렌드 분석
+├── analyzer.py          # AI 뉴스 요약 / 감성 분석 / 트렌드 분석
 ├── analyze_command.py   # summarize / analyze 서브커맨드 진입점
 ├── reporter.py          # 집계·품질지표·리포트 문서 생성
 ├── visualizer.py        # matplotlib 차트 생성 (PNG)
@@ -48,7 +48,7 @@ project/
 | -------------- | ------------------------------------- |
 |   뉴스 수집     | RSS / API / 웹 크롤링을 통한 AI 뉴스 수집   |
 |   데이터 정제   | HTML 제거, 날짜 통일, 중복 제거          |
-|     AI 분석     | 뉴스 요약, 카테고리 분류, 키워드 추출         |
+|     AI 분석     | 뉴스 요약, 키워드 추출, 감성 분석, 트렌드 분석    |
 | 시각화·리포트  | 차트 생성, 집계·리포트, CSV/Excel 내보내기      |
 
 
@@ -59,7 +59,7 @@ project/
 ```text
 python main.py fetch      --source google --limit 20     # 1. 뉴스 수집
 python main.py clean      --policy skip                  # 2. 데이터 정제
-python main.py summarize  --unsummarized                 # 3. AI 요약
+python main.py summarize  --unsummarized                 # 3. AI 요약 + 감성 분석
 python main.py analyze                                   # 3. AI 트렌드 분석
 python main.py report     --format both                  # 4. 차트 + 리포트
 python main.py export     --format excel                 # 4. 파일 내보내기
@@ -171,7 +171,8 @@ Python logging 모듈을 사용하여 프로그램 실행 상태를 기록합니
 
 로그는 터미널에 출력되는 동시에 다음 파일에도 누적 저장됩니다.
 ```text
-logs/collector.log
+logs/collector.log    # 1. 뉴스 수집 단계
+logs/pipeline.log     # 2~4. 정제 / AI 분석 / 리포트 단계
 ```
 
 ## 설정 파일
@@ -221,7 +222,109 @@ python main.py clean --policy upsert
 
 ## 3. AI 분석
 
-AI 분석 담당 구현 후 작성 예정.
+정제된 뉴스를 AI로 요약하고, 그 요약들을 모아 트렌드를 분석하는 단계입니다.
+`summarize`(기사 단위)와 `analyze`(전체 단위) 두 서브커맨드로 나뉩니다.
+
+| 파일 | 역할 |
+| --- | --- |
+| `analyzer.py` | OpenAI 호출, 요약·감성·트렌드 분석 로직, 키워드·카테고리 집계 |
+| `analyze_command.py` | `summarize` / `analyze` 서브커맨드 (옵션 처리 → analyzer 호출) |
+
+사용 모델은 `config.json`의 `ai.model`에서 바꿀 수 있고(기본 `gpt-5.4`),
+API 키는 `.env`의 `OPENAI_API_KEY`에서 읽습니다.
+
+### 3-1. AI 요약
+
+기사 본문을 3문장 이내로 요약하고 핵심 키워드 3개를 뽑습니다.
+
+```text
+python main.py summarize                     # 아직 요약되지 않은 뉴스 전체
+python main.py summarize --limit 20          # 최대 20건만
+python main.py summarize --id 606b1d302cef   # 특정 뉴스 1건만
+python main.py summarize --batch-size 3      # 한 번의 호출에 묶을 기사 수 (기본 5)
+```
+
+기사를 여러 건씩 묶어 한 번에 호출합니다. 호출 수가 줄어 비용과 시간이 함께 줄어듭니다.
+
+이미 요약된 뉴스는 기본적으로 건너뜁니다. 결과를 한 줄씩 이어 붙이는(append) 방식이라
+중간에 끊겨도 다시 실행하면 남은 건부터 이어서 처리합니다.
+
+### 3-2. 감성 분석 (보너스)
+
+각 뉴스의 논조를 **긍정 / 부정 / 중립** 중 하나로 분류합니다.
+분류 기준은 프롬프트에 명시해 두었습니다.
+
+- 긍정: 성장·성과·호재·기대를 다루는 기사
+- 부정: 위기·규제·손실·우려를 다루는 기사
+- 중립: 사실 전달 위주이거나 긍정·부정이 뚜렷하지 않은 기사
+
+```text
+python main.py summarize                     # 요약과 감성을 한 번에
+python main.py summarize --sentiment-only    # 감성만 채우기
+```
+
+요약과 감성을 한 호출에서 함께 받기 때문에 평소에는 추가 비용이 없습니다.
+`--sentiment-only`는 **이미 요약이 끝난 기사에 감성만 뒤늦게 채울 때** 쓰는 경로로,
+본문 대신 제목과 요약만 보내므로 요약을 다시 돌리는 것보다 훨씬 쌉니다.
+
+결과는 `news_summary.jsonl`의 `sentiment` 필드에 저장되고,
+막대 차트(`output/charts/sentiment.png`)와 리포트의 "감성 분포" 표로 시각화됩니다.
+내보내기(CSV/Excel)에도 `sentiment` 컬럼으로 포함됩니다.
+
+### 3-3. 트렌드 분석
+
+요약본 전체를 한 번에 넣고 주요 트렌드와 시사점을 뽑습니다.
+
+```text
+python main.py analyze                                   # 전체 기간·전체 카테고리
+python main.py analyze --category IT                     # 특정 카테고리만
+python main.py analyze --date-from 2026-08-01 --date-to 2026-08-11
+```
+
+키워드 빈도와 카테고리 분포는 **AI가 아니라 코드가 직접 집계**해서 프롬프트에 넣어 줍니다.
+AI에게 숫자를 세게 하면 틀리기 때문에, 세는 일은 `Counter`가 하고 AI는 해석만 맡습니다.
+
+> 조건을 걸고 실행해도 결과는 같은 `trend_report.json`에 저장되므로, 조건별로 돌린 뒤에는
+> 마지막에 조건 없이 한 번 더 실행해 전체 기준 결과로 되돌려 놓아야 리포트가 어긋나지 않습니다.
+
+### 3-4. 산출물
+
+**`data/analyzed/news_summary.jsonl`** — 기사 1건당 1줄
+
+| 필드 | 설명 |
+| --- | --- |
+| `id` | clean 데이터와 동일한 id (조인 키) |
+| `title` / `category` / `source` / `published_date` | clean에서 그대로 가져온 메타 정보 |
+| `summary` | 3문장 이내 요약 |
+| `keywords` | 핵심 키워드 3개 |
+| `sentiment` | 감성 (긍정 / 부정 / 중립) |
+
+**`data/analyzed/trend_report.json`** — 전체 분석 결과 1개
+
+| 필드 | 설명 |
+| --- | --- |
+| `trends` | 주요 트렌드 3~6개 (`title`, `description`) |
+| `implications` | 시사점 3~5개 |
+| `overall_summary` | 전체 흐름 3~4문장 요약 |
+| `keyword_frequency` | 키워드 빈도 상위 15개 (`keyword`, `count`) |
+| `category_distribution` | 카테고리별 건수 |
+| `article_count` | 분석에 사용된 기사 수 |
+
+### 3-5. 다른 파트와의 연결
+
+- `news_summary.jsonl`의 `id`로 clean 데이터와 조인할 수 있습니다.
+- 4번 파트(시각화·리포트)는 `trend_report.json`만 읽으면 키워드 빈도, 카테고리 분포,
+  트렌드, 시사점을 그대로 쓸 수 있습니다. 별도 집계가 필요 없습니다.
+
+### 3-6. 안정성 처리
+
+- **응답 형식 고정** — structured outputs(strict)로 JSON 스키마를 API 쪽에서 강제합니다.
+  모델이 형식을 어기거나 코드펜스를 붙일 수 없어 파싱이 실패하지 않습니다.
+- **호출 한도·서버 오류** — 429나 5xx는 SDK가 지수 백오프로 자동 재시도합니다(최대 5회).
+- **실패 시 스킵** — 재시도로도 실패한 배치는 `logs/pipeline.log`에 ERROR로 남기고
+  다음 배치로 넘어갑니다. 한 배치가 실패해도 전체가 멈추지 않습니다.
+- **잘림·거부 감지** — 응답이 토큰 한도에서 잘리거나 안전 정책으로 거부되면
+  정상 응답으로 착각하지 않도록 따로 확인합니다.
 
 ## 4. 시각화 및 리포트 생성
 
@@ -275,6 +378,9 @@ python main.py report --date-field collected           # 수집일 기준 추이
 | `daily_trend.png` | 일자별 수집 추이 (꺾은선, 최다일 표시) |
 | `top_keywords.png` | AI가 뽑은 키워드 TOP N (가로 막대) |
 | `source_share.png` | 소스별 수집 비중 (원 그래프) |
+| `sentiment.png` | 뉴스 감성 분포 (가로 막대, 보너스) |
+
+`sentiment.png` 는 감성 분석이 끝난 기사가 있을 때만 생성됩니다.
 
 한글 폰트는 실행 환경에 설치된 것을 자동으로 찾아 적용합니다.
 (macOS `AppleGothic` → Windows `Malgun Gothic` → 리눅스 `NanumGothic` 순으로 탐색)
@@ -392,11 +498,13 @@ pip install -r requirements.txt
 
 NAVER_CLIENT_ID=your_client_id
 NAVER_CLIENT_SECRET=your_client_secret
-GOOGLE_API_KEY=your_gemini_api_key
+OPENAI_API_KEY=your_openai_api_key
 ```
 
 - `NAVER_*` : NAVER 뉴스 검색 API (수집 단계)
-- `GOOGLE_API_KEY` : Gemini API (AI 요약·분석 단계)
+- `OPENAI_API_KEY` : OpenAI API (AI 요약·분석 단계)
+
+AI 모델은 `config.json` 의 `ai.model` 에서 바꿀 수 있습니다.
 
 실제 API 키가 포함된 .env 파일은 GitHub에 업로드하지 않습니다
 
