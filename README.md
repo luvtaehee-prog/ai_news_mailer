@@ -31,8 +31,10 @@ project/
 │   └── analyzed/        # AI 요약·트렌드 분석 결과
 │
 ├── output/
-│   ├── charts/          # 차트 PNG
-│   ├── reports/         # 리포트 MD / TXT
+│   ├── reports/         # 실행 1회 = 폴더 1개
+│   │   └── report_<날짜_시각>/
+│   │       ├── report.md / report.txt
+│   │       └── charts/  # 그 시점의 차트 PNG
 │   └── exports/         # CSV / JSONL / Excel
 ├── logs/                # 실행 로그 (collector.log, pipeline.log)
 │
@@ -274,7 +276,7 @@ python main.py summarize --sentiment-only    # 감성만 채우기
 본문 대신 제목과 요약만 보내므로 요약을 다시 돌리는 것보다 훨씬 쌉니다.
 
 결과는 `news_summary.jsonl`의 `sentiment` 필드에 저장되고,
-막대 차트(`output/charts/sentiment.png`)와 리포트의 "감성 분포" 표로 시각화됩니다.
+막대 차트(리포트 폴더 안 `charts/sentiment.png`)와 리포트의 "감성 분포" 표로 시각화됩니다.
 내보내기(CSV/Excel)에도 `sentiment` 컬럼으로 포함됩니다.
 
 ### 3-3. 트렌드 분석
@@ -380,7 +382,23 @@ python main.py report --date-field collected           # 수집일 기준 추이
 
 ### 4-2. 차트
 
-`output/charts/` 에 PNG로 저장됩니다.
+차트는 **그 실행의 리포트 폴더 안**에 저장됩니다.
+
+```text
+output/reports/report_20260811_163556/
+├── report.md
+├── report.txt
+└── charts/
+    ├── category_counts.png
+    ├── daily_trend.png
+    ├── top_keywords.png
+    ├── source_share.png
+    └── sentiment.png
+```
+
+차트를 `output/charts/` 한 곳에 고정 이름으로 두면 실행할 때마다 덮어써져,
+**과거 리포트가 최신 차트를 가리키는 문제**가 생깁니다(본문은 203건인데 차트는 239건).
+리포트가 자기 차트를 갖고 다니게 해서 시점별로 일관되게 남도록 했습니다.
 
 | 파일 | 내용 |
 | --- | --- |
@@ -470,7 +488,7 @@ python main.py fetch --source google --limit 20   # 수집  → data/raw/*.jsonl
 python main.py clean                              # 정제  → data/clean/news_clean.jsonl
 python main.py summarize                          # 요약  → data/analyzed/news_summary.jsonl
 python main.py analyze                            # 분석  → data/analyzed/trend_report.json
-python main.py report --format both               # 리포트 → output/charts, output/reports
+python main.py report --format both               # 리포트 → output/reports/report_<날짜_시각>/
 python main.py export --format all                # 내보내기 → output/exports
 ```
 

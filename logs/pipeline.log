@@ -287,3 +287,33 @@
 2026-08-11 16:23:09,655 [INFO] report: 차트 저장: output\charts\sentiment.png
 2026-08-11 16:23:09,656 [INFO] report: 리포트 저장: output\reports\report_20260811_162309.md
 2026-08-11 16:23:09,658 [INFO] report: 리포트 저장: output\reports\report_20260811_162309.txt
+2026-08-11 16:35:56,518 [INFO] report: 데이터 로드: clean 239건, 요약 239건, 트렌드 있음
+2026-08-11 16:35:56,519 [INFO] report: 한글 폰트 적용: Malgun Gothic
+2026-08-11 16:35:56,678 [INFO] report: 차트 저장: output\reports\report_20260811_163556\charts\category_counts.png
+2026-08-11 16:35:56,879 [INFO] report: 차트 저장: output\reports\report_20260811_163556\charts\daily_trend.png
+2026-08-11 16:35:57,007 [INFO] report: 차트 저장: output\reports\report_20260811_163556\charts\top_keywords.png
+2026-08-11 16:35:57,072 [INFO] report: 차트 저장: output\reports\report_20260811_163556\charts\source_share.png
+2026-08-11 16:35:57,163 [INFO] report: 차트 저장: output\reports\report_20260811_163556\charts\sentiment.png
+2026-08-11 16:35:57,164 [INFO] report: 리포트 저장: output\reports\report_20260811_163556\report.md
+2026-08-11 16:35:57,166 [INFO] report: 리포트 저장: output\reports\report_20260811_163556\report.txt
+2026-08-11 16:36:22,473 [INFO] report: 데이터 로드: clean 239건, 요약 239건, 트렌드 있음
+2026-08-11 16:36:22,473 [INFO] report: 필터 적용: 239건 -> 102건
+2026-08-11 16:36:22,474 [INFO] report: 한글 폰트 적용: Malgun Gothic
+2026-08-11 16:36:22,555 [INFO] report: 차트 저장: output\reports\report_20260811_163622\charts\category_counts.png
+2026-08-11 16:36:22,660 [INFO] report: 차트 저장: output\reports\report_20260811_163622\charts\daily_trend.png
+2026-08-11 16:36:22,770 [INFO] report: 차트 저장: output\reports\report_20260811_163622\charts\top_keywords.png
+2026-08-11 16:36:22,815 [INFO] report: 차트 저장: output\reports\report_20260811_163622\charts\source_share.png
+2026-08-11 16:36:22,891 [INFO] report: 차트 저장: output\reports\report_20260811_163622\charts\sentiment.png
+2026-08-11 16:36:22,893 [INFO] report: 리포트 저장: output\reports\report_20260811_163622\report.md
+2026-08-11 16:37:39,162 [INFO] report: 데이터 로드: clean 239건, 요약 239건, 트렌드 있음
+2026-08-11 16:37:39,163 [INFO] report: 한글 폰트 적용: Malgun Gothic
+2026-08-11 16:37:39,276 [INFO] report: 차트 저장: output\reports\report_20260811_163739\charts\category_counts.png
+2026-08-11 16:37:39,446 [INFO] report: 차트 저장: output\reports\report_20260811_163739\charts\daily_trend.png
+2026-08-11 16:37:39,560 [INFO] report: 차트 저장: output\reports\report_20260811_163739\charts\top_keywords.png
+2026-08-11 16:37:39,618 [INFO] report: 차트 저장: output\reports\report_20260811_163739\charts\source_share.png
+2026-08-11 16:37:39,699 [INFO] report: 차트 저장: output\reports\report_20260811_163739\charts\sentiment.png
+2026-08-11 16:37:39,700 [INFO] report: 리포트 저장: output\reports\report_20260811_163739\report.md
+2026-08-11 16:37:39,702 [INFO] report: 리포트 저장: output\reports\report_20260811_163739\report.txt
+2026-08-11 16:37:40,286 [INFO] report: 데이터 로드: clean 239건, 요약 239건, 트렌드 있음
+2026-08-11 16:37:40,289 [INFO] report: CSV 저장: output\exports\news_export_20260811_163740.csv (2행)
+2026-08-11 16:37:40,869 [INFO] report: 데이터 로드: clean 239건, 요약 239건, 트렌드 있음

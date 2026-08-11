@@ -401,9 +401,14 @@ def to_plain_text(markdown: str) -> str:
 
 def save_report(markdown: str, out_dir: str = "output/reports",
                 fmt: str = "md", filename: str = None) -> str:
-    """리포트를 파일로 저장하고 경로를 반환한다. fmt = md | txt"""
+    """리포트를 파일로 저장하고 경로를 반환한다. fmt = md | txt
+
+    filename 을 주면 그 이름으로 저장한다. report 커맨드는 실행별 폴더
+    (report_20260811_162309/)를 따로 만들고 report.md 를 넘기므로,
+    파일명에 시각이 중복으로 들어가지 않는다.
+    """
     os.makedirs(out_dir, exist_ok=True)
-    # 초 단위까지 붙여 같은 분에 두 번 실행해도 이전 리포트를 덮어쓰지 않게 한다
+    # 단독 호출로 폴더를 안 만든 경우엔 파일명에 시각을 붙여 덮어쓰기를 막는다
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     name = filename or f"report_{stamp}.{fmt}"
     path = os.path.join(out_dir, name)

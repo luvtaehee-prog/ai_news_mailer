@@ -19,6 +19,7 @@ main.py 에 붙이는 방법:
 import os
 import json
 import argparse
+from datetime import datetime
 
 import reporter
 import visualizer
@@ -67,8 +68,20 @@ def cmd_report(args) -> dict:
 
     out_root = (getattr(args, "output", None)
                 or report_conf.get("output_directory", "output"))
-    chart_dir = os.path.join(out_root, "charts")
-    report_dir = os.path.join(out_root, "reports")
+
+    # 실행 한 번을 폴더 하나로 묶는다.
+    #
+    #   output/reports/report_20260811_162309/
+    #   ├── report.md
+    #   ├── report.txt
+    #   └── charts/*.png
+    #
+    # 차트를 output/charts 에 고정 이름으로 두면 실행할 때마다 덮어써져,
+    # 과거 리포트가 최신 차트를 가리키게 된다(본문은 203건인데 차트는 239건).
+    # 리포트가 자기 차트를 갖고 다니게 해서 시점별로 일관되게 남긴다.
+    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    report_dir = os.path.join(out_root, "reports", f"report_{stamp}")
+    chart_dir = os.path.join(report_dir, "charts")
 
     top_n = getattr(args, "top", None) or report_conf.get("top_n", 10)
     date_field = (getattr(args, "date_field", None)
@@ -127,7 +140,9 @@ def cmd_report(args) -> dict:
                                      report_dir=report_dir, filtered=filtered)
     fmt = getattr(args, "format", "md")
     formats = ["md", "txt"] if fmt == "both" else [fmt]
-    report_paths = [reporter.save_report(markdown, report_dir, f)
+    # 폴더 이름이 이미 시각을 담고 있으므로 파일명은 report.md / report.txt 로 고정한다
+    report_paths = [reporter.save_report(markdown, report_dir, f,
+                                         filename=f"report.{f}")
                     for f in formats]
 
     # 6) 콘솔 출력
