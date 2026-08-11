@@ -25,6 +25,18 @@ jobs:
       - name: 의존성 설치
         run: pip install -r requirements.txt
 
+      # 저장 경로를 config.json 에서 읽어 온다.
+      # 여기서 하드코딩하면 config 의 paths 를 바꿨을 때 커밋 단계가
+      # 엉뚱한 위치를 보게 되므로, 코드와 같은 값을 쓰도록 맞춰 둔다.
+      - name: 저장 경로 확인
+        run: |
+          python - <<'PY' | tee -a "$GITHUB_ENV"
+          import json
+          paths = json.load(open("config.json", encoding="utf-8")).get("paths", {})
+          print("RAW_DIR=" + paths.get("raw", "data/raw"))
+          print("CLEAN_DIR=" + paths.get("clean", "data/clean"))
+          PY
+
       - name: Google News 수집
         run: python main.py fetch --source google --limit 20
 
@@ -38,12 +50,12 @@ jobs:
         run: python main.py fetch --source govuk --limit 20
 
       - name: 데이터 정제
-        run: python clean_command.py --policy upsert
+        run: python main.py clean --policy upsert
 
       - name: 결과 커밋 및 푸시
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/raw/*.jsonl data/clean/*.jsonl logs/collector.log
+          git add "$RAW_DIR"/*.jsonl "$CLEAN_DIR"/*.jsonl logs/collector.log
           git diff --cached --quiet && echo "변경사항 없음" || git commit -m "chore: 정기 뉴스 수집 결과 반영 ($(date -u +%Y-%m-%d))"
           git push
