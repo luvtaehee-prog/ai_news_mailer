@@ -241,3 +241,23 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-11 15:55:49,219 [INFO] 새로 추가된 뉴스: 1
 2026-08-11 15:55:49,221 [INFO] 저장 완료: C:\Users\수다쟁~1\AppData\Local\Temp\tmpd0qa78q2\_pathtest.jsonl
 2026-08-11 15:55:49,221 [INFO] 새로 추가된 뉴스: 1
+2026-08-11 07:13:15,000 [ERROR] Article request timed out: https://www.yna.co.kr/view/AKR20260807155900017
+2026-08-11 07:13:49,811 [INFO] 수집된 Google News: 20
+2026-08-11 07:13:49,814 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-11 07:13:49,814 [INFO] 새로 추가된 뉴스: 18
+2026-08-11 07:13:52,574 [INFO] 검색어 'AI' 응답 코드: 200
+2026-08-11 07:13:53,544 [INFO] 검색어 '인공지능' 응답 코드: 200
+2026-08-11 07:13:54,473 [INFO] 검색어 '생성형 AI' 응답 코드: 200
+2026-08-11 07:13:55,424 [INFO] 검색어 'LLM' 응답 코드: 200
+2026-08-11 07:13:56,368 [INFO] 검색어 'AI 반도체' 응답 코드: 200
+2026-08-11 07:14:23,178 [ERROR] Article content fetch failed: https://www.mk.co.kr/article/12124125
+2026-08-11 07:14:23,178 [ERROR] 403 Client Error: Forbidden for url: https://www.mk.co.kr/article/12124125
+2026-08-11 07:14:33,524 [ERROR] Article content fetch failed: https://www.ikbc.co.kr/article/view/kbc202608110040
+2026-08-11 07:14:33,524 [ERROR] 502 Server Error: Bad Gateway for url: https://www.ikbc.co.kr/article/view/kbc202608110040
+2026-08-11 07:14:36,231 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 20
+2026-08-11 07:14:36,235 [INFO] 저장 완료: data/raw/naver_news.jsonl
+2026-08-11 07:14:36,235 [INFO] 새로 추가된 뉴스: 20
+2026-08-11 07:14:37,910 [INFO] GOV.UK 응답 코드: 200
+2026-08-11 07:15:04,299 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-11 07:15:04,300 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-11 07:15:04,300 [INFO] 새로 추가된 뉴스: 0

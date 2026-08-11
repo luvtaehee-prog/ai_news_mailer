@@ -247,3 +247,34 @@
 2026-08-11 16:00:06,341 [INFO] clean: raw 로드: 206건
 2026-08-11 16:00:06,365 [INFO] clean: 정제 통과: 206건, 제외: 0건
 2026-08-11 16:00:06,374 [INFO] clean: 저장 완료: 신규 0, 갱신 203, 스킵 0, 배치중복 1, 제목중복 2 -> 총 203건 (data/clean\news_clean.jsonl)
+2026-08-11 07:15:04,872 [INFO] clean: 정제 시작: raw=data/raw, 정책=upsert
+2026-08-11 07:15:04,883 [INFO] clean: raw 로드: 244건
+2026-08-11 07:15:04,936 [INFO] clean: 정제 통과: 244건, 제외: 0건
+2026-08-11 07:15:04,948 [INFO] clean: 저장 완료: 신규 36, 갱신 203, 스킵 0, 배치중복 1, 제목중복 4 -> 총 239건 (data/clean/news_clean.jsonl)
+2026-08-11 07:15:06,118 [INFO] analyze: clean 데이터 239건 로드
+2026-08-11 07:15:06,155 [INFO] analyze: 이미 완료: 203건 / 남은 작업: 36건
+2026-08-11 07:15:06,156 [INFO] analyze: [배치 1/8] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 07:15:12,291 [INFO] analyze: [배치 2/8] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 07:15:19,434 [INFO] analyze: [배치 3/8] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 07:15:26,360 [INFO] analyze: [배치 4/8] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 07:15:33,701 [INFO] analyze: [배치 5/8] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 07:15:41,418 [INFO] analyze: [배치 6/8] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 07:15:47,566 [INFO] analyze: [배치 7/8] 5건 처리 중... (모델: gpt-5.4)
+2026-08-11 07:15:55,124 [INFO] analyze: [배치 8/8] 1건 처리 중... (모델: gpt-5.4)
+2026-08-11 07:15:57,184 [INFO] analyze: 요약 완료: 36건 성공, 0건 실패 -> data/analyzed/news_summary.jsonl
+2026-08-11 07:15:57,186 [INFO] analyze: 감성 분석: 채울 레코드가 없습니다 (전체 239건 완료)
+2026-08-11 07:15:58,541 [INFO] analyze: 트렌드 분석 중... (모델: gpt-5.4, 대상 239건)
+2026-08-11 07:16:14,612 [INFO] analyze: 완료: data/analyzed/trend_report.json
+2026-08-11 07:16:15,313 [INFO] report: 데이터 로드: clean 239건, 요약 239건, 트렌드 있음
+2026-08-11 07:16:15,314 [WARNING] report: 한글 폰트를 찾지 못했습니다. 차트의 한글이 네모(□)로 보일 수 있습니다. 설치 예: macOS는 기본 제공, Windows는 맑은 고딕, 리눅스는 fonts-nanum
+2026-08-11 07:16:15,486 [INFO] report: 차트 저장: output/charts/category_counts.png
+2026-08-11 07:16:15,728 [INFO] report: 차트 저장: output/charts/daily_trend.png
+2026-08-11 07:16:15,916 [INFO] report: 차트 저장: output/charts/top_keywords.png
+2026-08-11 07:16:16,019 [INFO] report: 차트 저장: output/charts/source_share.png
+2026-08-11 07:16:16,147 [INFO] report: 차트 저장: output/charts/sentiment.png
+2026-08-11 07:16:16,148 [INFO] report: 리포트 저장: output/reports/report_20260811_071616.md
+2026-08-11 07:16:16,148 [INFO] report: 리포트 저장: output/reports/report_20260811_071616.txt
+2026-08-11 07:16:16,675 [INFO] report: 데이터 로드: clean 239건, 요약 239건, 트렌드 있음
+2026-08-11 07:16:16,696 [INFO] report: CSV 저장: output/exports/news_export_20260811_071616.csv (239행)
+2026-08-11 07:16:16,698 [INFO] report: JSONL 저장: output/exports/news_export_20260811_071616.jsonl (239행)
+2026-08-11 07:16:16,871 [INFO] report: Excel 저장: output/exports/news_export_20260811_071616.xlsx (239행)
