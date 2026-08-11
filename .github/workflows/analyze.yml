@@ -1,0 +1,107 @@
+name: 정기 분석·리포트
+
+# 수집·정제만 매일 도는 collect.yml 과 달리, 이 워크플로는 파이프라인을
+# 처음부터 끝까지(수집 → 정제 → 요약 → 분석 → 리포트 → 내보내기) 한 번에 돌린다.
+#
+# 수집·정제는 collect.yml 이 매일 돌리고, 비용이 드는 AI 단계까지 포함한
+# 전체 실행은 이 워크플로가 매월 14일에 한 번만 맡는다.
+# 필요하면 GitHub Actions 화면의 "Run workflow" 로 언제든 수동 실행할 수 있다.
+on:
+  schedule:
+    # 매월 14일 06:30 KST (UTC 21:30, 하루 전날)
+    # collect.yml 이 21:00 에 돌고 push 하므로, 30분 뒤로 밀어 충돌을 피한다.
+    - cron: "30 21 14 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      # 저장 경로를 config.json 에서 읽어 온다. 여기서 하드코딩하면
+      # config 의 paths 를 바꿨을 때 커밋 단계가 엉뚱한 위치를 보게 된다.
+      - name: 저장 경로 확인
+        run: |
+          python - <<'PY' | tee -a "$GITHUB_ENV"
+          import json
+          conf = json.load(open("config.json", encoding="utf-8"))
+          paths = conf.get("paths", {})
+          print("RAW_DIR=" + paths.get("raw", "data/raw"))
+          print("CLEAN_DIR=" + paths.get("clean", "data/clean"))
+          print("ANALYZED_DIR=" + paths.get("analyzed", "data/analyzed"))
+          print("OUTPUT_DIR=" + conf.get("report", {}).get("output_directory", "output"))
+          PY
+
+      # --- 1. 수집 ---------------------------------------------------
+      - name: Google News 수집
+        run: python main.py fetch --source google --limit 20
+
+      - name: NAVER News 수집
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+        run: python main.py fetch --source naver --limit 20
+
+      - name: GOV.UK 수집
+        run: python main.py fetch --source govuk --limit 20
+
+      # --- 2. 정제 ---------------------------------------------------
+      - name: 데이터 정제
+        run: python main.py clean --policy upsert
+
+      # --- 3. AI 요약 + 감성 분석 ------------------------------------
+      # 아직 요약되지 않은 기사만 처리하므로, 2주치가 쌓여 있어도
+      # 이미 끝난 건은 건너뛴다.
+      - name: AI 요약·감성 분석
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python main.py summarize
+
+      # --- 4. AI 트렌드 분석 -----------------------------------------
+      # 조건 없이 전체 기준으로 돌려야 리포트의 집계와 모집단이 맞는다.
+      - name: AI 트렌드 분석
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python main.py analyze
+
+      # --- 5. 리포트 + 내보내기 --------------------------------------
+      - name: 리포트·차트 생성
+        run: python main.py report --format both
+
+      - name: 데이터 내보내기
+        run: python main.py export --format all
+
+      # exports 는 .gitignore 대상이라 커밋되지 않는다.
+      # 대신 워크플로 아티팩트로 올려 두어 필요할 때 내려받을 수 있게 한다.
+      - name: 내보내기 결과 업로드
+        uses: actions/upload-artifact@v4
+        with:
+          name: news-export
+          path: ${{ env.OUTPUT_DIR }}/exports/
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: 결과 커밋 및 푸시
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "$RAW_DIR"/*.jsonl "$CLEAN_DIR"/*.jsonl "$ANALYZED_DIR"/* \
+                  "$OUTPUT_DIR"/charts/* "$OUTPUT_DIR"/reports/* logs/*.log
+          git diff --cached --quiet && echo "변경사항 없음" || git commit -m "chore: 정기 분석·리포트 결과 반영 ($(date -u +%Y-%m-%d))"
+          # collect.yml 이 먼저 push 했을 수 있으므로 최신 상태에 얹는다
+          git pull --rebase origin main
+          git push
