@@ -353,8 +353,10 @@ def build_report(stats: dict, trend: dict, chart_paths: list = None,
         parts.append("## 5. 차트\n")
         for path in chart_paths:
             name = os.path.splitext(os.path.basename(path))[0]
-            # 리포트 파일 기준 상대 경로로 적어야 Markdown 뷰어에서 이미지가 보인다
-            rel = os.path.relpath(path, report_dir)
+            # 리포트 파일 기준 상대 경로로 적어야 Markdown 뷰어에서 이미지가 보인다.
+            # Windows 의 os.path.relpath 는 역슬래시를 돌려주는데 Markdown 링크는
+            # 슬래시만 인식하므로 반드시 바꿔 준다. (안 그러면 이미지가 안 뜬다)
+            rel = os.path.relpath(path, report_dir).replace(os.sep, "/")
             parts.append(f"### {name}\n")
             parts.append(f"![{name}]({rel})\n")
 
