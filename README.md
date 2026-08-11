@@ -36,7 +36,9 @@ project/
 │   └── exports/         # CSV / JSONL / Excel
 ├── logs/                # 실행 로그 (collector.log, pipeline.log)
 │
-├── .github/workflows/   # 정기 수집 자동화 (GitHub Actions)
+├── .github/workflows/   # 정기 실행 자동화 (보너스)
+│   ├── collect.yml      #   매일 - 수집 + 정제
+│   └── analyze.yml      #   매월 14일 - 전체 파이프라인 (AI 분석·리포트 포함)
 ├── config.json          # 뉴스 소스, 정제 설정, 중복 처리 정책 등
 ├── requirements.txt     # Python 패키지 목록
 └── README.md
@@ -516,23 +518,54 @@ AI 모델은 `config.json` 의 `ai.model` 에서 바꿀 수 있습니다.
 
 실제 API 키가 포함된 .env 파일은 GitHub에 업로드하지 않습니다
 
-## 정기 실행 스케줄링
+## 정기 실행 스케줄링 (보너스)
 
-뉴스 수집을 매일 자동으로 실행하도록 예약할 수 있습니다. 환경에 따라 아래 방법 중 하나를 사용합니다.
+> **보너스 과제**: "cron 또는 작업 스케줄러를 이용한 정기 수집 방법을 README.md에 문서화한다."
+> 본 저장소는 문서화에 그치지 않고 **GitHub Actions로 실제 자동화까지 적용**했습니다.
+
+파이프라인은 비용과 주기가 다른 두 워크플로로 나눠 예약해 두었습니다.
+
+| 워크플로 | 주기 | 하는 일 | 비용 |
+| --- | --- | --- | --- |
+| `collect.yml` | **매일** 06:00 KST | 수집(3소스) → 정제 | 무료 (외부 API만 사용) |
+| `analyze.yml` | **매월 14일** 06:30 KST | 수집 → 정제 → AI 요약·감성 → 트렌드 분석 → 리포트 → 내보내기 | OpenAI API 과금 |
+
+나눈 이유는 **비용** 입니다. 뉴스는 매일 쌓여야 추이 분석이 의미가 있지만, AI 단계까지 매일 돌리면
+호출 비용이 계속 발생합니다. 그래서 무료인 수집·정제만 매일 돌리고, 과금되는 AI 단계는 2주에 한 번
+몰아서 처리합니다. 요약은 아직 처리되지 않은 기사만 골라 실행하므로 그동안 쌓인 분량이 한 번에 정리됩니다.
 
 ### 방법 1. GitHub Actions (권장, 본 저장소에 적용됨)
 
-PC를 켜두지 않아도 GitHub의 클라우드 러너가 매일 정해진 시각에 자동으로 수집을 실행하고, 결과를 저장소에 커밋합니다.
+PC를 켜두지 않아도 GitHub의 클라우드 러너가 정해진 시각에 자동 실행하고, 결과를 저장소에 커밋합니다.
 
-- 워크플로 정의: `.github/workflows/collect.yml`
-- 스케줄: 매일 06:00 KST (cron 표현식 `0 21 * * *`, UTC 기준)
-- 동작 순서: Google → NAVER → GOV.UK 순으로 각 20개씩 수집 → `data/raw/*.jsonl` 변경사항을 자동 커밋 및 푸시
-- 저장소 Settings → Secrets and variables → Actions에 아래 두 값을 등록해야 NAVER 수집이 동작합니다.
-  - `NAVER_CLIENT_ID`
-  - `NAVER_CLIENT_SECRET`
-- 예약 시각 외에도 Actions 탭에서 `Run workflow` 버튼으로 즉시 수동 실행이 가능합니다(`workflow_dispatch`).
+**매일 수집 — `.github/workflows/collect.yml`**
 
-cron 표현식은 `분 시 일 월 요일` 순서로 실행 시각을 지정합니다. 예: `0 21 * * *`는 "매일 UTC 21시 정각"을 의미합니다.
+- 스케줄: 매일 06:00 KST (cron `0 21 * * *`, UTC 기준)
+- 동작: Google → NAVER → GOV.UK 각 20개씩 수집 → 정제 → 변경사항 자동 커밋·푸시
+
+**전체 파이프라인 — `.github/workflows/analyze.yml`**
+
+- 스케줄: 매월 14일 06:30 KST (cron `30 21 14 * *`, UTC 기준)
+- 동작: 수집 → 정제 → AI 요약·감성 분석 → 트렌드 분석 → 리포트·차트 → 내보내기
+- 매일 수집(21:00 UTC)이 먼저 푸시하므로 30분 뒤에 실행하고, 푸시 전 `git pull --rebase`로 최신 상태에 얹습니다.
+- `output/exports/`는 `.gitignore` 대상이라 커밋되지 않으므로, 워크플로 아티팩트로 업로드해 30일간 내려받을 수 있게 했습니다.
+
+**필요한 Secrets** — 저장소 Settings → Secrets and variables → Actions에 등록합니다.
+
+| 이름 | 쓰이는 곳 |
+| --- | --- |
+| `NAVER_CLIENT_ID` | NAVER 뉴스 수집 (두 워크플로 공통) |
+| `NAVER_CLIENT_SECRET` | NAVER 뉴스 수집 (두 워크플로 공통) |
+| `OPENAI_API_KEY` | AI 요약·감성·트렌드 분석 (`analyze.yml` 전용) |
+
+두 워크플로 모두 Actions 탭의 `Run workflow` 버튼으로 즉시 수동 실행할 수 있습니다(`workflow_dispatch`).
+
+cron 표현식은 `분 시 일 월 요일` 순서입니다. `0 21 * * *`는 "매일 UTC 21시 정각",
+`30 21 14 * *`는 "매월 14일 UTC 21시 30분"을 뜻합니다.
+
+> cron은 달력 기준이라 "N일마다"를 직접 표현할 수 없습니다. 예를 들어 `*/14`는
+> 1·15·29일에 걸린 뒤 다음 달 1일로 넘어가 마지막 간격만 2~3일이 됩니다.
+> 그래서 날짜를 고정하는 방식(`14 * *`)을 썼습니다.
 
 ### 방법 2. Linux / macOS - cron
 
