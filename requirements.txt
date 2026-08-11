@@ -2,3 +2,6 @@ requests
 feedparser
 beautifulsoup4
 python-dotenv
+google-generativeai
+matplotlib
+openpyxl
