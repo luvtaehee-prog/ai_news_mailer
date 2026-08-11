@@ -41,6 +41,9 @@ COLOR_SUB = "#F2A03D"
 COLOR_PALETTE = ["#3B6FD4", "#F2A03D", "#5FB98C", "#E4685D",
                  "#8C7AE6", "#4FB0C6", "#C7A15A", "#9AA3AF"]
 
+# 감성은 색 자체가 의미를 가지므로 팔레트 순서가 아니라 라벨에 고정한다
+SENTIMENT_COLORS = {"긍정": "#5FB98C", "중립": "#9AA3AF", "부정": "#E4685D"}
+
 
 def setup_korean_font() -> str:
     """설치된 한글 폰트를 찾아 matplotlib 기본 폰트로 설정한다.
@@ -226,6 +229,43 @@ def chart_source_share(counts: dict, out_path: str,
     return _finish(fig, out_path)
 
 
+def chart_sentiment(counts: dict, out_path: str,
+                    base_note: str = "") -> str:
+    """뉴스 감성 분포 (가로 막대). 보너스 과제."""
+    _prepare(out_path)
+    if not counts:
+        return _empty_notice("뉴스 감성 분포", out_path)
+
+    labels = list(counts.keys())
+    values = [counts[k] for k in labels]
+    total = sum(values)
+    colors = [SENTIMENT_COLORS.get(k, COLOR_MAIN) for k in labels]
+
+    fig, ax = plt.subplots(figsize=(8, 4.2))
+    # 위에서부터 긍정 → 중립 → 부정 순으로 읽히도록 뒤집어 그린다
+    ypos = range(len(labels))
+    ax.barh(list(ypos), values, color=colors, height=0.6)
+    ax.set_yticks(list(ypos))
+    ax.set_yticklabels(labels, fontsize=12)
+    ax.invert_yaxis()
+
+    for y, v in zip(ypos, values):
+        ax.text(v + max(values) * 0.015, y,
+                f"{v}건 ({v / total * 100:.1f}%)",
+                va="center", fontsize=11)
+
+    ax.set_xlabel("기사 수 (건)", fontsize=11)
+    ax.set_xlim(0, max(values) * 1.22)
+    ax.set_title("뉴스 감성 분포", fontsize=15, pad=14)
+    ax.grid(axis="x", linestyle=":", alpha=0.5)
+    ax.set_axisbelow(True)
+    for side in ("top", "right", "left"):
+        ax.spines[side].set_visible(False)
+
+    _base_note(fig, base_note)
+    return _finish(fig, out_path)
+
+
 def render_all(stats: dict, out_dir: str = "output/charts") -> list:
     """리포트에 들어갈 차트를 한 번에 그린다.
 
@@ -255,6 +295,14 @@ def render_all(stats: dict, out_dir: str = "output/charts") -> list:
             stats["source_counts"],
             os.path.join(out_dir, "source_share.png"), all_note),
     ]
+
+    # 감성 차트는 감성 분석이 끝난 기사가 있을 때만 그린다
+    sentiment_counts = stats.get("sentiment_counts") or {}
+    if sentiment_counts:
+        paths.append(chart_sentiment(
+            sentiment_counts, os.path.join(out_dir, "sentiment.png"),
+            f"감성 분석 완료 {stats.get('sentiment_total', 0)}건 기준"))
+
     return paths
 
 

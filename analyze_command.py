@@ -6,7 +6,7 @@ AI 요약·트렌드 분석 로직 자체는 3번 파트의 analyzer.py 에 있�
  이 파일은 지우고 그쪽 것으로 교체하면 된다.)
 
 analyzer 모듈은 함수 안에서 import 한다.
-모듈 상단에서 import 하면 google-generativeai 패키지나 API 키가 없는 환경에서
+모듈 상단에서 import 하면 openai 패키지나 API 키가 없는 환경에서
 `python main.py report` 같은 무관한 커맨드까지 함께 죽기 때문이다.
 """
 
@@ -18,7 +18,7 @@ from log_setup import get_logger
 def _load_analyzer(log):
     """analyzer 모듈을 불러온다. 준비가 안 됐으면 안내 문구를 남기고 None 을 반환한다.
 
-    google-generativeai 패키지가 없으면 파이썬 기본 오류 메시지(ModuleNotFoundError)가
+    openai 패키지가 없으면 파이썬 기본 오류 메시지(ModuleNotFoundError)가
     그대로 튀어나와 원인을 알기 어렵다. 무엇을 설치해야 하는지 짚어 준다.
     """
     try:
@@ -45,8 +45,11 @@ def add_summarize_parser(subparsers) -> None:
                    help="요약할 최대 건수")
     p.add_argument("--batch-size", type=int, default=5,
                    help="한 번의 API 호출에 묶을 기사 수 (기본: 5)")
-    p.add_argument("--delay", type=int, default=8,
-                   help="배치 사이 대기 시간(초). API 사용량 제한 회피용")
+    p.add_argument("--sentiment-only", action="store_true",
+                   help="요약은 건너뛰고 감성(긍정/부정/중립)만 채운다")
+    p.add_argument("--delay", type=int, default=0,
+                   help="배치 사이 대기 시간(초). 기본 0 — 호출 한도 초과는 "
+                        "SDK 가 알아서 재시도하므로 보통 필요 없다")
 
 
 def cmd_summarize(args):
@@ -54,6 +57,11 @@ def cmd_summarize(args):
     log = get_logger("analyze")
     analyzer = _load_analyzer(log)  # 지연 import (위 모듈 설명 참고)
     if analyzer is None:
+        return
+
+    # 감성만 채우는 모드: 이미 요약된 레코드만 손대면 되므로 clean 로드가 필요 없다
+    if getattr(args, "sentiment_only", False):
+        analyzer.backfill_sentiment()
         return
 
     records = analyzer.load_clean_news()
@@ -67,15 +75,22 @@ def cmd_summarize(args):
             return
 
     if getattr(args, "limit", None):
-        records = records[: args.limit]
+        # 이미 요약된 건을 먼저 걸러낸 뒤에 limit 을 적용한다.
+        # 순서를 바꾸면 앞쪽 기요약분만 잘려나가 신규 건이 하나도 안 잡힌다.
+        done = analyzer.load_done_ids("data/analyzed/news_summary.jsonl")
+        records = [r for r in records if r.get("id") not in done][: args.limit]
 
     # --all / --unsummarized 모두 analyzer 가 기존 요약분을 건너뛴다.
     # (요구사항: 이미 요약된 뉴스는 기본 스킵)
     analyzer.summarize_all(
         records,
         batch_size=getattr(args, "batch_size", 5),
-        delay=getattr(args, "delay", 8),
+        delay=getattr(args, "delay", 0),
     )
+
+    # 감성 값이 빠진 레코드를 이어서 채운다.
+    # (요약보다 감성 분석을 나중에 추가했기 때문에 기존 레코드에는 값이 없다)
+    analyzer.backfill_sentiment()
 
 
 def add_analyze_parser(subparsers) -> None:

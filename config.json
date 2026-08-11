@@ -28,6 +28,10 @@
     "timeout": 10
   },
 
+  "ai": {
+    "model": "gpt-5.4"
+  },
+
   "duplicate_policy": "skip",
 
   "storage": {

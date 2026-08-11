@@ -175,6 +175,21 @@ def build_stats(data: dict, top_n: int = 10,
                 keyword_counter[kw] += 1
     top_keywords = keyword_counter.most_common(top_n)
 
+    # --- 감성 분포 (보너스) ------------------------------------------
+    # 값이 비어 있는 레코드(감성 분석 전에 요약된 건)는 세지 않는다.
+    sentiment_counter = Counter()
+    for s in summaries:
+        label = (s.get("sentiment") or "").strip()
+        if label:
+            sentiment_counter[label] += 1
+    # 건수 순이 아니라 긍정 → 중립 → 부정 순으로 고정해 읽기 쉽게 둔다
+    order = ["긍정", "중립", "부정"]
+    sentiment_counts = {k: sentiment_counter[k] for k in order
+                        if sentiment_counter.get(k)}
+    for k, v in sentiment_counter.most_common():   # 예상 밖 라벨이 와도 누락 방지
+        sentiment_counts.setdefault(k, v)
+    sentiment_total = sum(sentiment_counts.values())
+
     # --- 품질 지표 ---------------------------------------------------
     summarized_ids = {s.get("id") for s in summaries if s.get("id")}
     clean_ids = {r.get("id") for r in clean if r.get("id")}
@@ -212,6 +227,8 @@ def build_stats(data: dict, top_n: int = 10,
         "method_stats": method_stats,
         "daily_counts": daily_counts,
         "top_keywords": top_keywords,
+        "sentiment_counts": sentiment_counts,
+        "sentiment_total": sentiment_total,
         "quality": quality,
     }
 
@@ -295,6 +312,19 @@ def build_report(stats: dict, trend: dict, chart_paths: list = None,
     # 4. AI 인사이트 (analyzer.py 가 만든 trend_report.json 활용)
     parts.append("## 4. AI 인사이트 분석 "
                  f"(AI 요약 완료 {stats['summarized']}건 기준)\n")
+
+    # 감성 분포도 AI 가 뽑은 값이라 이 절에 함께 둔다.
+    # trend_report.json 이 아니라 요약 레코드에서 직접 집계한다.
+    sentiment = stats.get("sentiment_counts") or {}
+    if sentiment:
+        s_total = stats.get("sentiment_total", 0) or 1
+        parts.append(f"### 감성 분포 (감성 분석 완료 "
+                     f"{stats.get('sentiment_total', 0)}건 기준)\n")
+        parts.append(_md_table(
+            ["감성", "기사 수", "비중"],
+            [[k, v, f"{v / s_total * 100:.1f}%"] for k, v in sentiment.items()]))
+        parts.append("")
+
     if trend:
         overall = trend.get("overall_summary")
         if overall:
@@ -390,6 +420,14 @@ def console_summary(stats: dict, trend: dict) -> str:
         lines.append(f"  {i}. {kw} ({c}건)")
     if not stats["top_keywords"]:
         lines.append("  (AI 요약 데이터 없음)")
+    sentiment = stats.get("sentiment_counts") or {}
+    if sentiment:
+        s_total = stats.get("sentiment_total", 0) or 1
+        lines.append("-" * 52)
+        lines.append(f" [감성 분포] (감성 분석 완료 "
+                     f"{stats.get('sentiment_total', 0)}건 기준)")
+        for label, c in sentiment.items():
+            lines.append(f"  - {label}: {c}건 ({c / s_total * 100:.1f}%)")
     lines.append("-" * 52)
     lines.append(" [수집 방식별]")
     for m in stats.get("method_stats", []):

@@ -186,6 +186,9 @@ def cmd_show(args) -> dict:
         keywords = summary.get("keywords") or []
         if keywords:
             print(f" 키워드: {', '.join(keywords)}")
+        sentiment = summary.get("sentiment")
+        if sentiment:
+            print(f" 감성: {sentiment}")
     else:
         print(" [AI 요약] 아직 요약되지 않은 기사입니다.")
     print("-" * 80)

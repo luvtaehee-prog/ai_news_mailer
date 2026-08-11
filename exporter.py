@@ -22,7 +22,7 @@ log = get_logger("report")
 # 내보내기 컬럼 순서 (엑셀에서 바로 읽기 좋은 순서로 배치)
 COLUMNS = [
     "id", "published_date", "category", "source", "press", "title",
-    "summary", "keywords", "status", "content_length", "truncated",
+    "summary", "keywords", "sentiment", "status", "content_length", "truncated",
     "url", "collected_at",
 ]
 
@@ -48,6 +48,7 @@ def build_rows(clean: list, summaries: list) -> list:
             "summary": summary.get("summary", ""),
             # 리스트를 그대로 넣으면 CSV/엑셀에서 읽기 어려워 쉼표로 이어 붙인다
             "keywords": ", ".join(keywords),
+            "sentiment": summary.get("sentiment", ""),
             "status": "summarized" if summary else "unsummarized",
             "content_length": rec.get("content_length",
                                       len(rec.get("content") or "")),
