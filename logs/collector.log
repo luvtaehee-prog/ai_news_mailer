@@ -287,3 +287,24 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-11 21:50:43,131 [INFO] 수집된 GOV.UK AI 뉴스: 20
 2026-08-11 21:50:43,132 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-11 21:50:43,132 [INFO] 새로 추가된 뉴스: 0
+2026-08-12 21:45:10,391 [ERROR] Article content fetch failed: https://kr.investing.com/news/stock-market-news/article-93CH-2059090
+2026-08-12 21:45:10,391 [ERROR] 403 Client Error: Forbidden for url: https://kr.investing.com/news/stock-market-news/article-93CH-2059090
+2026-08-12 21:45:43,708 [INFO] 수집된 Google News: 20
+2026-08-12 21:45:43,712 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-12 21:45:43,713 [INFO] 새로 추가된 뉴스: 19
+2026-08-12 21:45:45,706 [INFO] 검색어 'AI' 응답 코드: 200
+2026-08-12 21:45:46,460 [INFO] 검색어 '인공지능' 응답 코드: 200
+2026-08-12 21:45:47,267 [INFO] 검색어 '생성형 AI' 응답 코드: 200
+2026-08-12 21:45:47,995 [INFO] 검색어 'LLM' 응답 코드: 200
+2026-08-12 21:45:48,734 [INFO] 검색어 'AI 반도체' 응답 코드: 200
+2026-08-12 21:45:56,220 [ERROR] Article content fetch failed: https://www.sedaily.com/article/20078716?ref=naver
+2026-08-12 21:45:56,220 [ERROR] 403 Client Error: Forbidden for url: https://www.sedaily.com/article/20078716?ref=naver
+2026-08-12 21:46:02,392 [ERROR] Article content fetch failed: https://www.sedaily.com/article/20078778?ref=naver
+2026-08-12 21:46:02,393 [ERROR] 403 Client Error: Forbidden for url: https://www.sedaily.com/article/20078778?ref=naver
+2026-08-12 21:46:22,565 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 20
+2026-08-12 21:46:22,570 [INFO] 저장 완료: data/raw/naver_news.jsonl
+2026-08-12 21:46:22,570 [INFO] 새로 추가된 뉴스: 20
+2026-08-12 21:46:24,532 [INFO] GOV.UK 응답 코드: 200
+2026-08-12 21:47:02,168 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-12 21:47:02,169 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-12 21:47:02,169 [INFO] 새로 추가된 뉴스: 0
