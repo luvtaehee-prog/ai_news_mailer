@@ -325,3 +325,29 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-13 21:46:55,295 [INFO] 수집된 GOV.UK AI 뉴스: 20
 2026-08-13 21:46:55,296 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-13 21:46:55,296 [INFO] 새로 추가된 뉴스: 0
+2026-08-13 22:13:16,366 [ERROR] Article content fetch failed: https://www.news1.kr/it-science/security-hacking/6258426
+2026-08-13 22:13:16,366 [ERROR] 403 Client Error: Forbidden for url: https://www.news1.kr/it-science/security-hacking/6258426
+2026-08-13 22:13:38,201 [INFO] 수집된 Google News: 20
+2026-08-13 22:13:38,205 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-13 22:13:38,205 [INFO] 새로 추가된 뉴스: 5
+2026-08-13 22:13:40,065 [INFO] 검색어 'AI' 응답 코드: 200
+2026-08-13 22:13:40,881 [INFO] 검색어 '인공지능' 응답 코드: 200
+2026-08-13 22:13:41,644 [INFO] 검색어 '생성형 AI' 응답 코드: 200
+2026-08-13 22:13:42,447 [INFO] 검색어 'LLM' 응답 코드: 200
+2026-08-13 22:13:43,206 [INFO] 검색어 'AI 반도체' 응답 코드: 200
+2026-08-13 22:13:48,980 [ERROR] Article content fetch failed: https://www.cbci.co.kr/news/articleView.html?idxno=598155
+2026-08-13 22:13:48,980 [ERROR] 403 Client Error: Forbidden for url: https://www.cbci.co.kr/news/articleView.html?idxno=598155
+2026-08-13 22:14:09,160 [ERROR] Article request timed out: https://www.kmib.co.kr/article/view.asp?arcid=9000003104&cp=nv
+2026-08-13 22:14:12,231 [ERROR] Article content fetch failed: https://isplus.com/article/view/isp202608130133
+2026-08-13 22:14:12,231 [ERROR] 502 Server Error: Bad Gateway for url: https://isplus.com/article/view/isp202608130133
+2026-08-13 22:14:12,904 [ERROR] Article content fetch failed: https://www.businesspost.co.kr/BP?command=article_view&num=444276
+2026-08-13 22:14:12,905 [ERROR] 403 Client Error: Forbidden for url: https://www.businesspost.co.kr/BP?command=article_view&num=444276
+2026-08-13 22:14:23,326 [ERROR] Article content fetch failed: https://www.cbci.co.kr/news/articleView.html?idxno=598153
+2026-08-13 22:14:23,326 [ERROR] 403 Client Error: Forbidden for url: https://www.cbci.co.kr/news/articleView.html?idxno=598153
+2026-08-13 22:14:23,827 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 20
+2026-08-13 22:14:23,832 [INFO] 저장 완료: data/raw/naver_news.jsonl
+2026-08-13 22:14:23,832 [INFO] 새로 추가된 뉴스: 15
+2026-08-13 22:14:25,750 [INFO] GOV.UK 응답 코드: 200
+2026-08-13 22:15:01,742 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-13 22:15:01,743 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-13 22:15:01,743 [INFO] 새로 추가된 뉴스: 0
