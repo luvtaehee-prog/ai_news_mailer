@@ -351,3 +351,24 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-13 22:15:01,742 [INFO] 수집된 GOV.UK AI 뉴스: 20
 2026-08-13 22:15:01,743 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-13 22:15:01,743 [INFO] 새로 추가된 뉴스: 0
+2026-08-14 21:26:00,589 [INFO] 수집된 Google News: 20
+2026-08-14 21:26:00,594 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-14 21:26:00,594 [INFO] 새로 추가된 뉴스: 18
+2026-08-14 21:26:02,989 [INFO] 검색어 'AI' 응답 코드: 200
+2026-08-14 21:26:03,852 [INFO] 검색어 '인공지능' 응답 코드: 200
+2026-08-14 21:26:04,714 [INFO] 검색어 '생성형 AI' 응답 코드: 200
+2026-08-14 21:26:05,554 [INFO] 검색어 'LLM' 응답 코드: 200
+2026-08-14 21:26:06,389 [INFO] 검색어 'AI 반도체' 응답 코드: 200
+2026-08-14 21:26:23,381 [ERROR] Article content fetch failed: https://www.mk.co.kr/article/12128619
+2026-08-14 21:26:23,381 [ERROR] 403 Client Error: Forbidden for url: https://www.mk.co.kr/article/12128619
+2026-08-14 21:26:25,775 [ERROR] Article content fetch failed: https://weekly.khan.co.kr/article/202608150600011
+2026-08-14 21:26:25,775 [ERROR] 403 Client Error: Forbidden for url: https://weekly.khan.co.kr/article/202608150600011
+2026-08-14 21:26:30,244 [ERROR] Article content fetch failed: https://www.ajunews.com/view/20260814072628566
+2026-08-14 21:26:30,244 [ERROR] 403 Client Error: Forbidden for url: https://www.ajunews.com/view/20260814072628566
+2026-08-14 21:26:35,384 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 20
+2026-08-14 21:26:35,390 [INFO] 저장 완료: data/raw/naver_news.jsonl
+2026-08-14 21:26:35,390 [INFO] 새로 추가된 뉴스: 20
+2026-08-14 21:26:36,610 [INFO] GOV.UK 응답 코드: 200
+2026-08-14 21:27:01,582 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-14 21:27:01,583 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-14 21:27:01,584 [INFO] 새로 추가된 뉴스: 0
