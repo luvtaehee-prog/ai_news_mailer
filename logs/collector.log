@@ -372,3 +372,22 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-14 21:27:01,582 [INFO] 수집된 GOV.UK AI 뉴스: 20
 2026-08-14 21:27:01,583 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-14 21:27:01,584 [INFO] 새로 추가된 뉴스: 0
+2026-08-15 21:21:55,066 [ERROR] Article content fetch failed: https://kr.investing.com/news/stock-market-news/article-2063417
+2026-08-15 21:21:55,067 [ERROR] 403 Client Error: Forbidden for url: https://kr.investing.com/news/stock-market-news/article-2063417
+2026-08-15 21:22:07,819 [INFO] 수집된 Google News: 20
+2026-08-15 21:22:07,823 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-15 21:22:07,823 [INFO] 새로 추가된 뉴스: 16
+2026-08-15 21:22:10,606 [INFO] 검색어 'AI' 응답 코드: 200
+2026-08-15 21:22:11,528 [INFO] 검색어 '인공지능' 응답 코드: 200
+2026-08-15 21:22:12,397 [INFO] 검색어 '생성형 AI' 응답 코드: 200
+2026-08-15 21:22:13,283 [INFO] 검색어 'LLM' 응답 코드: 200
+2026-08-15 21:22:14,132 [INFO] 검색어 'AI 반도체' 응답 코드: 200
+2026-08-15 21:22:46,900 [ERROR] Article content fetch failed: https://www.hani.co.kr/arti/international/america/1273063.html
+2026-08-15 21:22:46,900 [ERROR] 403 Client Error: Forbidden for url: https://www.hani.co.kr/arti/international/america/1273063.html
+2026-08-15 21:22:49,818 [INFO] 중복 제거 후 수집된 NAVER 뉴스: 20
+2026-08-15 21:22:49,822 [INFO] 저장 완료: data/raw/naver_news.jsonl
+2026-08-15 21:22:49,823 [INFO] 새로 추가된 뉴스: 20
+2026-08-15 21:22:51,731 [INFO] GOV.UK 응답 코드: 200
+2026-08-15 21:23:28,044 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-15 21:23:28,045 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-15 21:23:28,045 [INFO] 새로 추가된 뉴스: 0
