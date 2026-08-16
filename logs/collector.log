@@ -391,3 +391,10 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-15 21:23:28,044 [INFO] 수집된 GOV.UK AI 뉴스: 20
 2026-08-15 21:23:28,045 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-15 21:23:28,045 [INFO] 새로 추가된 뉴스: 0
+2026-08-16 15:08:51,547 [INFO] 수집된 Google News: 20
+2026-08-16 15:08:51,553 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-16 15:08:51,553 [INFO] 새로 추가된 뉴스: 19
+2026-08-16 15:08:53,623 [INFO] GOV.UK 응답 코드: 200
+2026-08-16 15:09:22,401 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-16 15:09:22,403 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-16 15:09:22,403 [INFO] 새로 추가된 뉴스: 0

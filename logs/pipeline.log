@@ -379,3 +379,21 @@
 2026-08-13 22:19:02,170 [INFO] report: CSV 저장: output/exports/news_export_20260813_221902.csv (375행)
 2026-08-13 22:19:02,174 [INFO] report: JSONL 저장: output/exports/news_export_20260813_221902.jsonl (375행)
 2026-08-13 22:19:02,524 [INFO] report: Excel 저장: output/exports/news_export_20260813_221902.xlsx (375행)
+2026-08-16 15:09:22,998 [INFO] clean: 정제 시작: raw=data/raw, 정책=upsert
+2026-08-16 15:09:23,021 [INFO] clean: raw 로드: 474건
+2026-08-16 15:09:23,094 [INFO] clean: 정제 통과: 474건, 제외: 0건
+2026-08-16 15:09:23,122 [INFO] clean: 저장 완료: 신규 18, 갱신 447, 스킵 0, 배치중복 3, 제목중복 6 -> 총 465건 (data/clean/news_clean.jsonl)
+2026-08-16 15:09:24,354 [INFO] analyze: clean 데이터 465건 로드
+2026-08-16 15:09:24,354 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-08-16 15:09:24,354 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-08-16 15:09:25,587 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-08-16 15:09:26,268 [INFO] report: 데이터 로드: clean 465건, 요약 375건, 트렌드 있음
+2026-08-16 15:09:26,270 [INFO] report: 한글 폰트 적용: NanumGothic
+2026-08-16 15:09:26,390 [INFO] report: 차트 저장: output/reports/report_20260816_150926/charts/category_counts.png
+2026-08-16 15:09:26,555 [INFO] report: 차트 저장: output/reports/report_20260816_150926/charts/daily_trend.png
+2026-08-16 15:09:26,685 [INFO] report: 차트 저장: output/reports/report_20260816_150926/charts/top_keywords.png
+2026-08-16 15:09:26,758 [INFO] report: 차트 저장: output/reports/report_20260816_150926/charts/source_share.png
+2026-08-16 15:09:26,841 [INFO] report: 차트 저장: output/reports/report_20260816_150926/charts/sentiment.png
+2026-08-16 15:09:26,841 [INFO] report: 리포트 저장: output/reports/report_20260816_150926/report.md
+2026-08-16 15:09:26,842 [INFO] report: 리포트 저장: output/reports/report_20260816_150926/report.txt
+2026-08-16 15:09:27,385 [ERROR] mail: 이메일 발송 실패: .env 에 GMAIL_ADDRESS 와 GMAIL_APP_PASSWORD 가 없습니다. 프로젝트 루트의 .env 에 두 값을 추가하세요.
