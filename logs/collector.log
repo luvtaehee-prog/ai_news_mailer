@@ -412,3 +412,14 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-16 21:21:17,393 [INFO] 수집된 GOV.UK AI 뉴스: 20
 2026-08-16 21:21:17,395 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-16 21:21:17,395 [INFO] 새로 추가된 뉴스: 0
+2026-08-16 22:19:48,234 [ERROR] Article content fetch failed: https://www.news1.kr/society/incident-accident/6258717
+2026-08-16 22:19:48,234 [ERROR] 403 Client Error: Forbidden for url: https://www.news1.kr/society/incident-accident/6258717
+2026-08-16 22:20:09,908 [ERROR] Article content fetch failed: https://www.news1.kr/it-science/internet-platform/6260280
+2026-08-16 22:20:09,908 [ERROR] 403 Client Error: Forbidden for url: https://www.news1.kr/it-science/internet-platform/6260280
+2026-08-16 22:20:16,672 [INFO] 수집된 Google News: 20
+2026-08-16 22:20:16,679 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-16 22:20:16,679 [INFO] 새로 추가된 뉴스: 9
+2026-08-16 22:20:18,026 [INFO] GOV.UK 응답 코드: 200
+2026-08-16 22:20:49,622 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-16 22:20:49,623 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-16 22:20:49,624 [INFO] 새로 추가된 뉴스: 0

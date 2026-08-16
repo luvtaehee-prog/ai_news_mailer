@@ -397,3 +397,21 @@
 2026-08-16 15:09:26,841 [INFO] report: 리포트 저장: output/reports/report_20260816_150926/report.md
 2026-08-16 15:09:26,842 [INFO] report: 리포트 저장: output/reports/report_20260816_150926/report.txt
 2026-08-16 15:09:27,385 [ERROR] mail: 이메일 발송 실패: .env 에 GMAIL_ADDRESS 와 GMAIL_APP_PASSWORD 가 없습니다. 프로젝트 루트의 .env 에 두 값을 추가하세요.
+2026-08-16 22:20:50,199 [INFO] clean: 정제 시작: raw=data/raw, 정책=upsert
+2026-08-16 22:20:50,224 [INFO] clean: raw 로드: 496건
+2026-08-16 22:20:50,309 [INFO] clean: 정제 통과: 496건, 제외: 0건
+2026-08-16 22:20:50,338 [INFO] clean: 저장 완료: 신규 7, 갱신 477, 스킵 0, 배치중복 3, 제목중복 9 -> 총 484건 (data/clean/news_clean.jsonl)
+2026-08-16 22:20:51,542 [INFO] analyze: clean 데이터 484건 로드
+2026-08-16 22:20:51,542 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-08-16 22:20:51,542 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-08-16 22:20:52,770 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-08-16 22:20:53,414 [INFO] report: 데이터 로드: clean 484건, 요약 375건, 트렌드 있음
+2026-08-16 22:20:53,415 [INFO] report: 한글 폰트 적용: NanumGothic
+2026-08-16 22:20:53,541 [INFO] report: 차트 저장: output/reports/report_20260816_222053/charts/category_counts.png
+2026-08-16 22:20:53,705 [INFO] report: 차트 저장: output/reports/report_20260816_222053/charts/daily_trend.png
+2026-08-16 22:20:53,837 [INFO] report: 차트 저장: output/reports/report_20260816_222053/charts/top_keywords.png
+2026-08-16 22:20:53,909 [INFO] report: 차트 저장: output/reports/report_20260816_222053/charts/source_share.png
+2026-08-16 22:20:53,993 [INFO] report: 차트 저장: output/reports/report_20260816_222053/charts/sentiment.png
+2026-08-16 22:20:53,993 [INFO] report: 리포트 저장: output/reports/report_20260816_222053/report.md
+2026-08-16 22:20:53,994 [INFO] report: 리포트 저장: output/reports/report_20260816_222053/report.txt
+2026-08-16 22:20:54,515 [ERROR] mail: 이메일 발송 실패: .env 에 GMAIL_ADDRESS 와 GMAIL_APP_PASSWORD 가 없습니다. 프로젝트 루트의 .env 에 두 값을 추가하세요.
