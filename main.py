@@ -9,13 +9,14 @@
     report    시각화·리포트 생성 (4번 파트: report_command.py)
     export    CSV/JSONL/Excel    (4번 파트: export_command.py)
     list/show 저장된 뉴스 조회    (보너스: query_command.py)
+    mail      최신 리포트 이메일 발송 (mail_command.py)
 
 각 파트는 자기 모듈에 add_*_parser(서브파서 등록)와 cmd_*(실행 본체)를 두고,
 main.py 는 그것들을 모아 연결하기만 한다. 그래야 파트별로 따로 작업해도
 main.py 에서 충돌이 나지 않는다.
 
 전체 흐름:
-    fetch -> clean -> summarize -> analyze -> report / export
+    fetch -> clean -> summarize -> analyze -> report / export -> mail
 """
 
 import argparse
@@ -27,6 +28,7 @@ from report_command import add_report_parser, cmd_report
 from export_command import add_export_parser, cmd_export
 from query_command import (add_list_parser, add_show_parser,
                            cmd_list, cmd_show)
+from mail_command import add_mail_parser, cmd_mail
 
 
 def add_fetch_parser(subparsers) -> None:
@@ -68,6 +70,7 @@ def build_parser() -> argparse.ArgumentParser:
     add_export_parser(subparsers)     # 4번 파트
     add_list_parser(subparsers)       # 보너스: 조회 CLI
     add_show_parser(subparsers)       # 보너스: 조회 CLI
+    add_mail_parser(subparsers)       # 최신 리포트 이메일 발송
     return parser
 
 
@@ -81,6 +84,7 @@ COMMANDS = {
     "export": cmd_export,
     "list": cmd_list,
     "show": cmd_show,
+    "mail": cmd_mail,
 }
 
 
