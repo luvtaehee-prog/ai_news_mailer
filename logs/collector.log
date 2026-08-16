@@ -398,3 +398,17 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-16 15:09:22,401 [INFO] 수집된 GOV.UK AI 뉴스: 20
 2026-08-16 15:09:22,403 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-16 15:09:22,403 [INFO] 새로 추가된 뉴스: 0
+2026-08-16 21:20:06,963 [ERROR] Article content fetch failed: https://www.news1.kr/local/moi/6259436
+2026-08-16 21:20:06,963 [ERROR] 403 Client Error: Forbidden for url: https://www.news1.kr/local/moi/6259436
+2026-08-16 21:20:13,342 [ERROR] Article content fetch failed: https://news.kbs.co.kr/news/pc/view/view.do?ncd=8638262
+2026-08-16 21:20:13,342 [ERROR] 404 Client Error: Not Found for url: https://news.kbs.co.kr/news/pc/view/view.do?ncd=8638262
+2026-08-16 21:20:35,229 [ERROR] Article request timed out: https://www.theguru.co.kr/news/article.html?no=105791
+2026-08-16 21:20:41,073 [INFO] 수집된 Google News: 20
+2026-08-16 21:20:41,079 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-16 21:20:41,079 [INFO] 새로 추가된 뉴스: 13
+2026-08-16 21:20:41,705 [ERROR] NAVER API 인증정보가 없습니다.
+2026-08-16 21:20:41,705 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-08-16 21:20:44,128 [INFO] GOV.UK 응답 코드: 200
+2026-08-16 21:21:17,393 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-16 21:21:17,395 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-16 21:21:17,395 [INFO] 새로 추가된 뉴스: 0
