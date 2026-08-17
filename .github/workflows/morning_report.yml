@@ -20,6 +20,26 @@ jobs:
       - name: 저장소 체크아웃
         uses: actions/checkout@v7
 
+      # 메일 발송은 마지막 단계라, secret 이 없으면 수집·요약을 다 돌린 뒤에야
+      # 실패한다. 그 낭비를 막으려고 시작하자마자 먼저 확인한다.
+      - name: 필수 Secret 확인
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          missing=""
+          for name in GMAIL_ADDRESS GMAIL_APP_PASSWORD OPENAI_API_KEY; do
+            if [ -z "$(printenv "$name")" ]; then
+              missing="$missing $name"
+            fi
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::등록되지 않은 secret:$missing (저장소 Settings > Secrets and variables > Actions)"
+            exit 1
+          fi
+          echo "필수 secret 3개 모두 확인됨"
+
       - name: Python 설정
         uses: actions/setup-python@v7
         with:

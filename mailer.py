@@ -24,10 +24,16 @@ def get_credentials():
     """.env 에서 발신 계정 정보를 읽는다. 없으면 명확한 에러를 낸다."""
     address = os.getenv("GMAIL_ADDRESS")
     password = os.getenv("GMAIL_APP_PASSWORD")
-    if not address or not password:
+    missing = [name for name, value in
+               (("GMAIL_ADDRESS", address), ("GMAIL_APP_PASSWORD", password))
+               if not value]
+    if missing:
         raise RuntimeError(
-            ".env 에 GMAIL_ADDRESS 와 GMAIL_APP_PASSWORD 가 없습니다. "
-            "프로젝트 루트의 .env 에 두 값을 추가하세요."
+            f"{', '.join(missing)} 값이 비어 있습니다. "
+            "로컬 실행이면 프로젝트 루트의 .env 에, "
+            "GitHub Actions 실행이면 저장소 Settings > Secrets and variables > "
+            "Actions 에 같은 이름으로 등록하세요. "
+            "(GMAIL_APP_PASSWORD 는 계정 비밀번호가 아니라 Google 앱 비밀번호 16자리입니다.)"
         )
     return address, password
 

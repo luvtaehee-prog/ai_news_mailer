@@ -90,7 +90,12 @@ COMMANDS = {
 
 def main():
     args = build_parser().parse_args()
-    COMMANDS[args.command](args)
+    result = COMMANDS[args.command](args)
+
+    # 실패를 조용히 넘기지 않는다. 종료 코드가 0 이면 GitHub Actions 가
+    # 성공으로 표시해서, 메일이 안 온 것을 한참 뒤에야 알게 된다.
+    if isinstance(result, dict) and result.get("sent") is False:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
