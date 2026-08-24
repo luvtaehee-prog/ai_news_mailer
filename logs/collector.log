@@ -498,3 +498,15 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-23 21:22:42,531 [INFO] 수집된 GOV.UK AI 뉴스: 20
 2026-08-23 21:22:42,533 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-23 21:22:42,533 [INFO] 새로 추가된 뉴스: 0
+2026-08-24 21:29:27,047 [ERROR] Article request timed out: https://www.etnews.com/20260821000126
+2026-08-24 21:29:39,366 [ERROR] Article content fetch failed: https://www.news1.kr/it-science/internet-platform/6267724
+2026-08-24 21:29:39,366 [ERROR] 403 Client Error: Forbidden for url: https://www.news1.kr/it-science/internet-platform/6267724
+2026-08-24 21:29:55,958 [INFO] 수집된 Google News: 20
+2026-08-24 21:29:55,969 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-24 21:29:55,969 [INFO] 새로 추가된 뉴스: 18
+2026-08-24 21:29:56,604 [ERROR] NAVER API 인증정보가 없습니다.
+2026-08-24 21:29:56,604 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-08-24 21:29:57,841 [INFO] GOV.UK 응답 코드: 200
+2026-08-24 21:30:24,279 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-24 21:30:24,280 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-24 21:30:24,281 [INFO] 새로 추가된 뉴스: 0
