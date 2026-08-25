@@ -510,3 +510,12 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-24 21:30:24,279 [INFO] 수집된 GOV.UK AI 뉴스: 20
 2026-08-24 21:30:24,280 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-24 21:30:24,281 [INFO] 새로 추가된 뉴스: 0
+2026-08-25 21:28:54,257 [INFO] 수집된 Google News: 20
+2026-08-25 21:28:54,268 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-25 21:28:54,268 [INFO] 새로 추가된 뉴스: 20
+2026-08-25 21:28:54,905 [ERROR] NAVER API 인증정보가 없습니다.
+2026-08-25 21:28:54,905 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-08-25 21:28:56,671 [INFO] GOV.UK 응답 코드: 200
+2026-08-25 21:29:23,143 [INFO] 수집된 GOV.UK AI 뉴스: 20
+2026-08-25 21:29:23,145 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-25 21:29:23,145 [INFO] 새로 추가된 뉴스: 1
