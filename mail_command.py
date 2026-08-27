@@ -100,10 +100,21 @@ def cmd_mail(args) -> dict:
     if getattr(args, "attach_charts", False):
         attachments = sorted(glob.glob(os.path.join(report_dir, "charts", "*.png")))
 
-    # 제목에 건수를 넣어 두면 메일함에서 열지 않고도 오늘 수확을 알 수 있다
+    # 제목의 날짜는 '보낸 날'이 아니라 '기사 발행일'이어야 한다.
+    # 아침에 전날치를 보내는 구성에서는 둘이 하루 다르다.
+    # 리포트 본문이 이미 대상 기간을 적어 두므로 거기서 읽어 온다.
+    period = re.search(r"대상 기간\(발행일 기준\): (\d{4}-\d{2}-\d{2})"
+                       r"(?: ~ (\d{4}-\d{2}-\d{2}))?", body_text)
+    if period:
+        start, end = period.group(1), period.group(2)
+        date_label = start if not end or end == start else f"{start} ~ {end}"
+    else:
+        date_label = today
+
+    # 건수를 넣어 두면 메일함에서 열지 않고도 그날 수확을 알 수 있다
     match = re.search(r"뉴스 목록 \((\d+)건\)", body_text)
     count_label = f" · {match.group(1)}건" if match else ""
-    subject = f"[AI 뉴스 리포트] {today}{count_label}"
+    subject = f"[AI 뉴스 리포트] {date_label}{count_label}"
 
     try:
         mailer.send_email(subject, body_text, to_addr=to_addr,

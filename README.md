@@ -2,8 +2,8 @@
 
 AI 뉴스 트렌드 분석 팀 프로젝트
 
-**매일 그날 발행된 AI 뉴스만 모아 리포트로 만들어 이메일로 보냅니다.**
-GitHub Actions 가 하루 한 번(23:00 KST) 수집 → 정제 → AI 요약·분석 → 리포트 → 메일까지 자동으로 돌립니다.
+**하루치 AI 뉴스만 모아 리포트로 만들어 이메일로 보냅니다.**
+GitHub Actions 가 매일 아침 07:00 KST 에 **전날(00~24시) 발행분**을 수집 → 정제 → AI 요약·분석 → 리포트 → 메일까지 자동으로 돌립니다.
 자세한 내용은 [정기 실행 스케줄링](#정기-실행-스케줄링-보너스) 을 보세요.
 
 ### 바로 돌려보기
@@ -16,6 +16,8 @@ python main.py analyze --today                    # 오늘치 트렌드 분석
 python main.py report --today --format both       # 오늘치 리포트 + 차트
 python main.py mail --attach-charts --require-today   # 메일 발송
 ```
+
+`--today` 는 오늘(KST) 발행분을 뜻합니다. 전날치를 보려면 `--date 2026-08-26` 처럼 날짜를 직접 줍니다.
 
 
 ## 프로젝트 구조
@@ -628,7 +630,7 @@ AI 모델은 `config.json` 의 `ai.model` 에서 바꿀 수 있습니다.
 
 | 워크플로 | 주기 | 하는 일 |
 | --- | --- | --- |
-| `daily_report.yml` | **매일 23:00 KST** | 당일 수집 → 정제 → AI 요약·분석 → 리포트 → **이메일 발송** |
+| `daily_report.yml` | **매일 07:00 KST** | 전일 발행분 수집 → 정제 → AI 요약·분석 → 리포트 → **이메일 발송** |
 | `collect.yml` | 수동 실행만 | 수집 → 정제 (수집 단계만 따로 확인할 때) |
 | `analyze.yml` | 2026-08-14 1회 (종료) | 과제 제출용 전체 실행. 이후에는 수동 실행만 |
 
@@ -641,16 +643,22 @@ PC를 켜두지 않아도 GitHub의 클라우드 러너가 정해진 시각에 �
 
 **일일 뉴스 메일 — `.github/workflows/daily_report.yml`**
 
-- 스케줄: 매일 23:00 KST (cron `0 14 * * *`, UTC 기준)
-- 동작: 당일 발행분 수집(3소스) → 정제 → AI 요약·감성 → 트렌드 분석 → 리포트·차트 → 이메일 발송 → 커밋·푸시
-- 기준일은 첫 스텝에서 `TZ=Asia/Seoul date +%F` 로 한 번 정해 모든 단계에 넘깁니다.
+- 스케줄: 매일 07:00 KST (cron `0 22 * * *` — KST 는 UTC+9 라 **전날** 22:00 UTC 입니다)
+- 동작: **전일** 발행분 수집(3소스) → 정제 → AI 요약·감성 → 트렌드 분석 → 리포트·차트 → 이메일 발송 → 커밋·푸시
+- 기준일은 첫 스텝에서 `TZ=Asia/Seoul date -d yesterday +%F` 로 한 번 정해 모든 단계에 넘깁니다.
   실행 도중 자정을 넘겨도 단계마다 날짜가 어긋나지 않습니다.
 - `Run workflow` 로 수동 실행할 때는 `date` 입력에 `2026-08-26` 처럼 적어 특정 날짜를 다시 만들 수 있습니다.
 
-**왜 아침이 아니라 밤 23시인가** — 아침 7시에 돌리면 "그날 발행분"이 00~07시 기사밖에 없어
-하루치라고 부르기 어렵습니다. 하루가 끝날 무렵 돌려야 온전한 당일치가 됩니다.
-아침에 받고 싶다면 cron 을 `0 22 * * *`(07:00 KST)로 바꾸고, 워크플로의 기준일 스텝에서
-`date +%F` 를 `date -d yesterday +%F` 로 바꿔 **전일치**를 보내면 됩니다.
+**왜 당일치가 아니라 전일치인가** — 아침 7시에 "그날 발행분"을 모으면 00~07시 기사밖에 없어
+하루치라고 부르기 어렵습니다. 하루가 끝난 뒤에 모아야 00~24시가 온전히 담깁니다.
+당일 밤에 받고 싶다면 cron 을 `0 14 * * *`(23:00 KST)로 바꾸고 기준일 스텝에서 `-d yesterday`
+를 빼면 됩니다. 대신 23~24시에 발행된 기사는 빠집니다.
+
+> GitHub Actions 의 예약 실행은 정시를 보장하지 않습니다. 러너가 붐비면 10~30분 늦게
+> 시작되기도 합니다. 메일 도착 시각이 07:10 일 수도, 07:40 일 수도 있습니다.
+
+메일 제목의 날짜는 **보낸 날이 아니라 기사 발행일** 입니다(`[AI 뉴스 리포트] 2026-08-26 · 41건`).
+`mail` 이 리포트 본문의 "대상 기간"을 읽어 붙이므로, 스케줄을 바꿔도 제목이 따라갑니다.
 
 **AI 단계가 없어도 메일은 나갑니다** — 필수 secret 은 메일 계정 두 개뿐입니다.
 `OPENAI_API_KEY` 가 없으면 요약·트렌드 분석 단계만 건너뛰고(경고 표시) 기사 목록과 통계는
@@ -680,10 +688,10 @@ PC를 켜두지 않아도 GitHub의 클라우드 러너가 정해진 시각에 �
 차트 PNG 는 매일 5장씩 쌓이면 저장소가 계속 커지므로 `.gitignore` 로 제외했고,
 메일 첨부(`--attach-charts`)와 워크플로 아티팩트로 받습니다.
 
-cron 표현식은 `분 시 일 월 요일` 순서입니다. `0 14 * * *`는 "매일 UTC 14시 정각"을 뜻합니다.
+cron 표현식은 `분 시 일 월 요일` 순서입니다. `0 22 * * *`는 "매일 UTC 22시 정각"을 뜻합니다.
 
 > **GitHub Actions의 cron은 UTC 기준입니다.** 한국시간에서 9시간을 빼야 합니다.
-> 23:00 KST는 같은 날 14:00 UTC지만, 06:30 KST는 **전날** 21:30 UTC가 되어 날짜가 하루 당겨집니다.
+> 07:00 KST는 **전날** 22:00 UTC, 06:30 KST는 **전날** 21:30 UTC가 되어 날짜가 하루 당겨집니다.
 > 그래서 "8월 14일 06:30 KST"는 `14 8 *` 가 아니라 `13 8 *` 로 적어야 합니다.
 
 > **cron에는 연도 필드가 없습니다.** `분 시 일 월 요일` 다섯 자리가 전부라 "2026년에만"을
@@ -695,7 +703,7 @@ cron 표현식은 `분 시 일 월 요일` 순서입니다. `0 14 * * *`는 "매
 터미널에서 `crontab -e` 실행 후 아래와 같이 등록합니다.
 
 ```text
-0 23 * * * cd /path/to/project && ./daily.sh >> logs/cron.log 2>&1
+0 7 * * * cd /path/to/project && ./daily.sh >> logs/cron.log 2>&1
 ```
 
 `daily.sh` 는 하루치 파이프라인을 순서대로 실행합니다.
@@ -703,17 +711,18 @@ cron 표현식은 `분 시 일 월 요일` 순서입니다. `0 14 * * *`는 "매
 ```bash
 #!/usr/bin/env bash
 set -e
-python main.py fetch --source google --limit 40
-python main.py fetch --source naver  --limit 40
-python main.py fetch --source govuk  --limit 20
-python main.py clean --policy upsert --today
-python main.py summarize --today || true   # AI 단계가 실패해도 메일은 보낸다
-python main.py analyze --today || true
-python main.py report --today --format both
+YESTERDAY=$(date -d yesterday +%F)   # macOS 는 date -v-1d +%F
+python main.py fetch --source google --limit 40 --date "$YESTERDAY"
+python main.py fetch --source naver  --limit 40 --date "$YESTERDAY"
+python main.py fetch --source govuk  --limit 20 --date "$YESTERDAY"
+python main.py clean --policy upsert --date "$YESTERDAY"
+python main.py summarize --date "$YESTERDAY" || true   # AI 단계가 실패해도 메일은 보낸다
+python main.py analyze --date-from "$YESTERDAY" --date-to "$YESTERDAY" || true
+python main.py report --format both --date-from "$YESTERDAY" --date-to "$YESTERDAY"
 python main.py mail --attach-charts --require-today
 ```
 
-위 예시는 매일 23:00에 그날 발행분을 모아 메일까지 보내도록 등록한 것입니다.
+위 예시는 매일 07:00에 전날 발행분을 모아 메일까지 보내도록 등록한 것입니다.
 수집만 하고 싶다면 `fetch` 세 줄만 등록해도 됩니다.
 
 ### 방법 3. Windows - 작업 스케줄러(Task Scheduler)

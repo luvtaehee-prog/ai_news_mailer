@@ -1,24 +1,25 @@
 name: 일일 AI 뉴스 리포트 메일
 
-# 하루에 한 번, "그날 발행된" AI 뉴스만 모아 정제·요약·분석하고
+# 매일 아침, "전날 하루치" AI 뉴스를 모아 정제·요약·분석하고
 # 리포트를 이메일로 보낸다.
 #
 # 기준일은 항상 한국시간(KST)이다. 러너는 UTC 로 돌기 때문에 각 단계에
 # TARGET_DATE 를 명시적으로 넘겨, 실행 도중 자정을 넘겨도 모든 단계가
 # 같은 날짜를 보게 한다.
 #
-# 23:00 KST 에 도는 이유: 아침에 돌리면 그날 00~07시 기사만 잡혀
-# "당일 뉴스"가 몇 건 안 남는다. 하루가 끝날 무렵 돌려야 온전한 하루치가 된다.
-# 아침에 받고 싶다면 cron 을 "0 22 * * *"(07:00 KST)로 바꾸고 아래
-# TARGET_DATE 를 `date -d yesterday +%F` 로 바꿔 전일치를 보내면 된다.
+# 아침 07:00 에 '전일치'를 보내는 이유: 같은 시각에 '당일치'를 모으면
+# 새벽 00~07시 기사밖에 없어 하루치가 안 된다. 하루가 끝난 뒤에 모아야
+# 00~24시가 온전히 담긴다.
+# 당일 밤에 받고 싶다면 cron 을 "0 14 * * *"(23:00 KST)로 바꾸고 아래
+# 기준일에서 `-d yesterday` 를 빼면 된다(대신 23~24시 기사는 빠진다).
 on:
   schedule:
-    # 매일 23:00 KST = 같은 날 14:00 UTC
-    - cron: "0 14 * * *"
+    # 매일 07:00 KST = 전날 22:00 UTC (KST 는 UTC+9 라 날짜가 하루 당겨진다)
+    - cron: "0 22 * * *"
   workflow_dispatch:
     inputs:
       date:
-        description: "수집 기준일 (YYYY-MM-DD, KST). 비우면 오늘"
+        description: "수집 기준일 (YYYY-MM-DD, KST). 비우면 어제"
         required: false
         default: ""
 
@@ -66,11 +67,13 @@ jobs:
           [ -z "$NAVER_CLIENT_ID" ] && echo "::warning::NAVER_CLIENT_ID 없음 -> 네이버 뉴스 수집은 건너뜁니다"
           echo "메일 계정 secret 확인 완료"
 
+      # 아침 07:00 KST 에 도는 시점에서 '어제'가 방금 끝난 하루다.
+      # date 만 쓰면 오늘(=새벽 7시간치)이 잡히므로 -d yesterday 를 붙인다.
       - name: 기준일 결정 (KST)
         run: |
           target="${{ github.event.inputs.date }}"
           if [ -z "$target" ]; then
-            target=$(TZ=Asia/Seoul date +%F)
+            target=$(TZ=Asia/Seoul date -d yesterday +%F)
           fi
           echo "TARGET_DATE=$target" >> "$GITHUB_ENV"
           echo "수집 기준일(KST): $target"
