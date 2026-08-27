@@ -12,6 +12,7 @@
 """
 
 import os
+import re
 import json
 from collections import Counter
 from datetime import datetime
@@ -217,8 +218,29 @@ def build_stats(data: dict, top_n: int = 10,
     if daily_counts:
         period = f"{daily_counts[0][0]} ~ {daily_counts[-1][0]}"
 
+    # --- 기사 목록 -----------------------------------------------------
+    # 통계만 있는 리포트는 "오늘 무슨 뉴스가 있었는지"에 답하지 못한다.
+    # 메일로 받는 쪽이 실제로 보고 싶은 건 제목과 링크이므로,
+    # clean 레코드에 요약(있으면)을 붙여 발행 시각 역순으로 담아 둔다.
+    summary_by_id = {s.get("id"): s for s in summaries if s.get("id")}
+    articles = [
+        {
+            "title": r.get("title", ""),
+            "press": r.get("press", "") or r.get("source", ""),
+            "source": r.get("source", ""),
+            "url": r.get("url", ""),
+            "category": r.get("category", ""),
+            "published_at": r.get("published_at", ""),
+            "summary": summary_by_id.get(r.get("id"), {}).get("summary", ""),
+            "sentiment": summary_by_id.get(r.get("id"), {}).get("sentiment", ""),
+        }
+        for r in sorted(clean, key=lambda x: x.get("published_at", ""),
+                        reverse=True)
+    ]
+
     return {
         "total": total,
+        "articles": articles,
         "summarized": summarized_in_clean,
         "period": period,
         "date_field": date_field,
@@ -242,9 +264,42 @@ def _md_table(headers: list, rows: list) -> str:
     return "\n".join(lines)
 
 
+def build_article_section(stats: dict, limit: int = 30) -> list:
+    """기사 목록(제목·링크·요약) Markdown 조각을 만든다.
+
+    limit 을 0 이나 None 으로 주면 전부 싣는다.
+    """
+    articles = stats.get("articles") or []
+    if not articles:
+        return []
+
+    shown = articles if not limit else articles[:limit]
+    parts = [f"## 뉴스 목록 ({len(articles)}건)\n"]
+
+    for i, a in enumerate(shown, 1):
+        title = a.get("title") or "(제목 없음)"
+        url = a.get("url") or ""
+        parts.append(f"{i}. [{title}]({url})" if url else f"{i}. {title}")
+
+        # 시각은 ISO 문자열(2026-08-27T09:40:23+09:00)의 시:분 부분만 쓴다
+        meta = [a.get("press"), a.get("category"),
+                (a.get("published_at") or "")[11:16], a.get("sentiment")]
+        meta = " · ".join(m for m in meta if m)
+        if meta:
+            parts.append(f"   - {meta}")
+        if a.get("summary"):
+            parts.append(f"   - {a['summary']}")
+        parts.append("")
+
+    if len(shown) < len(articles):
+        parts.append(f"...외 {len(articles) - len(shown)}건\n")
+
+    return parts
+
+
 def build_report(stats: dict, trend: dict, chart_paths: list = None,
                  report_dir: str = "output/reports",
-                 filtered: bool = False) -> str:
+                 filtered: bool = False, article_limit: int = 30) -> str:
     """집계 + AI 인사이트를 합쳐 Markdown 리포트 본문을 만든다.
 
     filtered = True 이면 집계는 필터 결과 기준인데 AI 인사이트만 전체 기준이라는
@@ -264,6 +319,9 @@ def build_report(stats: dict, trend: dict, chart_paths: list = None,
                  f"{stats['total']}건 전체를, 키워드와 AI 인사이트는 요약이 끝난 "
                  f"{stats['summarized']}건을 기준으로 합니다. "
                  "키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.\n")
+
+    # 0. 기사 목록 (메일로 받는 쪽이 가장 먼저 보고 싶은 내용이라 맨 앞에 둔다)
+    parts.extend(build_article_section(stats, article_limit))
 
     # 1. 품질 지표
     parts.append(f"## 1. 데이터 품질 지표 (정제 완료 {stats['total']}건 기준)\n")
@@ -375,10 +433,37 @@ def build_report(stats: dict, trend: dict, chart_paths: list = None,
     return "\n".join(parts)
 
 
+def build_empty_report(date_from: str = None, date_to: str = None) -> str:
+    """조건에 맞는 뉴스가 한 건도 없을 때의 리포트.
+
+    이런 날 리포트를 아예 안 만들면, 메일 단계가 '가장 최근 리포트 폴더'로
+    어제 것을 집어 들고 같은 내용을 다시 보낸다. 빈 날도 빈 리포트를 남겨
+    받는 쪽이 "오늘은 없었다"를 알 수 있게 한다.
+    """
+    now = datetime.now().strftime("%Y-%m-%d %H:%M")
+    period = (f"{date_from} ~ {date_to}" if date_from or date_to else "전체")
+
+    return "\n".join([
+        "# AI 뉴스 트렌드 리포트\n",
+        f"- 생성 시각: {now}",
+        f"- 대상 기간(발행일 기준): {period}",
+        "- 분석 대상: 총 0건\n",
+        "## 뉴스 목록 (0건)\n",
+        "해당 기간에 새로 발행된 AI 뉴스를 찾지 못했습니다.\n",
+        "수집원(Google News / NAVER / GOV.UK)에 오늘자 기사가 없거나, "
+        "수집 단계에서 오류가 났을 수 있습니다. "
+        "`logs/collector.log` 를 확인하세요.\n",
+    ])
+
+
 def to_plain_text(markdown: str) -> str:
     """Markdown 리포트를 TXT 용 평문으로 바꾼다 (표/헤더 기호 정리)."""
     lines = []
     for line in markdown.splitlines():
+        # 평문 메일에서 [제목](주소) 는 읽기 어렵다. '제목 (주소)' 로 편다.
+        # 이미지(![...]) 는 아래에서 통째로 버리므로 여기서 건드리지 않는다.
+        line = re.sub(r"(?<!!)\[([^\]]+)\]\(([^)]+)\)",
+                      r"\1 (\2)", line)
         stripped = line.strip()
         # 표 구분선(| --- | --- |)은 평문에서 의미가 없으므로 버린다
         if stripped.startswith("|") and set(stripped) <= set("|- :"):

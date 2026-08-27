@@ -21,3 +21,7 @@ local_notes.md
 
 # 내보내기 결과 (data/ 에 원본이 있어 언제든 다시 만들 수 있음)
 output/exports/
+
+# 리포트 차트 PNG (매일 5장씩 쌓이면 저장소가 계속 커진다.
+# 메일 첨부와 워크플로 아티팩트로 받을 수 있어 커밋하지 않는다.)
+output/reports/*/charts/

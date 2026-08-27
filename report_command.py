@@ -23,6 +23,7 @@ from datetime import datetime
 
 import reporter
 import visualizer
+from cleaner import today_kst
 from log_setup import get_logger
 
 
@@ -44,6 +45,11 @@ def add_report_parser(subparsers) -> None:
                    help="시작일 (YYYY-MM-DD, 포함)")
     p.add_argument("--date-to", default=None,
                    help="종료일 (YYYY-MM-DD, 포함)")
+    p.add_argument("--today", action="store_true",
+                   help="오늘(KST) 발행 기사만 집계 (--date-from/--date-to 오늘)")
+    p.add_argument("--articles", type=int, default=None,
+                   help="리포트에 싣는 기사 목록 개수 (0 이면 전부, "
+                        "기본: config.json report.article_limit 또는 30)")
     p.add_argument("--top", type=int, default=None,
                    help="TOP N 집계 개수 (기본: config.json 값 또는 10)")
     p.add_argument("--format", choices=["md", "txt", "both"], default="md",
@@ -84,6 +90,16 @@ def cmd_report(args) -> dict:
     chart_dir = os.path.join(report_dir, "charts")
 
     top_n = getattr(args, "top", None) or report_conf.get("top_n", 10)
+
+    # 기간 조건. --today 는 '오늘 하루'를 뜻하는 지름길이다.
+    date_from = getattr(args, "date_from", None)
+    date_to = getattr(args, "date_to", None)
+    if getattr(args, "today", False):
+        date_from = date_to = today_kst()
+
+    article_limit = getattr(args, "articles", None)
+    if article_limit is None:
+        article_limit = report_conf.get("article_limit", 30)
     date_field = (getattr(args, "date_field", None)
                   or report_conf.get("date_field", "published"))
 
@@ -103,20 +119,48 @@ def cmd_report(args) -> dict:
                   "먼저 `python main.py clean` 을 실행하세요.")
         return {"charts": [], "reports": []}
 
+    # AI 인사이트(trend_report.json)는 analyze 를 마지막으로 돌린 시점의
+    # 기간 기준이다. 오늘치 리포트에 지난주 분석을 그대로 붙이면 사실과
+    # 어긋나므로, 기간이 겹치지 않으면 싣지 않는다.
+    if (date_from or date_to) and data["trend"]:
+        trend_period = data["trend"].get("period") or {}
+        trend_from = trend_period.get("from", "")
+        trend_to = trend_period.get("to", "")
+        overlaps = bool(trend_from and trend_to) and not (
+            (date_from and trend_to < date_from)
+            or (date_to and trend_from > date_to)
+        )
+        if not overlaps:
+            log.warning(
+                "AI 인사이트(기간 %s)가 이번 리포트 기간(%s ~ %s)과 달라 제외합니다.",
+                f"{trend_from} ~ {trend_to}" if trend_from else "기록 없음",
+                date_from or "-", date_to or "-")
+            data["trend"] = None
+
     # 2) 조건 필터 적용 (카테고리 / 기간)
     before = len(data["clean"])
     data["clean"] = reporter.filter_records(
         data["clean"],
         category=getattr(args, "category", None),
-        date_from=getattr(args, "date_from", None),
-        date_to=getattr(args, "date_to", None),
+        date_from=date_from,
+        date_to=date_to,
     )
     if len(data["clean"]) != before:
         log.info("필터 적용: %d건 -> %d건", before, len(data["clean"]))
 
     if not data["clean"]:
-        log.warning("조건에 맞는 뉴스가 없습니다. 필터를 확인하세요.")
-        return {"charts": [], "reports": []}
+        # 리포트를 아예 안 만들면 메일 단계가 어제 폴더를 집어 들고
+        # 같은 내용을 또 보낸다. 빈 날에도 빈 리포트를 남긴다.
+        log.warning("조건에 맞는 뉴스가 없습니다 (기간 %s ~ %s).",
+                    date_from or "-", date_to or "-")
+        markdown = reporter.build_empty_report(date_from, date_to)
+        fmt = getattr(args, "format", "md")
+        formats = ["md", "txt"] if fmt == "both" else [fmt]
+        report_paths = [reporter.save_report(markdown, report_dir, f,
+                                             filename=f"report.{f}")
+                        for f in formats]
+        return {"charts": [], "reports": report_paths, "stats": None,
+                "empty": True}
 
     # 요약도 필터 결과에 맞춰 좁혀야 키워드 TOP N 이 어긋나지 않는다
     target_ids = {r.get("id") for r in data["clean"]}
@@ -134,10 +178,10 @@ def cmd_report(args) -> dict:
     # 5) 리포트 문서 생성 및 저장
     # 필터를 걸면 집계는 좁아지지만 AI 인사이트(trend_report.json)는 그대로라
     # 두 기준이 어긋난다. 리포트에 그 사실을 밝히도록 알려 준다.
-    filtered = any(getattr(args, k, None)
-                   for k in ("category", "date_from", "date_to"))
+    filtered = bool(getattr(args, "category", None) or date_from or date_to)
     markdown = reporter.build_report(stats, data["trend"], chart_paths,
-                                     report_dir=report_dir, filtered=filtered)
+                                     report_dir=report_dir, filtered=filtered,
+                                     article_limit=article_limit)
     fmt = getattr(args, "format", "md")
     formats = ["md", "txt"] if fmt == "both" else [fmt]
     # 폴더 이름이 이미 시각을 담고 있으므로 파일명은 report.md / report.txt 로 고정한다

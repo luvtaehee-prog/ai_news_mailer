@@ -2,6 +2,21 @@
 
 AI 뉴스 트렌드 분석 팀 프로젝트
 
+**매일 그날 발행된 AI 뉴스만 모아 리포트로 만들어 이메일로 보냅니다.**
+GitHub Actions 가 하루 한 번(23:00 KST) 수집 → 정제 → AI 요약·분석 → 리포트 → 메일까지 자동으로 돌립니다.
+자세한 내용은 [정기 실행 스케줄링](#정기-실행-스케줄링-보너스) 을 보세요.
+
+### 바로 돌려보기
+
+```text
+python main.py fetch --source google --limit 40   # 오늘(KST) 발행분만 수집
+python main.py clean --today                      # 오늘치만 정제
+python main.py summarize --today                  # 오늘치만 AI 요약 (OPENAI_API_KEY 필요)
+python main.py analyze --today                    # 오늘치 트렌드 분석
+python main.py report --today --format both       # 오늘치 리포트 + 차트
+python main.py mail --attach-charts --require-today   # 메일 발송
+```
+
 
 ## 프로젝트 구조
 
@@ -69,12 +84,34 @@ python main.py summarize  --unsummarized                 # 3. AI 요약 + 감성
 python main.py analyze                                   # 3. AI 트렌드 분석
 python main.py report     --format both                  # 4. 차트 + 리포트
 python main.py export     --format excel                 # 4. 파일 내보내기
+python main.py mail       --attach-charts                # 5. 리포트 이메일 발송
 
 python main.py list --category IT --page 1               # (보너스) 목록 조회
 python main.py show <뉴스 id>                             # (보너스) 상세 조회
 ```
 
 각 커맨드의 옵션은 `python main.py <커맨드> --help` 로 확인할 수 있습니다.
+
+### 날짜 옵션 (당일 뉴스만 다루기)
+
+기준일은 언제나 **한국시간(KST)** 입니다. GitHub Actions 러너는 UTC 로 돌기 때문에
+`datetime.now()` 를 그대로 쓰면 하루 전 날짜가 잡히므로, 날짜 계산은 모두 KST 로 맞춰 두었습니다.
+
+| 커맨드 | 옵션 | 기본값 |
+| --- | --- | --- |
+| `fetch` | `--date YYYY-MM-DD` / `--all-dates` | **오늘(KST) 발행분만 수집** |
+| `clean` | `--today`, `--date YYYY-MM-DD` | 전체 (raw 에 있는 것 모두) |
+| `summarize` | `--today`, `--date YYYY-MM-DD` | 전체 (아직 요약 안 된 것 모두) |
+| `analyze` | `--today`, `--date-from`, `--date-to` | 전체 |
+| `report` | `--today`, `--date-from`, `--date-to`, `--articles N` | 전체 |
+| `mail` | `--require-today` | 끔 |
+
+- `fetch` 는 날짜 필터가 **기본값** 입니다. 이 프로젝트의 목적이 "당일 뉴스"이기 때문이며,
+  과거 기사까지 모으려면 `--all-dates` 를 붙입니다.
+- `--limit` 은 "날짜 필터를 통과한 기사 수"입니다. 하루치가 그보다 적으면 있는 만큼만 모읍니다.
+- 날짜 판정은 **본문 크롤링 전에** 합니다. 뒤에서 거르면 버릴 기사까지 원문 페이지를 받아오게 됩니다.
+- `mail --require-today` 는 가장 최근 리포트가 오늘 것이 아니면 발송을 중단합니다.
+  `report` 단계가 실패했을 때 어제 리포트를 오늘 제목으로 다시 보내는 사고를 막습니다.
 
 
 ## 1. 뉴스 수집
@@ -200,11 +237,18 @@ NAVER API 인증정보와 같은 비밀값은 .env 파일에서 관리하며 Git
 
 ## 뉴스 수집 실행
 
- - Google News:  python main.py fetch --source google --limit 20
+```text
+python main.py fetch --source google --limit 40          # 오늘(KST) 발행분
+python main.py fetch --source naver  --limit 40
+python main.py fetch --source govuk  --limit 20
 
- - NAVER News:   python main.py fetch --source naver --limit 20
+python main.py fetch --source google --date 2026-08-26   # 특정 날짜만
+python main.py fetch --source google --all-dates         # 날짜 필터 끄기
+```
 
- - GOV.UK:    python main.py fetch --source govuk --limit 20
+Google News RSS 는 검색어에 `when:1d` 를 붙여(`config.json` 의 `news_sources.google.url`)
+최근 24시간 기사만 내려받습니다. 이게 없으면 피드 앞쪽이 옛날 기사로 채워져
+당일 필터를 통과하는 기사가 몇 건 남지 않습니다.
 
 ## 2. 데이터 정제
 
@@ -423,6 +467,9 @@ output/reports/report_20260811_163556/
 실행 한 번이 폴더 하나가 됩니다. `output/reports/report_<날짜_시각>/` 안에
 `report.md`(또는 `report.txt`)와 `charts/` 가 함께 저장되고, 실행 시 콘솔에도 요약이 출력됩니다.
 
+0. **뉴스 목록** — 제목·링크·언론사·발행 시각, 요약이 있으면 요약 한 줄.
+   메일로 받는 쪽이 가장 먼저 보는 부분이라 맨 앞에 둡니다.
+   개수는 `--articles N`(0 이면 전부) 또는 `config.json` 의 `report.article_limit` 으로 조절합니다.
 1. **데이터 품질 지표** (각 지표의 의미를 표에 함께 표기)
    - 요약 완료율 — 전체 뉴스 중 AI 요약이 끝난 비율
    - 본문 확보율 — 본문이 300자 이상 확보된 비율. 미만은 크롤링이 본문 영역을
@@ -508,13 +555,18 @@ python main.py show 613de6543210 --full                # 본문 전체 보기
 각 단계는 앞 단계의 결과 파일을 입력으로 받습니다. 순서대로 실행하면 됩니다.
 
 ```text
-python main.py fetch --source google --limit 20   # 수집  → data/raw/*.jsonl
-python main.py clean                              # 정제  → data/clean/news_clean.jsonl
-python main.py summarize                          # 요약  → data/analyzed/news_summary.jsonl
-python main.py analyze                            # 분석  → data/analyzed/trend_report.json
-python main.py report --format both               # 리포트 → output/reports/report_<날짜_시각>/
+python main.py fetch --source google --limit 40   # 수집  → data/raw/*.jsonl
+python main.py clean --today                      # 정제  → data/clean/news_clean.jsonl
+python main.py summarize --today                  # 요약  → data/analyzed/news_summary.jsonl
+python main.py analyze --today                    # 분석  → data/analyzed/trend_report.json
+python main.py report --today --format both       # 리포트 → output/reports/report_<날짜_시각>/
+python main.py mail --attach-charts --require-today   # 메일 발송
 python main.py export --format all                # 내보내기 → output/exports
 ```
+
+`--today` 계열 옵션을 빼면 지금까지 쌓인 전체 데이터를 대상으로 동작합니다.
+`data/clean/news_clean.jsonl` 은 계속 누적되는 보관용이라, 날짜를 좁히지 않으면
+리포트가 몇 달치를 한꺼번에 집계합니다.
 
 ```text
 뉴스 수집
@@ -551,10 +603,17 @@ pip install -r requirements.txt
 NAVER_CLIENT_ID=your_client_id
 NAVER_CLIENT_SECRET=your_client_secret
 OPENAI_API_KEY=your_openai_api_key
+GMAIL_ADDRESS=you@gmail.com
+GMAIL_APP_PASSWORD=abcdefghijklmnop
 ```
 
 - `NAVER_*` : NAVER 뉴스 검색 API (수집 단계)
 - `OPENAI_API_KEY` : OpenAI API (AI 요약·분석 단계)
+- `GMAIL_*` : 리포트 메일 발송 (`mail` 커맨드).
+  `GMAIL_APP_PASSWORD` 는 계정 비밀번호가 아니라 Google 계정 → 보안 → 2단계 인증 →
+  앱 비밀번호에서 발급하는 **16자리** 값입니다.
+
+수집·요약 단계가 없어도 메일 단계는 `GMAIL_*` 만 있으면 동작합니다.
 
 AI 모델은 `config.json` 의 `ai.model` 에서 바꿀 수 있습니다.
 
@@ -565,54 +624,67 @@ AI 모델은 `config.json` 의 `ai.model` 에서 바꿀 수 있습니다.
 > **보너스 과제**: "cron 또는 작업 스케줄러를 이용한 정기 수집 방법을 README.md에 문서화한다."
 > 본 저장소는 문서화에 그치지 않고 **GitHub Actions로 실제 자동화까지 적용**했습니다.
 
-파이프라인은 비용과 주기가 다른 두 워크플로로 나눠 예약해 두었습니다.
+파이프라인은 목적이 다른 세 워크플로로 나눠 두었습니다.
 
-| 워크플로 | 주기 | 하는 일 | 비용 |
-| --- | --- | --- | --- |
-| `collect.yml` | **매일** 06:00 KST | 수집(3소스) → 정제 | 무료 (외부 API만 사용) |
-| `analyze.yml` | **2026-08-14** 06:30 KST (1회) | 수집 → 정제 → AI 요약·감성 → 트렌드 분석 → 리포트 → 내보내기 | OpenAI API 과금 |
+| 워크플로 | 주기 | 하는 일 |
+| --- | --- | --- |
+| `daily_report.yml` | **매일 23:00 KST** | 당일 수집 → 정제 → AI 요약·분석 → 리포트 → **이메일 발송** |
+| `collect.yml` | 수동 실행만 | 수집 → 정제 (수집 단계만 따로 확인할 때) |
+| `analyze.yml` | 2026-08-14 1회 (종료) | 과제 제출용 전체 실행. 이후에는 수동 실행만 |
 
-나눈 이유는 **비용** 입니다. 뉴스는 매일 쌓여야 추이 분석이 의미가 있지만, AI 단계까지 매일 돌리면
-호출 비용이 계속 발생합니다. 그래서 무료인 수집·정제만 매일 돌리고, 과금되는 AI 단계는 한 번에
-몰아서 처리합니다. 요약은 아직 처리되지 않은 기사만 골라 실행하므로 그동안 쌓인 분량이 한 번에 정리됩니다.
-
-전체 실행은 과제 제출 시점에 맞춰 **2026-08-14 06:30 KST 한 번만** 예약해 두었습니다.
-프로젝트가 그날로 마무리되어 이후 자동 실행은 의미가 없기 때문입니다.
+`collect.yml` 의 예약 실행은 꺼 두었습니다. `daily_report.yml` 이 수집부터 메일까지 한 번에
+돌리는데 둘 다 매일 돌면 같은 파일을 두 번 커밋해 push 가 서로 밀어내기 때문입니다.
 
 ### 방법 1. GitHub Actions (본 저장소에 적용됨)
 
 PC를 켜두지 않아도 GitHub의 클라우드 러너가 정해진 시각에 자동 실행하고, 결과를 저장소에 커밋합니다.
 
-**매일 수집 — `.github/workflows/collect.yml`**
+**일일 뉴스 메일 — `.github/workflows/daily_report.yml`**
 
-- 스케줄: 매일 06:00 KST (cron `0 21 * * *`, UTC 기준)
-- 동작: Google → NAVER → GOV.UK 각 20개씩 수집 → 정제 → 변경사항 자동 커밋·푸시
+- 스케줄: 매일 23:00 KST (cron `0 14 * * *`, UTC 기준)
+- 동작: 당일 발행분 수집(3소스) → 정제 → AI 요약·감성 → 트렌드 분석 → 리포트·차트 → 이메일 발송 → 커밋·푸시
+- 기준일은 첫 스텝에서 `TZ=Asia/Seoul date +%F` 로 한 번 정해 모든 단계에 넘깁니다.
+  실행 도중 자정을 넘겨도 단계마다 날짜가 어긋나지 않습니다.
+- `Run workflow` 로 수동 실행할 때는 `date` 입력에 `2026-08-26` 처럼 적어 특정 날짜를 다시 만들 수 있습니다.
 
-**전체 파이프라인 — `.github/workflows/analyze.yml`**
+**왜 아침이 아니라 밤 23시인가** — 아침 7시에 돌리면 "그날 발행분"이 00~07시 기사밖에 없어
+하루치라고 부르기 어렵습니다. 하루가 끝날 무렵 돌려야 온전한 당일치가 됩니다.
+아침에 받고 싶다면 cron 을 `0 22 * * *`(07:00 KST)로 바꾸고, 워크플로의 기준일 스텝에서
+`date +%F` 를 `date -d yesterday +%F` 로 바꿔 **전일치**를 보내면 됩니다.
+
+**AI 단계가 없어도 메일은 나갑니다** — 필수 secret 은 메일 계정 두 개뿐입니다.
+`OPENAI_API_KEY` 가 없으면 요약·트렌드 분석 단계만 건너뛰고(경고 표시) 기사 목록과 통계는
+그대로 발송됩니다. NAVER 키가 없으면 네이버 수집만 빠집니다.
+
+**필요한 Secrets** — 저장소 Settings → Secrets and variables → Actions에 등록합니다.
+
+| 이름 | 필수 | 쓰이는 곳 |
+| --- | --- | --- |
+| `GMAIL_ADDRESS` | **예** | 발신 Gmail 주소 |
+| `GMAIL_APP_PASSWORD` | **예** | Gmail **앱 비밀번호 16자리** (계정 비밀번호가 아닙니다) |
+| `OPENAI_API_KEY` | 아니오 | AI 요약·감성·트렌드 분석 |
+| `NAVER_CLIENT_ID` | 아니오 | NAVER 뉴스 수집 |
+| `NAVER_CLIENT_SECRET` | 아니오 | NAVER 뉴스 수집 |
+
+앱 비밀번호는 Google 계정 → 보안 → 2단계 인증 → 앱 비밀번호에서 발급합니다.
+수신자를 발신 계정과 다르게 하려면 `config.json` 의 `email.to` 에 적거나 `--to` 옵션을 씁니다.
+
+**전체 파이프라인(과제 제출본) — `.github/workflows/analyze.yml`**
 
 - 스케줄: **2026-08-14 06:30 KST 딱 한 번** (cron `30 21 13 8 *`, UTC 기준 — 13일 21:30 UTC가 14일 06:30 KST)
 - cron에는 연도 필드가 없어 날짜만으로는 매년 반복됩니다. 그래서 `guard` 잡에서 실행일이
   2026-08-14(KST)인지 확인하고, 아니면 본 작업을 건너뜁니다. 수동 실행은 날짜와 무관하게 항상 동작합니다.
-- 동작: 수집 → 정제 → AI 요약·감성 분석 → 트렌드 분석 → 리포트·차트 → 내보내기
-- 매일 수집(21:00 UTC)이 먼저 푸시하므로 30분 뒤에 실행하고, 푸시 전 `git pull --rebase`로 최신 상태에 얹습니다.
 - `output/exports/`는 `.gitignore` 대상이라 커밋되지 않으므로, 워크플로 아티팩트로 업로드해 30일간 내려받을 수 있게 했습니다.
 
-**필요한 Secrets** — 저장소 Settings → Secrets and variables → Actions에 등록합니다.
+**저장소에 커밋되는 것** — 수집·정제·요약 데이터와 `report.md` / `report.txt` 입니다.
+차트 PNG 는 매일 5장씩 쌓이면 저장소가 계속 커지므로 `.gitignore` 로 제외했고,
+메일 첨부(`--attach-charts`)와 워크플로 아티팩트로 받습니다.
 
-| 이름 | 쓰이는 곳 |
-| --- | --- |
-| `NAVER_CLIENT_ID` | NAVER 뉴스 수집 (두 워크플로 공통) |
-| `NAVER_CLIENT_SECRET` | NAVER 뉴스 수집 (두 워크플로 공통) |
-| `OPENAI_API_KEY` | AI 요약·감성·트렌드 분석 (`analyze.yml` 전용) |
+cron 표현식은 `분 시 일 월 요일` 순서입니다. `0 14 * * *`는 "매일 UTC 14시 정각"을 뜻합니다.
 
-두 워크플로 모두 Actions 탭의 `Run workflow` 버튼으로 즉시 수동 실행할 수 있습니다(`workflow_dispatch`).
-
-cron 표현식은 `분 시 일 월 요일` 순서입니다. `0 21 * * *`는 "매일 UTC 21시 정각",
-`30 21 13 8 *`는 "매년 8월 13일 UTC 21시 30분"을 뜻합니다.
-
-> **GitHub Actions의 cron은 UTC 기준입니다.** 한국시간으로 원하는 시각에서 9시간을 빼야 하는데,
-> 06:30 KST는 전날 21:30 UTC가 되어 **날짜가 하루 앞으로 당겨집니다.** 그래서 "8월 14일 06:30 KST"는
-> `14 8 *` 가 아니라 `13 8 *` 로 적어야 합니다. `14 8 *` 로 두면 실제로는 15일 06:30 KST에 실행됩니다.
+> **GitHub Actions의 cron은 UTC 기준입니다.** 한국시간에서 9시간을 빼야 합니다.
+> 23:00 KST는 같은 날 14:00 UTC지만, 06:30 KST는 **전날** 21:30 UTC가 되어 날짜가 하루 당겨집니다.
+> 그래서 "8월 14일 06:30 KST"는 `14 8 *` 가 아니라 `13 8 *` 로 적어야 합니다.
 
 > **cron에는 연도 필드가 없습니다.** `분 시 일 월 요일` 다섯 자리가 전부라 "2026년에만"을
 > 표현할 방법이 없고, `30 21 13 8 *`는 매년 8월에 다시 걸립니다. 그래서 워크플로 첫 잡에서
@@ -623,27 +695,42 @@ cron 표현식은 `분 시 일 월 요일` 순서입니다. `0 21 * * *`는 "매
 터미널에서 `crontab -e` 실행 후 아래와 같이 등록합니다.
 
 ```text
-0 6 * * * cd /path/to/project && python main.py fetch --source google --limit 20
-0 6 * * * cd /path/to/project && python main.py fetch --source naver --limit 20
-0 6 * * * cd /path/to/project && python main.py fetch --source govuk --limit 20
+0 23 * * * cd /path/to/project && ./daily.sh >> logs/cron.log 2>&1
 ```
 
-위 예시는 매일 06:00에 세 소스를 각각 20개씩 수집하도록 등록한 것입니다.
+`daily.sh` 는 하루치 파이프라인을 순서대로 실행합니다.
+
+```bash
+#!/usr/bin/env bash
+set -e
+python main.py fetch --source google --limit 40
+python main.py fetch --source naver  --limit 40
+python main.py fetch --source govuk  --limit 20
+python main.py clean --policy upsert --today
+python main.py summarize --today || true   # AI 단계가 실패해도 메일은 보낸다
+python main.py analyze --today || true
+python main.py report --today --format both
+python main.py mail --attach-charts --require-today
+```
+
+위 예시는 매일 23:00에 그날 발행분을 모아 메일까지 보내도록 등록한 것입니다.
+수집만 하고 싶다면 `fetch` 세 줄만 등록해도 됩니다.
 
 ### 방법 3. Windows - 작업 스케줄러(Task Scheduler)
 
 1. `Win + R` → `taskschd.msc` 실행
 2. "작업 만들기" 선택 후 트리거를 "매일 06:00"으로 설정
 3. 동작으로 "프로그램 시작"을 선택하고 아래와 같이 입력
-   - 프로그램/스크립트: `python`
-   - 인수 추가: `main.py fetch --source google --limit 20`
+   - 프로그램/스크립트: `cmd`
+   - 인수 추가: `/c daily.bat`
    - 시작 위치: 프로젝트 루트 폴더 경로
-4. NAVER, GOV.UK 소스에 대해서도 동일하게 작업을 하나씩 추가로 등록
 
-또는 PowerShell에서 `schtasks` 명령으로 동일한 작업을 등록할 수 있습니다.
+`daily.bat` 에 위 cron 예시와 같은 순서(fetch → clean → summarize → analyze → report → mail)를 적습니다.
+
+또는 PowerShell에서 `schtasks` 명령으로 등록할 수 있습니다.
 
 ```powershell
-schtasks /create /tn "AI뉴스수집_google" /tr "python C:\path\to\project\main.py fetch --source google --limit 20" /sc daily /st 06:00
+schtasks /create /tn "AI뉴스일일리포트" /tr "cmd /c C:\path\to\project\daily.bat" /sc daily /st 23:00
 ```
 
 

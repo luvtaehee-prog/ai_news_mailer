@@ -1,0 +1,184 @@
+name: 일일 AI 뉴스 리포트 메일
+
+# 하루에 한 번, "그날 발행된" AI 뉴스만 모아 정제·요약·분석하고
+# 리포트를 이메일로 보낸다.
+#
+# 기준일은 항상 한국시간(KST)이다. 러너는 UTC 로 돌기 때문에 각 단계에
+# TARGET_DATE 를 명시적으로 넘겨, 실행 도중 자정을 넘겨도 모든 단계가
+# 같은 날짜를 보게 한다.
+#
+# 23:00 KST 에 도는 이유: 아침에 돌리면 그날 00~07시 기사만 잡혀
+# "당일 뉴스"가 몇 건 안 남는다. 하루가 끝날 무렵 돌려야 온전한 하루치가 된다.
+# 아침에 받고 싶다면 cron 을 "0 22 * * *"(07:00 KST)로 바꾸고 아래
+# TARGET_DATE 를 `date -d yesterday +%F` 로 바꿔 전일치를 보내면 된다.
+on:
+  schedule:
+    # 매일 23:00 KST = 같은 날 14:00 UTC
+    - cron: "0 14 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "수집 기준일 (YYYY-MM-DD, KST). 비우면 오늘"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+# 같은 워크플로가 겹쳐 돌면 커밋이 서로 밀어낸다. 앞의 실행이 끝날 때까지 기다린다.
+concurrency:
+  group: daily-report
+  cancel-in-progress: false
+
+jobs:
+  daily-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v7
+
+      # 메일 발송은 마지막 단계라, secret 이 없으면 수집·요약을 다 돌린 뒤에야
+      # 실패한다. 그 낭비를 막으려고 시작하자마자 먼저 확인한다.
+      #
+      # 꼭 필요한 것은 메일 계정뿐이다. OPENAI_API_KEY 나 NAVER 키가 없으면
+      # 요약·분석이나 네이버 수집만 빠지고, 나머지 리포트는 정상적으로 나간다.
+      # (예전에는 OPENAI_API_KEY 까지 필수로 막아 두어, 키가 없는 동안
+      #  워크플로가 첫 단계에서 죽고 메일이 한 통도 안 나갔다.)
+      - name: 필수 Secret 확인
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+        run: |
+          missing=""
+          for name in GMAIL_ADDRESS GMAIL_APP_PASSWORD; do
+            if [ -z "$(printenv "$name")" ]; then
+              missing="$missing $name"
+            fi
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::메일 발송에 필요한 secret 이 없습니다:$missing (저장소 Settings > Secrets and variables > Actions)"
+            exit 1
+          fi
+          [ -z "$OPENAI_API_KEY" ] && echo "::warning::OPENAI_API_KEY 없음 -> AI 요약·트렌드 분석은 건너뜁니다"
+          [ -z "$NAVER_CLIENT_ID" ] && echo "::warning::NAVER_CLIENT_ID 없음 -> 네이버 뉴스 수집은 건너뜁니다"
+          echo "메일 계정 secret 확인 완료"
+
+      - name: 기준일 결정 (KST)
+        run: |
+          target="${{ github.event.inputs.date }}"
+          if [ -z "$target" ]; then
+            target=$(TZ=Asia/Seoul date +%F)
+          fi
+          echo "TARGET_DATE=$target" >> "$GITHUB_ENV"
+          echo "수집 기준일(KST): $target"
+
+      - name: Python 설정
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      # matplotlib 은 시스템에 설치된 폰트만 쓴다. ubuntu 러너에는 한글 폰트가
+      # 없어서, 설치하지 않으면 차트의 한글이 전부 네모(□)로 깨진다.
+      - name: 한글 폰트 설치
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-nanum
+          fc-cache -f
+          # matplotlib 이 폰트 목록을 캐시해 두기 때문에, 지워야 새 폰트를 인식한다
+          rm -rf ~/.cache/matplotlib
+
+      - name: 저장 경로 확인
+        run: |
+          python - <<'PY' | tee -a "$GITHUB_ENV"
+          import json
+          conf = json.load(open("config.json", encoding="utf-8"))
+          paths = conf.get("paths", {})
+          print("RAW_DIR=" + paths.get("raw", "data/raw"))
+          print("CLEAN_DIR=" + paths.get("clean", "data/clean"))
+          print("ANALYZED_DIR=" + paths.get("analyzed", "data/analyzed"))
+          print("OUTPUT_DIR=" + conf.get("report", {}).get("output_directory", "output"))
+          PY
+
+      # --- 1. 수집 (기준일 발행분만) ---------------------------------
+      # limit 은 '날짜 필터를 통과한 기사 수'라, 하루치가 그 아래면 있는 만큼만 모은다.
+      - name: Google News 수집
+        run: python main.py fetch --source google --limit 40 --date "$TARGET_DATE"
+
+      # 키가 없으면 collector 가 경고만 남기고 빈 결과를 돌려주므로 실행을 막지 않는다.
+      - name: NAVER News 수집
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+        run: python main.py fetch --source naver --limit 40 --date "$TARGET_DATE"
+
+      - name: GOV.UK 수집
+        run: python main.py fetch --source govuk --limit 20 --date "$TARGET_DATE"
+
+      # --- 2. 정제 ---------------------------------------------------
+      # raw 폴더에는 지난 기사가 그대로 쌓여 있으므로 기준일치만 정제한다.
+      - name: 데이터 정제
+        run: python main.py clean --policy upsert --date "$TARGET_DATE"
+
+      # --- 3. AI 요약 + 감성 분석 ------------------------------------
+      # 키가 없거나 API 가 실패해도 리포트·메일은 나가야 하므로 실패를 흘려보낸다.
+      - name: AI 요약·감성 분석
+        continue-on-error: true
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python main.py summarize --date "$TARGET_DATE"
+
+      # --- 4. AI 트렌드 분석 -----------------------------------------
+      - name: AI 트렌드 분석
+        continue-on-error: true
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python main.py analyze --date-from "$TARGET_DATE" --date-to "$TARGET_DATE"
+
+      # --- 5. 리포트 -------------------------------------------------
+      - name: 리포트·차트 생성
+        run: |
+          python main.py report --format both \
+            --date-from "$TARGET_DATE" --date-to "$TARGET_DATE"
+
+      # --- 6. 이메일 발송 --------------------------------------------
+      # --require-today: report 단계가 실패해 어제 폴더가 최신으로 남아 있으면
+      # 보내지 않고 실패시킨다 (어제 뉴스를 오늘 제목으로 재발송하는 사고 방지).
+      - name: 리포트 이메일 발송
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python main.py mail --attach-charts --require-today
+
+      - name: 리포트 업로드
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: daily-report-${{ env.TARGET_DATE }}
+          path: ${{ env.OUTPUT_DIR }}/reports/
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: 결과 커밋 및 푸시
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 차트 PNG 는 .gitignore 대상이라 report.md / report.txt 만 담긴다.
+          git add "$RAW_DIR"/*.jsonl "$CLEAN_DIR"/*.jsonl "$ANALYZED_DIR"/* \
+                  "$OUTPUT_DIR"/reports logs/*.log
+          # `a && exit 0` 꼴로 쓰면 변경사항이 있을 때(=diff 가 1을 반환) 스텝이
+          # 실패로 끝난다. if 문으로 분기해야 set -e 에 걸리지 않는다.
+          if git diff --cached --quiet; then
+            echo "변경사항 없음"
+            exit 0
+          fi
+          git commit -m "chore: 일일 뉴스 리포트 반영 ($TARGET_DATE)"
+          # 다른 실행이 먼저 push 했을 수 있으므로 최신 상태에 얹는다
+          git pull --rebase origin main
+          git push

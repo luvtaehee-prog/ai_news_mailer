@@ -16,6 +16,9 @@ import json
 import os
 import time
 from collections import Counter
+from datetime import datetime
+
+from cleaner import KST
 
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -431,10 +434,17 @@ def analyze_trends(summaries, output_path="data/analyzed/trend_report.json"):
         log.error("트렌드 분석 실패: %s: %s", type(e).__name__, e)
         return None
 
+    # 어느 기간의 기사를 본 결과인지 남긴다. 이게 없으면 리포트가
+    # 지난번 분석 결과(옛날 기사 기준)를 오늘 것처럼 붙여 버린다.
+    dates = sorted(s.get("published_date", "") for s in summaries
+                   if s.get("published_date"))
+
     result = {
         "keyword_frequency": [{"keyword": kw, "count": c} for kw, c in keyword_stats],
         "category_distribution": category_stats,
         "article_count": len(summaries),
+        "period": {"from": dates[0], "to": dates[-1]} if dates else {},
+        "generated_at": datetime.now(KST).isoformat(),
         **parsed,
     }
 

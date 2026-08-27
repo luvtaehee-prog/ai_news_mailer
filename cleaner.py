@@ -25,6 +25,15 @@ _BLOCK_RE = re.compile(r"</?(?:br|p|div|li|tr|h[1-6]|section|article)\b[^>]*>",
                        re.IGNORECASE)
 
 
+def today_kst() -> str:
+    """오늘 날짜(한국시간)를 'YYYY-MM-DD' 로 돌려준다.
+
+    GitHub Actions 러너는 UTC 로 돌기 때문에 datetime.now() 를 그대로 쓰면
+    한국 기준 하루 전 날짜가 나온다. '당일 뉴스'의 기준일은 항상 KST 다.
+    """
+    return datetime.now(KST).strftime("%Y-%m-%d")
+
+
 def strip_html(text: str) -> str:
     """HTML 태그와 엔티티를 제거하고 공백을 정리한 순수 텍스트를 반환한다.
 

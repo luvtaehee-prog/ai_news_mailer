@@ -19,7 +19,7 @@ import os
 import json
 import argparse
 
-from cleaner import clean_record
+from cleaner import clean_record, today_kst
 from store import read_raw, load_clean, write_clean, apply_dedup
 from log_setup import get_logger
 
@@ -39,6 +39,10 @@ def add_clean_parser(subparsers) -> None:
                    help="정제할 최대 건수 (기본: 전체)")
     p.add_argument("--policy", choices=["skip", "upsert"], default=None,
                    help="중복 처리 정책 (기본: config.json 값)")
+    p.add_argument("--date", default=None,
+                   help="이 발행일(YYYY-MM-DD)의 기사만 정제한다")
+    p.add_argument("--today", action="store_true",
+                   help="오늘(KST) 발행 기사만 정제한다 (--date 오늘 과 동일)")
     p.add_argument("--config", default="config.json", help="설정 파일 경로")
 
 
@@ -73,6 +77,17 @@ def cmd_clean(args) -> dict:
             cleaned.append(rec)
     log.info("정제 통과: %d건, 제외: %d건", len(cleaned), dropped)
 
+    # 2-1) 기준일 필터
+    #
+    # raw 폴더에는 지금까지 모은 기사가 그대로 쌓여 있다. 매일 돌리는
+    # 당일 리포트에서는 오늘 발행분만 손대면 되므로, 여기서 좁혀 둔다.
+    # (clean 저장소 자체는 계속 누적되는 보관용이라 과거 기사는 남는다.)
+    only_date = args.date or (today_kst() if getattr(args, "today", False) else None)
+    if only_date:
+        before = len(cleaned)
+        cleaned = [r for r in cleaned if r.get("published_date") == only_date]
+        log.info("기준일 %s 필터: %d건 -> %d건", only_date, before, len(cleaned))
+
     # 3) 중복 정책 적용 후 저장
     existing = load_clean(clean_path)
     dedup_by_title = clean_conf.get("dedup_by_title", True)
@@ -84,7 +99,8 @@ def cmd_clean(args) -> dict:
         stats["added"], stats["updated"], stats["skipped"],
         stats["batch_dup"], stats["title_dup"], len(merged), clean_path,
     )
-    return {"dropped": dropped, "total": len(merged), **stats}
+    return {"dropped": dropped, "total": len(merged),
+            "date": only_date, **stats}
 
 
 if __name__ == "__main__":
@@ -92,5 +108,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="뉴스 정제 (clean) 단독 실행")
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--policy", choices=["skip", "upsert"], default=None)
+    parser.add_argument("--date", default=None)
+    parser.add_argument("--today", action="store_true")
     parser.add_argument("--config", default="config.json")
     cmd_clean(parser.parse_args())

@@ -2,7 +2,7 @@
   "news_sources": {
     "google": {
       "type": "rss",
-      "url": "https://news.google.com/rss/search?q=AI&hl=ko&gl=KR&ceid=KR:ko",
+      "url": "https://news.google.com/rss/search?q=AI+when:1d&hl=ko&gl=KR&ceid=KR:ko",
       "max_retries": 3,
       "retry_delay": 5
     },
@@ -43,7 +43,12 @@
   "report": {
     "output_directory": "output",
     "top_n": 10,
+    "article_limit": 30,
     "date_field": "published"
+  },
+
+  "email": {
+    "to": ""
   },
 
   "clean": {

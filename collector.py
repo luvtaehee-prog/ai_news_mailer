@@ -11,6 +11,8 @@ import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
+from cleaner import normalize_date
+
 
 load_dotenv()
 
@@ -91,6 +93,30 @@ TRAILING_BOILERPLATE_PATTERNS = [
 _TRAILING_BOILERPLATE_RE = re.compile(
     "|".join(TRAILING_BOILERPLATE_PATTERNS)
 )
+
+# --------------------------------------------------
+# 발행일 필터 (당일 뉴스만 수집)
+# --------------------------------------------------
+
+def published_date_kst(raw_date):
+    """기사 발행일 문자열을 KST 기준 'YYYY-MM-DD' 로 바꾼다. 실패하면 None."""
+    parsed = normalize_date(raw_date)
+
+    return parsed.strftime("%Y-%m-%d") if parsed else None
+
+
+def is_target_date(raw_date, only_date):
+    """only_date 에 해당하는 기사인지 판단한다.
+
+    only_date 가 None 이면(=--all-dates) 전부 통과시킨다.
+    발행일을 못 읽는 기사는 당일 여부를 확인할 수 없으므로 제외한다.
+    (어차피 clean 단계에서도 '발행일 파싱 실패'로 버려진다.)
+    """
+    if not only_date:
+        return True
+
+    return published_date_kst(raw_date) == only_date
+
 
 # --------------------------------------------------
 # 공통 raw 데이터 저장
@@ -455,7 +481,7 @@ def fetch_article_content(article_url, timeout, headers):
     return "", article_url
 
 
-def fetch_google_news(limit=20):
+def fetch_google_news(limit=20, only_date=None):
     rss_url = config["news_sources"]["google"]["url"]
     timeout = config["request"]["timeout"]
     request_delay = config["news_sources"]["google"].get(
@@ -526,8 +552,22 @@ def fetch_google_news(limit=20):
         return []
 
     news_list = []
+    skipped_by_date = 0
 
-    for news in feed.entries[:limit]:
+    # entries[:limit] 로 미리 자르지 않는다. 날짜로 걸러내고 나면 limit 을
+    # 못 채우기 때문에, 피드 전체를 훑으면서 조건에 맞는 것만 limit 만큼 모은다.
+    for news in feed.entries:
+        if len(news_list) >= limit:
+            break
+
+        published_at = news.get("published", "")
+
+        # 날짜 판정은 본문 크롤링보다 먼저 한다. 순서를 바꾸면 버릴 기사까지
+        # 원문 페이지를 받아오느라 실행 시간이 몇 배로 늘어난다.
+        if not is_target_date(published_at, only_date):
+            skipped_by_date += 1
+            continue
+
         google_news_url = news.get("link", "")
         content, article_url = fetch_article_content(
             google_news_url,
@@ -541,7 +581,7 @@ def fetch_google_news(limit=20):
             "content": content_excerpt,
             "url": article_url or google_news_url,
             "google_news_url": google_news_url,
-            "published_at": news.get("published", ""),
+            "published_at": published_at,
             "source": "google",
             "collected_at": datetime.now().isoformat(),
             "collection_method": "rss+crawl",
@@ -553,7 +593,12 @@ def fetch_google_news(limit=20):
 
         time.sleep(request_delay)
 
-    logger.info("수집된 Google News: %d", len(news_list))
+    logger.info(
+        "수집된 Google News: %d건 (기준일 %s, 날짜 불일치로 제외 %d건)",
+        len(news_list),
+        only_date or "전체",
+        skipped_by_date
+    )
 
     save_raw_news(
         news_list,
@@ -567,7 +612,7 @@ def fetch_google_news(limit=20):
 # NAVER 뉴스 검색 API 수집
 # --------------------------------------------------
 
-def fetch_naver_news(limit=20):
+def fetch_naver_news(limit=20, only_date=None):
     client_id = os.getenv("NAVER_CLIENT_ID")
     client_secret = os.getenv("NAVER_CLIENT_SECRET")
 
@@ -589,11 +634,18 @@ def fetch_naver_news(limit=20):
     items_found = []
     seen_urls = set()
 
+    skipped_by_date = 0
+
     # 검색어별로 비슷한 수량을 요청
     per_keyword_limit = max(
         1,
         ceil(limit / len(keywords)) + 2
     )
+
+    # 당일치만 남기면 대부분 걸러지므로 넉넉히 받아 온다.
+    # sort=date(최신순)라 앞쪽에 오늘 기사가 몰려 있다.
+    if only_date:
+        per_keyword_limit = max(per_keyword_limit, 30)
 
     for keyword in keywords:
         params = {
@@ -637,6 +689,10 @@ def fetch_naver_news(limit=20):
             continue
 
         for item in data.get("items", []):
+            if not is_target_date(item.get("pubDate", ""), only_date):
+                skipped_by_date += 1
+                continue
+
             article_url = (
                 item.get("originallink")
                 or item.get("link", "")
@@ -696,7 +752,12 @@ def fetch_naver_news(limit=20):
 
         time.sleep(request_delay)
 
-    logger.info("중복 제거 후 수집된 NAVER 뉴스: %d", len(news_list))
+    logger.info(
+        "중복 제거 후 수집된 NAVER 뉴스: %d건 (기준일 %s, 날짜 불일치로 제외 %d건)",
+        len(news_list),
+        only_date or "전체",
+        skipped_by_date
+    )
 
     save_raw_news(
         news_list,
@@ -710,7 +771,7 @@ def fetch_naver_news(limit=20):
 # GOV.UK AI 뉴스 크롤링
 # --------------------------------------------------
 
-def crawl_govuk(limit=20):
+def crawl_govuk(limit=20, only_date=None):
     url = config["news_sources"]["govuk"]["url"]
     request_delay = config["news_sources"]["govuk"]["request_delay"]
     timeout = config["request"]["timeout"]
@@ -747,6 +808,7 @@ def crawl_govuk(limit=20):
     results = soup.select("li")
 
     news_list = []
+    skipped_by_date = 0
 
     for item in results:
         link_tag = item.find("a")
@@ -775,6 +837,12 @@ def crawl_govuk(limit=20):
         published_at = (
             text.split("Updated:")[-1].strip()
         )
+
+        # 상세 페이지를 받아오기 전에 날짜부터 본다 (기사마다 1초씩 쉬므로
+        # 뒤에서 거르면 버릴 기사에 그 시간을 다 쓰게 된다)
+        if not is_target_date(published_at, only_date):
+            skipped_by_date += 1
+            continue
 
         article_url = "https://www.gov.uk" + href
 
@@ -831,7 +899,12 @@ def crawl_govuk(limit=20):
         if len(news_list) >= limit:
             break
 
-    logger.info("수집된 GOV.UK AI 뉴스: %d", len(news_list))
+    logger.info(
+        "수집된 GOV.UK AI 뉴스: %d건 (기준일 %s, 날짜 불일치로 제외 %d건)",
+        len(news_list),
+        only_date or "전체",
+        skipped_by_date
+    )
 
     save_raw_news(
         news_list,
@@ -844,17 +917,22 @@ def crawl_govuk(limit=20):
 # 수집 소스 선택
 # --------------------------------------------------
 
-def fetch_news(source, limit=20):
+def fetch_news(source, limit=20, only_date=None):
+    """뉴스를 수집한다.
+
+    only_date : "YYYY-MM-DD" 를 주면 그 날짜에 발행된 기사만 남긴다.
+                None 이면 발행일과 무관하게 수집한다.
+    """
     source = source.lower()
 
     if source == "google":
-        return fetch_google_news(limit)
+        return fetch_google_news(limit, only_date)
 
     elif source == "naver":
-        return fetch_naver_news(limit)
+        return fetch_naver_news(limit, only_date)
 
     elif source == "govuk":
-        return crawl_govuk(limit)
+        return crawl_govuk(limit, only_date)
 
     else:
         logger.error("지원하지 않는 뉴스 소스입니다: %s", source)

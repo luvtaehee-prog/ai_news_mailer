@@ -12,6 +12,7 @@ analyzer 모듈은 함수 안에서 import 한다.
 
 import argparse
 
+from cleaner import today_kst
 from log_setup import get_logger
 
 
@@ -43,6 +44,10 @@ def add_summarize_parser(subparsers) -> None:
     target.add_argument("--id", default=None, help="특정 뉴스 id 하나만 요약")
     p.add_argument("--limit", type=int, default=None,
                    help="요약할 최대 건수")
+    p.add_argument("--date", default=None,
+                   help="이 발행일(YYYY-MM-DD)의 기사만 요약한다")
+    p.add_argument("--today", action="store_true",
+                   help="오늘(KST) 발행 기사만 요약한다")
     p.add_argument("--batch-size", type=int, default=5,
                    help="한 번의 API 호출에 묶을 기사 수 (기본: 5)")
     p.add_argument("--sentiment-only", action="store_true",
@@ -66,6 +71,16 @@ def cmd_summarize(args):
 
     records = analyzer.load_clean_news()
     log.info("clean 데이터 %d건 로드", len(records))
+
+    # clean 저장소는 계속 쌓이는 보관용이라, 날짜를 안 좁히면 예전에
+    # 요약하지 못하고 넘어간 기사까지 한꺼번에 API 로 넘어가 과금된다.
+    only_date = (getattr(args, "date", None)
+                 or (today_kst() if getattr(args, "today", False) else None))
+    if only_date:
+        before = len(records)
+        records = [r for r in records
+                   if r.get("published_date") == only_date]
+        log.info("기준일 %s 필터: %d건 -> %d건", only_date, before, len(records))
 
     target_id = getattr(args, "id", None)
     if target_id:
@@ -104,6 +119,8 @@ def add_analyze_parser(subparsers) -> None:
     p.add_argument("--category", default=None, help="특정 카테고리만 분석")
     p.add_argument("--date-from", default=None, help="시작일 (YYYY-MM-DD, 포함)")
     p.add_argument("--date-to", default=None, help="종료일 (YYYY-MM-DD, 포함)")
+    p.add_argument("--today", action="store_true",
+                   help="오늘(KST) 발행 기사만 분석 (--date-from/--date-to 오늘)")
 
 
 def cmd_analyze(args):
@@ -119,6 +136,8 @@ def cmd_analyze(args):
     category = getattr(args, "category", None)
     date_from = getattr(args, "date_from", None)
     date_to = getattr(args, "date_to", None)
+    if getattr(args, "today", False):
+        date_from = date_to = today_kst()
     if category or date_from or date_to:
         before = len(summaries)
         summaries = [

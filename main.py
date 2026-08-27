@@ -21,6 +21,7 @@ main.py 에서 충돌이 나지 않는다.
 
 import argparse
 
+from cleaner import today_kst
 from clean_command import add_clean_parser, cmd_clean
 from analyze_command import (add_analyze_parser, add_summarize_parser,
                              cmd_analyze, cmd_summarize)
@@ -39,6 +40,12 @@ def add_fetch_parser(subparsers) -> None:
                    help="뉴스 소스 (기본: google)")
     p.add_argument("--limit", type=int, default=20,
                    help="수집할 뉴스 개수 (기본: 20)")
+    # 이 프로젝트는 '매일 당일 뉴스'를 보내는 것이 목적이라 날짜 필터가 기본이다.
+    # 과거 기사까지 모으고 싶을 때만 --all-dates 로 끈다.
+    p.add_argument("--date", default=None,
+                   help="수집할 발행일 (YYYY-MM-DD, 기본: 오늘 KST)")
+    p.add_argument("--all-dates", action="store_true",
+                   help="발행일 필터를 끄고 피드에 있는 기사를 모두 수집")
 
 
 def cmd_fetch(args):
@@ -50,7 +57,10 @@ def cmd_fetch(args):
     """
     from collector import fetch_news
 
-    return fetch_news(source=args.source, limit=args.limit)
+    only_date = None if args.all_dates else (args.date or today_kst())
+
+    return fetch_news(source=args.source, limit=args.limit,
+                      only_date=only_date)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -58,7 +68,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="main.py",
         description="AI 뉴스 트렌드 분석 파이프라인",
-        epilog="예) python main.py fetch --source google --limit 20",
+        epilog="예) python main.py fetch --source google --limit 30",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 

@@ -15,12 +15,13 @@ main.py 에 붙이는 방법:
 """
 
 import os
+import re
 import glob
 import json
 import argparse
-from datetime import datetime
 
 import mailer
+from cleaner import today_kst
 from log_setup import get_logger
 
 
@@ -51,6 +52,8 @@ def add_mail_parser(subparsers) -> None:
                    help="발송할 리포트 폴더 (기본: 가장 최근 폴더 자동 탐색)")
     p.add_argument("--attach-charts", action="store_true",
                    help="charts/ 폴더의 PNG 를 첨부파일로 함께 보낸다")
+    p.add_argument("--require-today", action="store_true",
+                   help="오늘(KST) 만든 리포트가 아니면 보내지 않는다")
     p.add_argument("--output", default=None,
                    help="리포트 루트 폴더 (기본: output)")
     p.add_argument("--config", default="config.json", help="설정 파일 경로")
@@ -62,15 +65,28 @@ def cmd_mail(args) -> dict:
     conf = load_config(getattr(args, "config", "config.json"))
     out_root = getattr(args, "output", None) or "output"
 
+    today = today_kst()
+
     report_dir = getattr(args, "report_dir", None) or find_latest_report_dir(out_root)
     if not report_dir or not os.path.isdir(report_dir):
         log.error("보낼 리포트를 찾지 못했습니다. 먼저 `python main.py report` 를 실행하세요.")
         return {"sent": False}
 
-    # report.md 를 우선 쓰고 없으면 report.txt 를 쓴다
-    body_path = os.path.join(report_dir, "report.md")
+    # 오늘 만든 리포트가 맞는지 확인한다.
+    # report 단계가 실패하면 '가장 최근 폴더'가 어제 것이라, 확인 없이 보내면
+    # 어제 뉴스를 오늘 제목으로 다시 보내게 된다.
+    if getattr(args, "require_today", False):
+        stamp = os.path.basename(report_dir).replace("report_", "")[:8]
+        if stamp != today.replace("-", ""):
+            log.error("가장 최근 리포트(%s)가 오늘(%s) 것이 아닙니다. "
+                      "report 단계가 실패했는지 확인하세요.", report_dir, today)
+            return {"sent": False}
+
+    # 평문 메일이라 report.txt 를 우선 쓴다 (표·링크가 평문으로 정리된 판본).
+    # 없으면 report.md 로 대체한다.
+    body_path = os.path.join(report_dir, "report.txt")
     if not os.path.exists(body_path):
-        body_path = os.path.join(report_dir, "report.txt")
+        body_path = os.path.join(report_dir, "report.md")
     if not os.path.exists(body_path):
         log.error("%s 안에 report.md/report.txt 가 없습니다.", report_dir)
         return {"sent": False}
@@ -84,8 +100,10 @@ def cmd_mail(args) -> dict:
     if getattr(args, "attach_charts", False):
         attachments = sorted(glob.glob(os.path.join(report_dir, "charts", "*.png")))
 
-    today = datetime.now().strftime("%Y-%m-%d")
-    subject = f"[AI 뉴스 리포트] {today}"
+    # 제목에 건수를 넣어 두면 메일함에서 열지 않고도 오늘 수확을 알 수 있다
+    match = re.search(r"뉴스 목록 \((\d+)건\)", body_text)
+    count_label = f" · {match.group(1)}건" if match else ""
+    subject = f"[AI 뉴스 리포트] {today}{count_label}"
 
     try:
         mailer.send_email(subject, body_text, to_addr=to_addr,
