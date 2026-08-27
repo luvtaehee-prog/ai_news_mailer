@@ -415,3 +415,25 @@
 2026-08-16 22:20:53,993 [INFO] report: 리포트 저장: output/reports/report_20260816_222053/report.md
 2026-08-16 22:20:53,994 [INFO] report: 리포트 저장: output/reports/report_20260816_222053/report.txt
 2026-08-16 22:20:54,515 [ERROR] mail: 이메일 발송 실패: .env 에 GMAIL_ADDRESS 와 GMAIL_APP_PASSWORD 가 없습니다. 프로젝트 루트의 .env 에 두 값을 추가하세요.
+2026-08-27 05:50:20,435 [INFO] clean: 정제 시작: raw=data/raw, 정책=upsert
+2026-08-27 05:50:20,466 [INFO] clean: raw 로드: 733건
+2026-08-27 05:50:20,549 [INFO] clean: 정제 통과: 733건, 제외: 0건
+2026-08-27 05:50:20,549 [INFO] clean: 기준일 2026-08-27 필터: 733건 -> 56건
+2026-08-27 05:50:20,590 [INFO] clean: 저장 완료: 신규 39, 갱신 16, 스킵 0, 배치중복 0, 제목중복 1 -> 총 716건 (data/clean/news_clean.jsonl)
+2026-08-27 05:50:21,731 [INFO] analyze: clean 데이터 716건 로드
+2026-08-27 05:50:21,733 [INFO] analyze: 기준일 2026-08-27 필터: 716건 -> 55건
+2026-08-27 05:50:21,733 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-08-27 05:50:21,733 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-08-27 05:50:22,975 [INFO] analyze: 분석 대상 필터: 375건 -> 0건
+2026-08-27 05:50:22,975 [ERROR] analyze: 분석할 요약 데이터가 없습니다. 먼저 summarize 를 실행하세요.
+2026-08-27 05:50:23,621 [INFO] report: 데이터 로드: clean 716건, 요약 375건, 트렌드 있음
+2026-08-27 05:50:23,622 [WARNING] report: AI 인사이트(기간 기록 없음)가 이번 리포트 기간(2026-08-27 ~ 2026-08-27)과 달라 제외합니다.
+2026-08-27 05:50:23,622 [INFO] report: 필터 적용: 716건 -> 55건
+2026-08-27 05:50:23,623 [INFO] report: 한글 폰트 적용: NanumGothic
+2026-08-27 05:50:23,735 [INFO] report: 차트 저장: output/reports/report_20260827_055023/charts/category_counts.png
+2026-08-27 05:50:23,841 [INFO] report: 차트 저장: output/reports/report_20260827_055023/charts/daily_trend.png
+2026-08-27 05:50:23,890 [INFO] report: 차트 저장: output/reports/report_20260827_055023/charts/top_keywords.png
+2026-08-27 05:50:23,948 [INFO] report: 차트 저장: output/reports/report_20260827_055023/charts/source_share.png
+2026-08-27 05:50:23,949 [INFO] report: 리포트 저장: output/reports/report_20260827_055023/report.md
+2026-08-27 05:50:23,950 [INFO] report: 리포트 저장: output/reports/report_20260827_055023/report.txt
+2026-08-27 05:50:26,196 [INFO] mail: 이메일 발송 완료: output/reports/report_20260827_055023 -> (본인 계정) (첨부 4건)
