@@ -19,6 +19,32 @@ python main.py mail --attach-charts --require-today   # 메일 발송
 
 `--today` 는 오늘(KST) 발행분을 뜻합니다. 전날치를 보려면 `--date 2026-08-26` 처럼 날짜를 직접 줍니다.
 
+### 어떤 주제를 받을지 바꾸기
+
+`config.json` 맨 위의 **`keywords` 한 곳**만 고치면 Google·NAVER 수집이 함께 따라옵니다.
+
+```json
+{
+  "keywords": ["반도체", "전기차", "2차전지", "로봇"],
+  ...
+}
+```
+
+- 검색어마다 따로 뉴스를 받아 **번갈아 뽑습니다.** 앞쪽 검색어가 `--limit` 을 독차지해
+  뒤쪽 주제가 통째로 빠지는 일이 없습니다.
+- 기사에는 어느 검색어로 걸렸는지가 함께 저장되고, 그 값이 리포트의 **카테고리**가 됩니다.
+  리포트 "카테고리별 뉴스 수" 표가 곧 주제별 분포가 됩니다.
+- 바꾸기 전에 한 번 시험해 보려면 커밋하지 않고 옵션으로 덮어쓸 수 있습니다.
+
+  ```text
+  python main.py fetch --source google --keyword 반도체 --keyword 전기차 --limit 20
+  ```
+
+- **GOV.UK 는 따라오지 않습니다.** 영국 정부 사이트라 검색어가 영어여야 하고, 기본값이
+  "정부 AI 보도자료" 주제 페이지로 고정돼 있기 때문입니다. 주제를 AI 밖으로 옮기신다면
+  `news_sources.govuk.enabled` 를 `false` 로 꺼 두시는 편이 낫고, 영어 검색으로 쓰시려면
+  `news_sources.govuk.keywords` 에 `["semiconductor", "chips"]` 처럼 적으면 됩니다.
+
 
 ## 프로젝트 구조
 
@@ -226,12 +252,22 @@ logs/pipeline.log     # 2~4. 정제 / AI 분석 / 리포트 단계
 
 설정 항목:
 
- - 뉴스 소스 URL
- - NAVER 뉴스 검색 키워드
- - HTTP timeout
- - GOV.UK 요청 지연 시간
- - Raw 데이터 저장 경로
- - 중복 처리 정책
+| 키 | 뜻 |
+| --- | --- |
+| `keywords` | **수집 검색어 목록.** Google·NAVER 가 공통으로 씁니다. 주제를 바꿀 때 여기만 고치면 됩니다 |
+| `news_sources.google.url_template` | RSS 주소 틀. `{query}` 자리에 검색어가 들어갑니다 |
+| `news_sources.google.recent_only` | `true` 면 검색어에 `when:1d` 를 붙여 최근 24시간 기사만 받습니다 |
+| `news_sources.<소스>.keywords` | 그 소스에서만 다른 검색어를 쓰고 싶을 때 (공통 `keywords` 보다 우선) |
+| `news_sources.govuk.enabled` | `false` 로 두면 GOV.UK 수집을 건너뜁니다 |
+| `request.timeout` | HTTP timeout |
+| `news_sources.govuk.request_delay` | GOV.UK 요청 사이 지연 시간 |
+| `paths.*` | raw / clean / analyzed 저장 경로 |
+| `duplicate_policy` | 중복 처리 정책 (`skip` / `upsert`) |
+| `report.article_limit` | 리포트에 싣는 기사 목록 개수 (0 이면 전부) |
+| `email.to` | 수신자. 비우면 발신 계정 본인에게 보냅니다 |
+| `ai.model` | 요약·분석에 쓰는 OpenAI 모델 |
+
+검색어 우선순위는 `--keyword` 옵션 > `news_sources.<소스>.keywords` > 공통 `keywords` 입니다.
 
 API 인증정보는 config.json에 저장하지 않습니다.
 
@@ -246,11 +282,14 @@ python main.py fetch --source govuk  --limit 20
 
 python main.py fetch --source google --date 2026-08-26   # 특정 날짜만
 python main.py fetch --source google --all-dates         # 날짜 필터 끄기
+
+python main.py fetch --source google --keyword 반도체 --keyword 로봇   # 검색어 임시 지정
 ```
 
-Google News RSS 는 검색어에 `when:1d` 를 붙여(`config.json` 의 `news_sources.google.url`)
-최근 24시간 기사만 내려받습니다. 이게 없으면 피드 앞쪽이 옛날 기사로 채워져
-당일 필터를 통과하는 기사가 몇 건 남지 않습니다.
+Google News 는 `config.json` 의 `keywords` 를 하나씩 검색해 RSS 로 받아옵니다.
+날짜 필터가 켜져 있으면 검색어에 `when:1d` 를 붙여 최근 24시간 기사만 내려받습니다
+(`recent_only`). 이게 없으면 피드 앞쪽이 옛날 기사로 채워져 당일 필터를 통과하는
+기사가 몇 건 남지 않습니다.
 
 ## 2. 데이터 정제
 

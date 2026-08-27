@@ -4,7 +4,9 @@ import time
 import os
 import logging
 from datetime import datetime
+from itertools import zip_longest
 from math import ceil
+from urllib.parse import quote_plus
 
 import feedparser
 import requests
@@ -73,6 +75,21 @@ GOOGLE_NEWS_BATCH_URL = (
     "https://news.google.com/_/DotsSplashUi/data/batchexecute"
 )
 
+# 검색어 하나를 넣어 Google News RSS 주소를 만드는 틀.
+# config.json 의 news_sources.google.url_template 로 바꿀 수 있다.
+GOOGLE_RSS_TEMPLATE = (
+    "https://news.google.com/rss/search"
+    "?q={query}&hl=ko&gl=KR&ceid=KR:ko"
+)
+
+# GOV.UK 검색 주소 틀. 영국 정부 사이트라 검색어도 영어여야 결과가 나온다.
+# 그래서 공통 keywords 를 그대로 쓰지 않고, govuk.keywords 를 따로 적었을
+# 때만 검색 주소를 만든다 (기본은 config 의 url = AI 주제 페이지).
+GOVUK_SEARCH_TEMPLATE = (
+    "https://www.gov.uk/search/news-and-communications"
+    "?keywords={query}&order=updated-newest"
+)
+
 CONTENT_EXCERPT_MAX_LENGTH = 3000
 
 # 본문 셀렉터가 기사와 함께 긁어오는 페이지 부가 텍스트(저작권 안내, 기자 이메일,
@@ -93,6 +110,26 @@ TRAILING_BOILERPLATE_PATTERNS = [
 _TRAILING_BOILERPLATE_RE = re.compile(
     "|".join(TRAILING_BOILERPLATE_PATTERNS)
 )
+
+# --------------------------------------------------
+# 검색어 (config.json 의 keywords)
+# --------------------------------------------------
+
+def get_keywords(source, override=None):
+    """수집에 쓸 검색어 목록을 정한다.
+
+    우선순위는 CLI 옵션(--keyword) > 소스별 keywords > 공통 keywords 다.
+    주제를 바꾸고 싶으면 config.json 맨 위 "keywords" 한 줄만 고치면
+    세 소스가 함께 따라온다.
+    """
+    if override:
+        return list(override)
+
+    source_conf = config.get("news_sources", {}).get(source, {})
+    keywords = source_conf.get("keywords") or config.get("keywords")
+
+    return list(keywords) if keywords else ["AI"]
+
 
 # --------------------------------------------------
 # 발행일 필터 (당일 뉴스만 수집)
@@ -481,35 +518,36 @@ def fetch_article_content(article_url, timeout, headers):
     return "", article_url
 
 
-def fetch_google_news(limit=20, only_date=None):
-    rss_url = config["news_sources"]["google"]["url"]
-    timeout = config["request"]["timeout"]
-    request_delay = config["news_sources"]["google"].get(
-        "request_delay",
-        0.5
-    )
-    max_retries = config["news_sources"]["google"].get(
-        "max_retries",
-        3
-    )
-    retry_delay = config["news_sources"]["google"].get(
-        "retry_delay",
-        5
-    )
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/124.0 Safari/537.36"
-        )
-    }
+def build_google_rss_url(keyword, only_date=None):
+    """검색어 하나로 Google News RSS 주소를 만든다.
 
+    당일치만 모을 때는 검색어에 `when:1d` 를 붙인다. 이게 없으면 피드
+    앞쪽이 몇 달 전 기사로 채워져, 날짜 필터를 통과하는 기사가 몇 건
+    남지 않는다.
+    """
+    google_conf = config["news_sources"]["google"]
+
+    # url 을 직접 적어 두면 그것을 그대로 쓴다 (검색어 무시).
+    if google_conf.get("url"):
+        return google_conf["url"]
+
+    template = google_conf.get("url_template", GOOGLE_RSS_TEMPLATE)
+    query = keyword
+
+    if only_date and google_conf.get("recent_only", True):
+        query = f"{keyword} when:1d"
+
+    return template.format(query=quote_plus(query))
+
+
+def fetch_rss_feed(url, headers, timeout, max_retries, retry_delay, label=""):
+    """RSS 주소를 받아 파싱된 feed 를 돌려준다. 실패하면 None."""
     response = None
 
     for attempt in range(1, max_retries + 1):
         try:
             response = requests.get(
-                rss_url,
+                url,
                 headers=headers,
                 timeout=timeout
             )
@@ -519,7 +557,8 @@ def fetch_google_news(limit=20, only_date=None):
 
         except requests.exceptions.Timeout:
             logger.error(
-                "Google News RSS 요청 시간이 초과되었습니다. (%d/%d회 시도)",
+                "Google News RSS 요청 시간이 초과되었습니다. %s(%d/%d회 시도)",
+                label,
                 attempt,
                 max_retries
             )
@@ -527,7 +566,8 @@ def fetch_google_news(limit=20, only_date=None):
 
         except requests.exceptions.RequestException as error:
             logger.error(
-                "Google News RSS 요청에 실패했습니다. (%d/%d회 시도)",
+                "Google News RSS 요청에 실패했습니다. %s(%d/%d회 시도)",
+                label,
                 attempt,
                 max_retries
             )
@@ -539,35 +579,95 @@ def fetch_google_news(limit=20, only_date=None):
 
     if response is None:
         logger.error(
-            "Google News RSS 요청이 %d회 모두 실패했습니다.",
-            max_retries
+            "Google News RSS 요청이 %d회 모두 실패했습니다. %s",
+            max_retries,
+            label
         )
-        return []
+        return None
 
     feed = feedparser.parse(response.content)
 
     if feed.bozo:
-        logger.error("Google News RSS 파싱 중 오류가 발생했습니다.")
+        logger.error("Google News RSS 파싱 중 오류가 발생했습니다. %s", label)
         logger.error(feed.bozo_exception)
-        return []
+        return None
 
-    news_list = []
+    return feed
+
+
+def fetch_google_news(limit=20, only_date=None, keywords=None):
+    google_conf = config["news_sources"]["google"]
+    timeout = config["request"]["timeout"]
+    request_delay = google_conf.get("request_delay", 0.5)
+    max_retries = google_conf.get("max_retries", 3)
+    retry_delay = google_conf.get("retry_delay", 5)
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/124.0 Safari/537.36"
+        )
+    }
+
+    keywords = get_keywords("google", keywords)
+    logger.info("Google News 검색어: %s", ", ".join(keywords))
+
     skipped_by_date = 0
+    by_keyword = []
 
-    # entries[:limit] 로 미리 자르지 않는다. 날짜로 걸러내고 나면 limit 을
-    # 못 채우기 때문에, 피드 전체를 훑으면서 조건에 맞는 것만 limit 만큼 모은다.
-    for news in feed.entries:
-        if len(news_list) >= limit:
-            break
+    # 1단계: 검색어마다 피드를 읽어 조건에 맞는 항목만 추린다.
+    #        본문 크롤링은 아직 하지 않는다. 버릴 기사까지 원문 페이지를
+    #        받아오면 실행 시간이 몇 배로 늘어난다.
+    for keyword in keywords:
+        feed = fetch_rss_feed(
+            build_google_rss_url(keyword, only_date),
+            headers,
+            timeout,
+            max_retries,
+            retry_delay,
+            label=f"[{keyword}] "
+        )
 
-        published_at = news.get("published", "")
-
-        # 날짜 판정은 본문 크롤링보다 먼저 한다. 순서를 바꾸면 버릴 기사까지
-        # 원문 페이지를 받아오느라 실행 시간이 몇 배로 늘어난다.
-        if not is_target_date(published_at, only_date):
-            skipped_by_date += 1
+        if feed is None:
+            by_keyword.append([])
             continue
 
+        matched = []
+
+        for news in feed.entries:
+            if not is_target_date(news.get("published", ""), only_date):
+                skipped_by_date += 1
+                continue
+
+            matched.append((news, keyword))
+
+        logger.info("  '%s': %d건", keyword, len(matched))
+        by_keyword.append(matched)
+
+    # 2단계: 검색어끼리 번갈아 뽑는다. 앞쪽 검색어가 limit 을 독차지하면
+    #        뒤쪽 주제가 리포트에서 통째로 빠지기 때문이다.
+    selected = []
+    seen_links = set()
+
+    for row in zip_longest(*by_keyword):
+        for item in row:
+            if item is None:
+                continue
+
+            link = item[0].get("link", "")
+
+            if not link or link in seen_links:
+                continue
+
+            seen_links.add(link)
+            selected.append(item)
+
+    selected = selected[:limit]
+
+    # 3단계: 최종 선정분만 본문을 크롤링한다.
+    news_list = []
+
+    for news, keyword in selected:
         google_news_url = news.get("link", "")
         content, article_url = fetch_article_content(
             google_news_url,
@@ -581,10 +681,11 @@ def fetch_google_news(limit=20, only_date=None):
             "content": content_excerpt,
             "url": article_url or google_news_url,
             "google_news_url": google_news_url,
-            "published_at": published_at,
+            "published_at": news.get("published", ""),
             "source": "google",
             "collected_at": datetime.now().isoformat(),
             "collection_method": "rss+crawl",
+            "search_keyword": keyword,
             "content_truncated": len(content_excerpt) < len(clean_text(content)),
             "content_max_length": CONTENT_EXCERPT_MAX_LENGTH
         }
@@ -612,7 +713,7 @@ def fetch_google_news(limit=20, only_date=None):
 # NAVER 뉴스 검색 API 수집
 # --------------------------------------------------
 
-def fetch_naver_news(limit=20, only_date=None):
+def fetch_naver_news(limit=20, only_date=None, keywords=None):
     client_id = os.getenv("NAVER_CLIENT_ID")
     client_secret = os.getenv("NAVER_CLIENT_SECRET")
 
@@ -628,7 +729,8 @@ def fetch_naver_news(limit=20, only_date=None):
         "X-NCP-APIGW-API-KEY": client_secret
     }
 
-    keywords = config["news_sources"]["naver"]["keywords"]
+    keywords = get_keywords("naver", keywords)
+    logger.info("NAVER 검색어: %s", ", ".join(keywords))
     timeout = config["request"]["timeout"]
     request_delay = config["news_sources"]["naver"].get("request_delay", 0.5)
     items_found = []
@@ -771,9 +873,34 @@ def fetch_naver_news(limit=20, only_date=None):
 # GOV.UK AI 뉴스 크롤링
 # --------------------------------------------------
 
-def crawl_govuk(limit=20, only_date=None):
-    url = config["news_sources"]["govuk"]["url"]
-    request_delay = config["news_sources"]["govuk"]["request_delay"]
+def build_govuk_url():
+    """GOV.UK 수집 주소를 정한다.
+
+    govuk.keywords(영어)를 적어 두면 그것으로 검색 주소를 만들고,
+    없으면 config 의 url(기본: AI 주제 페이지)을 그대로 쓴다.
+    """
+    govuk_conf = config["news_sources"]["govuk"]
+    keywords = govuk_conf.get("keywords")
+
+    if not keywords:
+        return govuk_conf["url"]
+
+    template = govuk_conf.get("url_template", GOVUK_SEARCH_TEMPLATE)
+
+    return template.format(query=quote_plus(" ".join(keywords)))
+
+
+def crawl_govuk(limit=20, only_date=None, keywords=None):
+    govuk_conf = config["news_sources"]["govuk"]
+
+    # 주제를 AI 밖으로 옮기면 영국 정부 AI 보도자료는 맥락에서 벗어난다.
+    # config 에서 꺼 둘 수 있게 한다.
+    if not govuk_conf.get("enabled", True):
+        logger.info("GOV.UK 수집이 config 에서 꺼져 있습니다. 건너뜁니다.")
+        return []
+
+    url = build_govuk_url()
+    request_delay = govuk_conf["request_delay"]
     timeout = config["request"]["timeout"]
 
     headers = {
@@ -917,22 +1044,23 @@ def crawl_govuk(limit=20, only_date=None):
 # 수집 소스 선택
 # --------------------------------------------------
 
-def fetch_news(source, limit=20, only_date=None):
+def fetch_news(source, limit=20, only_date=None, keywords=None):
     """뉴스를 수집한다.
 
     only_date : "YYYY-MM-DD" 를 주면 그 날짜에 발행된 기사만 남긴다.
                 None 이면 발행일과 무관하게 수집한다.
+    keywords  : 검색어 목록. None 이면 config.json 의 keywords 를 쓴다.
     """
     source = source.lower()
 
     if source == "google":
-        return fetch_google_news(limit, only_date)
+        return fetch_google_news(limit, only_date, keywords)
 
     elif source == "naver":
-        return fetch_naver_news(limit, only_date)
+        return fetch_naver_news(limit, only_date, keywords)
 
     elif source == "govuk":
-        return crawl_govuk(limit, only_date)
+        return crawl_govuk(limit, only_date, keywords)
 
     else:
         logger.error("지원하지 않는 뉴스 소스입니다: %s", source)

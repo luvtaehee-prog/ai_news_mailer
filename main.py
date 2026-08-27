@@ -46,6 +46,9 @@ def add_fetch_parser(subparsers) -> None:
                    help="수집할 발행일 (YYYY-MM-DD, 기본: 오늘 KST)")
     p.add_argument("--all-dates", action="store_true",
                    help="발행일 필터를 끄고 피드에 있는 기사를 모두 수집")
+    p.add_argument("--keyword", action="append", default=None, metavar="말",
+                   help="검색어 (여러 번 쓸 수 있음). 생략하면 "
+                        "config.json 의 keywords 를 쓴다")
 
 
 def cmd_fetch(args):
@@ -60,7 +63,7 @@ def cmd_fetch(args):
     only_date = None if args.all_dates else (args.date or today_kst())
 
     return fetch_news(source=args.source, limit=args.limit,
-                      only_date=only_date)
+                      only_date=only_date, keywords=args.keyword)
 
 
 def build_parser() -> argparse.ArgumentParser:

@@ -1,24 +1,27 @@
 {
+  "keywords": [
+    "AI",
+    "인공지능",
+    "생성형 AI",
+    "LLM",
+    "AI 반도체"
+  ],
+
   "news_sources": {
     "google": {
       "type": "rss",
-      "url": "https://news.google.com/rss/search?q=AI+when:1d&hl=ko&gl=KR&ceid=KR:ko",
+      "url_template": "https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko",
+      "recent_only": true,
       "max_retries": 3,
       "retry_delay": 5
     },
     "naver": {
       "type": "api",
-      "url": "https://naverapihub.apigw.ntruss.com/search/v1/news",
-      "keywords": [
-        "AI",
-        "인공지능",
-        "생성형 AI",
-        "LLM",
-        "AI 반도체"
-      ]
+      "url": "https://naverapihub.apigw.ntruss.com/search/v1/news"
     },
     "govuk": {
       "type": "crawl",
+      "enabled": true,
       "url": "https://www.gov.uk/search/news-and-communications?parent=%2Fbusiness-and-industry%2Fartificial-intelligence&topic=7a4fba0a-f8d5-4aed-9d73-8a455c6ba7ac",
       "request_delay": 1
     }
