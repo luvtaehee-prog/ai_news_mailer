@@ -537,3 +537,24 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-27 05:50:19,907 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-08-27, 날짜 불일치로 제외 20건)
 2026-08-27 05:50:19,908 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-27 05:50:19,908 [INFO] 새로 추가된 뉴스: 0
+2026-08-28 06:03:09,324 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-08-28 06:03:09,797 [INFO]   'AI': 0건
+2026-08-28 06:03:10,250 [INFO]   '인공지능': 0건
+2026-08-28 06:03:10,703 [INFO]   '생성형 AI': 14건
+2026-08-28 06:03:11,072 [INFO]   'LLM': 23건
+2026-08-28 06:03:11,500 [INFO]   'AI 반도체': 2건
+2026-08-28 06:03:23,866 [ERROR] Article content fetch failed: https://m.kr.investing.com/news/analyst-ratings/article-93CH-2077221?ampMode=1
+2026-08-28 06:03:23,866 [ERROR] 403 Client Error: Forbidden for url: https://m.kr.investing.com/news/analyst-ratings/article-93CH-2077221?ampMode=1
+2026-08-28 06:03:51,044 [ERROR] Article content fetch failed: https://www.etnews.com/20260827000432?m=1
+2026-08-28 06:03:51,044 [ERROR] HTTPSConnectionPool(host='www.etnews.com', port=443): Max retries exceeded with url: /20260827000432?m=1 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)')))
+2026-08-28 06:04:11,542 [ERROR] Article content fetch failed: https://www.timenews.co.kr/article/1703256
+2026-08-28 06:04:11,542 [ERROR] ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-08-28 06:04:35,320 [INFO] 수집된 Google News: 38건 (기준일 2026-08-27, 날짜 불일치로 제외 405건)
+2026-08-28 06:04:35,332 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-28 06:04:35,332 [INFO] 새로 추가된 뉴스: 38
+2026-08-28 06:04:35,978 [ERROR] NAVER API 인증정보가 없습니다.
+2026-08-28 06:04:35,978 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-08-28 06:04:37,073 [INFO] GOV.UK 응답 코드: 200
+2026-08-28 06:04:37,263 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-08-27, 날짜 불일치로 제외 20건)
+2026-08-28 06:04:37,264 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-28 06:04:37,264 [INFO] 새로 추가된 뉴스: 0

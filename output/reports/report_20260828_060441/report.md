@@ -1,0 +1,174 @@
+# AI 뉴스 트렌드 리포트
+
+- 생성 시각: 2026-08-28 06:04
+- 대상 기간(발행일 기준): 2026-08-27 ~ 2026-08-27
+- 분석 대상: 총 92건 (AI 요약 완료 0건)
+
+> 항목마다 세는 대상이 다릅니다. 수집·정제 현황은 정제 완료 92건 전체를, 키워드와 AI 인사이트는 요약이 끝난 0건을 기준으로 합니다. 키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.
+
+## 뉴스 목록 (92건)
+
+1. [[ET포토] 앳하트, '룰라의 30년전 메가 히트곡 '3! 4!' 리메이크로 컴백'](https://www.etnews.com/20260827000444)
+   - 전자신문 · LLM · 23:37
+
+2. [한국산림복지진흥원, 생성형 AI 접목부터 ESG 공공가치 창출까지](http://www.ccnnews.co.kr/news/articleView.html?idxno=414044)
+   - 충청뉴스 · 생성형 AI · 23:16
+
+3. [BMO, Waystar 주식 AI 수익화 잠재력에 ’아웃퍼폼’ 재강조](https://m.kr.investing.com/news/analyst-ratings/article-93CH-2077221?ampMode=1)
+   - Investing.com 한국어 · LLM · 23:10
+
+4. [시놉시스, 3분기 매출 42% 급증·연간 가이던스 상향…AI 반도체 설계 수요 본격화](https://stock.mk.co.kr/news/view/1149525)
+   - 매일경제 마켓 · AI 반도체 · 22:51
+
+5. [경주시, 전 직원 생성형 AI 교육…"행정업무 효율 높인다"](https://www.gukjenews.com/news/articleView.html?idxno=3676633)
+   - gukjenews.com · 생성형 AI · 22:44
+
+6. [카지노 갤 : 새로운 트렌드와 발전 방향](https://www.plateamagazine.com/?ID=%ED%86%A0%ED%86%A0%EB%A1%9C%20%EA%B3%B0%ED%8C%A1%EC%9D%B4.html)
+   - Platea Magazine · LLM · 22:12
+
+7. [바카라 중국점 뜻 : 주요 이정표와 혁신 (2025년 최신판)](https://www.plateamagazine.com/?krslotID=3928.html)
+   - Platea Magazine · LLM · 22:03
+
+8. [독파모 축적 데이터 개방…LG만 선별·4개사는 전체 공개](https://www.etnews.com/20260827000432?m=1)
+   - 전자신문 · LLM · 21:00
+
+9. [한기대, ‘생성형 AI 수업 사례’ 에듀테크 포럼 개최](https://www.ccnnews.co.kr/news/articleView.html?idxno=414040)
+   - 충청뉴스 · 생성형 AI · 20:53
+
+10. [경주시, 전 직원 생성형 AI 실무교육…행정 활용 확대](https://www.newstown.co.kr/news/articleView.html?idxno=713895)
+   - 뉴스타운 · 생성형 AI · 20:51
+
+11. [용인특례시의회, 생성형 AI 의정활동 접목...“활용 넘어 검증·보안까지”](https://www.pointdaily.co.kr/news/articleView.html?idxno=317071)
+   - 포인트데일리 · 생성형 AI · 20:03
+
+12. [국립한밭대 등 3개 대학생 60명, 생성형 AI로 마케팅 콘텐츠 제작](https://www.timenews.co.kr/article/1703256)
+   - 타임뉴스 · 생성형 AI · 19:49
+
+13. [“망분리 장벽 넘은 생성형 AI”…KB금융의 실전 모델](https://www.itdaily.kr/news/articleView.html?idxno=241257)
+   - 아이티데일리 · 생성형 AI · 19:02
+
+14. ["묘한 감정이"…기안84의 AI 여자친구, 제작사 어딘지 보니 - 머니투데이](https://www.mt.co.kr/index.php/amp/future/2026/08/27/2026082710093174389)
+   - 머니투데이 · LLM · 19:00
+
+15. [[숏폼] 스톡 구독하고 있는데 AI는 따로 결제하라고?](https://it.donga.com/109425/)
+   - IT동아 · LLM · 18:47
+
+16. [군포시의회, ‘AI 혁신’ ‘시민공론장’ 의원연구단체 승인](https://mobile.newsis.com/view_amp.html?ar_id=NISX20260827_0003766001)
+   - 뉴시스 · LLM · 18:41
+
+17. [SK에코플랜트, SK에코엔지니어링 합병…AI·반도체 인프라 경쟁력 강화](https://www.industrynews.co.kr/news/articleView.html?idxno=85119)
+   - 인더스트리뉴스 · AI 반도체 · 18:33
+
+18. [“AI는 내가 아는 만큼”…군산대 K-하이테크 플랫폼, 제조업 혁신 방향 짚다](https://www.hellot.net/news/article.html?no=114602)
+   - 헬로티 · 생성형 AI · 18:23
+
+19. [엔비디아, 허깅페이스 130억달러에 인수…오픈소스 AI 승부수 - 머니투데이](https://www.mt.co.kr/amp/world/2026/08/27/2026082717151230561)
+   - 머니투데이 · LLM · 17:36
+
+20. ["스펙보다 이것 본다"…SK하이닉스, 신입 채용 판도 바꿨다](https://news.nate.com/view/20260827n30169)
+   - 네이트 · LLM · 17:33
+
+21. [한국기술교육대 Edutech센터 생성형AI 활용 수업 우수사례 공유.. '2026 에듀테크 교육혁신포럼'](https://www.veritas-a.com/news/articleView.html?idxno=624943)
+   - 베리타스알파 · 생성형 AI · 17:25
+
+22. [국가 AI 대전환에 기여… 유용균 국가과학AI연구센터장은 [이준기의 D사이언스]](https://v.daum.net/v/20260827170641155)
+   - v.daum.net · LLM · 17:06
+
+23. [경주시, 생성형 AI 행정 활용 본격화](https://v.daum.net/v/XeqH9rqFyl?f=p)
+   - v.daum.net · 생성형 AI · 17:01
+
+24. [[IP리더를 만나다](5) 소기영 지온컨설팅 부사장 “AI 시대에도 특허번역은 사라지지 않는다”](https://www.etnews.com/20260827000054)
+   - 전자신문 · LLM · 17:00
+
+25. [자연어로 차량 테스트 자동화...요구사항을 CAPL 코드로 바꿔 실행·오류 수정까지](https://www.gttkorea.com/news/articleView.html?idxno=26830)
+   - 지티티코리아 · LLM · 16:58
+
+26. [KT, 테크소스 글로벌 서밋 2026 참가…협력 중소벤처 해외 시장 진출 지원도](https://www.sportschosun.com/life/2026-08-27/202608270100166400010671)
+   - 스포츠조선 · LLM · 16:55
+
+27. [지방의회도 생성형 AI 시대…용인시의회, 예산·결산 분석에 활용 모색](http://www.hanaronews.kr/news/articleView.html?idxno=109430)
+   - 팔당유역신문 · 생성형 AI · 16:47
+
+28. [[포토] 데이터관계장관회의](https://www.etnews.com/20260827000354)
+   - 전자신문 · LLM · 16:37
+
+29. [채권 50% 반도체 ETF 잇달아 상장됐다](https://www.tokenpost.kr/amp/news/market/398874)
+   - tokenpost.kr · LLM · 16:34
+
+30. ["AI가 인간의 가치에 일치될까"…AI 만든 사람들도 잘 몰랐다](https://www.hankyung.com/article/202608276622i)
+   - 한국경제 · LLM · 16:30
+
+...외 62건
+
+## 1. 데이터 품질 지표 (정제 완료 92건 기준)
+
+| 지표 | 값 | 의미 |
+| --- | --- | --- |
+| 총 뉴스 수 | 92건 | 정제를 통과해 저장된 기사 수 |
+| 요약 완료율 | 0.0% (0/92건) | AI 요약이 끝난 기사 비율 |
+| 본문 확보율 | 88.0% (81/92건) | 본문이 300자 이상 확보된 비율. 미만은 크롤링이 본문을 못 찾아 메타 설명으로 대체된 경우 |
+| 평균 본문 길이 | 1453자 | 기사 한 건당 평균 본문 글자 수 |
+| 본문 잘림 비율 | 0.0% (0/92건) | 본문 길이 상한을 넘어 뒷부분이 잘린 비율. 잘린 기사는 AI가 원문 일부만 보고 요약하게 됨 |
+
+## 2. 수집 분포 (정제 완료 92건 기준)
+
+### 카테고리별 뉴스 수
+
+| 카테고리 | 건수 |
+| --- | --- |
+| IT | 55 |
+| LLM | 22 |
+| 생성형 AI | 13 |
+| AI 반도체 | 2 |
+
+### 소스별 수집 건수
+
+| 소스 | 건수 |
+| --- | --- |
+| google | 92 |
+
+### 수집 방식별 비교
+
+| 수집 방식 | 소스 | 건수 | 평균 본문 | 본문 확보율 |
+| --- | --- | --- | --- | --- |
+| rss+crawl | google | 92건 | 1453자 | 88.0% |
+
+> `rss+crawl` / `api+crawl` 은 RSS·API 로 기사 목록을 받은 뒤 원문을 크롤링한 방식이고, `crawl` 은 목록부터 본문까지 모두 크롤링한 방식입니다.
+>
+> RSS·API 는 목록을 빠르고 안정적으로 받아오지만 본문은 주지 않아 결국 크롤링이 필요하고, 실패하면 짧은 메타 설명으로 대체되어 본문 확보율이 떨어집니다. 반면 전체 크롤링은 본문 확보율이 높은 대신 사이트 구조에 맞춘 코드가 따로 필요하고 요청 간 지연을 둬야 해 느립니다.
+
+### 발행일별 추이
+
+- 집계된 일자 수: 1일
+- 최다 수집일: 2026-08-27 (92건)
+- 일평균: 92.0건
+
+## 3. TOP N 집계
+
+### AI 추출 키워드 TOP 0 (AI 요약 완료 0건 기준)
+
+| 순위 | 키워드 | 등장 기사 수 |
+| --- | --- | --- |
+| - | - | 0 |
+
+## 4. AI 인사이트 분석 (AI 요약 완료 0건 기준)
+
+AI 분석 결과가 없습니다. `python main.py analyze` 를 먼저 실행하세요.
+
+## 5. 차트
+
+### category_counts
+
+![category_counts](charts/category_counts.png)
+
+### daily_trend
+
+![daily_trend](charts/daily_trend.png)
+
+### top_keywords
+
+![top_keywords](charts/top_keywords.png)
+
+### source_share
+
+![source_share](charts/source_share.png)
