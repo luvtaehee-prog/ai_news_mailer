@@ -558,3 +558,40 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-28 06:04:37,263 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-08-27, 날짜 불일치로 제외 20건)
 2026-08-28 06:04:37,264 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-28 06:04:37,264 [INFO] 새로 추가된 뉴스: 0
+2026-08-29 03:37:15,171 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-08-29 03:37:15,708 [INFO]   'AI': 0건
+2026-08-29 03:37:16,156 [INFO]   '인공지능': 14건
+2026-08-29 03:37:16,616 [INFO]   '생성형 AI': 75건
+2026-08-29 03:37:16,912 [INFO]   'LLM': 19건
+2026-08-29 03:37:17,372 [INFO]   'AI 반도체': 77건
+2026-08-29 03:37:27,853 [ERROR] Article request timed out: https://www.moleg.go.kr/board.es?mid=a10501000000&bid=0048&act=view&list_no=156162&tag=&pageCntBySelf=10&nPage=1&keyField=&keyWord=&cg_code=
+2026-08-29 03:37:41,000 [ERROR] Article request timed out: https://www.aitimes.com/news/articleView.html?idxno=214572
+2026-08-29 03:37:57,012 [ERROR] Article request timed out: https://www.channeljeju.com/news/articleView.html?idxno=201993
+2026-08-29 03:38:20,588 [ERROR] Article request timed out: https://www.seoul.co.kr/news/society/2026/08/28/20260828500288
+2026-08-29 03:38:22,079 [ERROR] Article content fetch failed: https://www.policenews24.co.kr/news/articleView.html?idxno=23039
+2026-08-29 03:38:22,079 [ERROR] HTTPSConnectionPool(host='www.policenews24.co.kr', port=443): Max retries exceeded with url: /news/articleView.html?idxno=23039 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))
+2026-08-29 03:38:43,219 [ERROR] Article request timed out: https://www.jbnews.com/news/articleViewAmp.html?idxno=1510352
+2026-08-29 03:39:04,412 [ERROR] Article request timed out: https://www.bloter.net/news/articleViewAmp.html?idxno=672068
+2026-08-29 03:39:27,446 [ERROR] Article request timed out: https://kr.aving.net/news/articleViewAmp.html?idxno=1813780
+2026-08-29 03:39:47,972 [ERROR] Article request timed out: https://www.kyeonggi.com/article/20260828580185
+2026-08-29 03:40:09,398 [ERROR] Article request timed out: http://www.lkp.news/news/articleView.html?idxno=83445
+2026-08-29 03:40:30,822 [ERROR] Article request timed out: https://news.unn.net/news/articleView.html?idxno=596604
+2026-08-29 03:40:56,432 [ERROR] Article request timed out: http://www.onews.tv/news/articleView.html?idxno=285746
+2026-08-29 03:41:17,722 [ERROR] Article request timed out: https://www.electimes.com/news/articleView.html?idxno=371746
+2026-08-29 03:41:44,272 [ERROR] Article request timed out: http://www.nbnnews.co.kr/news/articleViewAmp.html?idxno=1051996
+2026-08-29 03:41:58,312 [ERROR] Article request timed out: https://www.lawtimes.co.kr/news/articleViewAmp.html?idxno=225549
+2026-08-29 03:42:09,355 [ERROR] Article request timed out: https://www.boannews.com/news/articleView.html?idxno=145484
+2026-08-29 03:42:18,637 [ERROR] Article content fetch failed: https://www.etnews.com/20260828000310
+2026-08-29 03:42:18,638 [ERROR] HTTPSConnectionPool(host='www.etnews.com', port=443): Max retries exceeded with url: /20260828000310 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)')))
+2026-08-29 03:42:39,867 [ERROR] Article request timed out: https://www.veritas-a.com/news/articleView.html?idxno=625138
+2026-08-29 03:43:01,104 [ERROR] Article request timed out: http://www.livejeju.co.kr/news/articleViewAmp.html?idxno=3020548
+2026-08-29 03:43:16,654 [ERROR] Article request timed out: https://www.metroseoul.co.kr/article/20260828500214
+2026-08-29 03:43:17,154 [INFO] 수집된 Google News: 40건 (기준일 2026-08-28, 날짜 불일치로 제외 237건)
+2026-08-29 03:43:17,170 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-29 03:43:17,170 [INFO] 새로 추가된 뉴스: 40
+2026-08-29 03:43:17,792 [ERROR] NAVER API 인증정보가 없습니다.
+2026-08-29 03:43:17,792 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-08-29 03:43:18,875 [INFO] GOV.UK 응답 코드: 200
+2026-08-29 03:43:19,029 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-08-28, 날짜 불일치로 제외 20건)
+2026-08-29 03:43:19,030 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-29 03:43:19,031 [INFO] 새로 추가된 뉴스: 0

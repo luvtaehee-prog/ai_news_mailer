@@ -1,0 +1,174 @@
+# AI 뉴스 트렌드 리포트
+
+- 생성 시각: 2026-08-29 03:43
+- 대상 기간(발행일 기준): 2026-08-28 ~ 2026-08-28
+- 분석 대상: 총 39건 (AI 요약 완료 0건)
+
+> 항목마다 세는 대상이 다릅니다. 수집·정제 현황은 정제 완료 39건 전체를, 키워드와 AI 인사이트는 요약이 끝난 0건을 기준으로 합니다. 키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.
+
+## 뉴스 목록 (39건)
+
+1. [보훈부. 공공데이터· 인공지능(AI) 활용 아이디어 공모전 시상식](https://www.policenews24.co.kr/news/articleView.html?idxno=23039)
+   - 경찰뉴스24 · 인공지능 · 23:27
+
+2. [한국수력원자력. 한국자산관리공사 `인공지능 활용 감사 혁신` 맞손](http://www.icbnnews.com/default/index_view_page.php?part_idx=107&idx=186486)
+   - CBN뉴스 · 인공지능 · 22:31
+
+3. [법제처, 미래 신기술과 인공지능(AI) 활용 관련 토론의 장 열어](https://www.moleg.go.kr/board.es?mid=a10501000000&bid=0048&act=view&list_no=156162&tag=&pageCntBySelf=10&nPage=1&keyField=&keyWord=&cg_code=)
+   - 법제처 · 인공지능 · 22:24
+
+4. [충남도, 인공지능(AI) 글로벌 네트워크 확대 ‘첫 단추’](http://www.pinenews.co.kr/610038)
+   - pinenews.co.kr · 인공지능 · 22:22
+
+5. [인공지능이 바꾼 국제행사…다양성의 문 열다](https://v.daum.net/v/20260828215644268?f=p)
+   - v.daum.net · 인공지능 · 21:56
+
+6. [고령농도 ‘AI 농업’ 시대…'제주서 생성형 인공지능 교육 호응'](https://www.channeljeju.com/news/articleView.html?idxno=201993)
+   - 채널제주 · 생성형 AI · 21:21
+
+7. ["실제 인물처럼" 또 AI 악용 범죄](https://news.knn.co.kr/news/article/191814)
+   - knn.co.kr · 인공지능 · 20:47
+
+8. [AI 경쟁력의 새 변수 ‘메모리·데이터·전력’… 전남광주, AI 반도체 전략거점 도약 모색](https://kr.aving.net/news/articleViewAmp.html?idxno=1813780)
+   - 에이빙 · AI 반도체 · 20:42
+
+9. [하정우 "광주전남, AI·반도체 전략거점으로"](https://v.daum.net/v/9MNgwv8Bhs)
+   - v.daum.net · AI 반도체 · 20:40
+
+10. [동신대, 학과 벽 허문다…AI·반도체 교육 전면 도입](https://www.seoul.co.kr/news/society/2026/08/28/20260828500288)
+   - 서울신문 · AI 반도체 · 20:20
+
+11. [[경제+] 이미 제조업 30% 이상 적용...中, AI 기술 개발과 생태계 육성에 올인](http://www.nbnnews.co.kr/news/articleViewAmp.html?idxno=1051996)
+   - 내외뉴스통신 · LLM · 20:14
+
+12. [벧엘지역아동센터, 생성형 AI 활용 진로교육…아동 20명 동화책 제작](https://www.betanews.net/article/view/beta202608280081)
+   - 베타뉴스 · 생성형 AI · 19:45
+
+13. [전국민 무료 ‘모두의 AI’…SKT·카카오·KT 선정](https://news.kbs.co.kr/news/pc/view/view.do?ncd=8649078)
+   - KBS 뉴스 · 인공지능 · 19:22
+
+14. [인공지능 산업, 법적으로 뒷받침할 방향은…법제처 미래법제포럼 개최](https://mobile.busan.com/view/bstoday/view.php?code=2026082818422006451)
+   - 부산일보 · 인공지능 · 18:47
+
+15. [하정우 “AI경쟁력은 메모리·데이터·전력”…전남광주 반도체 거점 제안](https://www.asiae.co.kr/article/2026082816482359977)
+   - 아시아경제 · AI 반도체 · 18:28
+
+16. [사법연수원, 5일간 전국 법관·재판연구원 대상 AI 집중 교육… 역대 최대 규모 연수](https://www.lawtimes.co.kr/news/articleViewAmp.html?idxno=225549)
+   - 법률신문 · 인공지능 · 17:53
+
+17. [코난테크놀로지, '제조·국방 AX' 승부수…적자 고리 끊을까](https://www.bloter.net/news/articleViewAmp.html?idxno=672068)
+   - 블로터 · LLM · 17:47
+
+18. [노원구의회, 생성형 AI 접목한 ‘스마트 의정’ 선도… 연구단체 본격 착수](https://www.jeonmae.co.kr/news/articleView.html?idxno=1288118)
+   - 전국매일신문 · 생성형 AI · 17:39
+
+19. [제주 청소년지도자들, 생성형 AI로 행정은 똑똑하게 활동은 깊이 있게](http://www.livejeju.co.kr/news/articleViewAmp.html?idxno=3020548)
+   - livejeju.co.kr · 생성형 AI · 17:30
+
+20. [[ET포토] 이병헌, '한류 드라마의 아이콘'](https://www.etnews.com/20260828000310)
+   - 전자신문 · LLM · 17:23
+
+21. [생성형 AI 무기화한 친러 여론 공작… 챗GPT 활용 다국어 선전 선동 캠페인 적발](https://www.boannews.com/news/articleView.html?idxno=145484)
+   - 보안뉴스 · 생성형 AI · 17:22
+
+22. [인제대-고려대 차세대AI반도체특성화대학사업단, '2026 동반성장형 상반기 교류회 및 산학 포럼' 개최](https://www.veritas-a.com/news/articleView.html?idxno=625138)
+   - 베리타스알파 · AI 반도체 · 17:18
+
+23. ["AI 양자화 정확하고 안전하게"...옵트에이아이, EMNLP 논문 2편 채택](https://www.aitimes.com/news/articleView.html?idxno=214572)
+   - AI타임스 · LLM · 16:55
+
+24. [SK텔레콤 중심의 AI 보안 컨소시엄 구성...업스테이지·SK쉴더스 등 대거 참여](http://www.lkp.news/news/articleView.html?idxno=83445)
+   - 리버티코리아포스트 · LLM · 16:50
+
+25. [2030년까지 AI·반도체 청년인력 30만명 양성... 지방 중기 가면 "2년간 월 100만원 더"](https://www.chosun.com/economy/economy_general/2026/08/28/GR6HRBZXNNE2TAUMNK7GY7FJAY/)
+   - 조선일보 · AI 반도체 · 16:42
+
+26. [캠코, '생성형 AI 활용 홍보 콘텐츠 공모전' 수상작 선정](https://www.metroseoul.co.kr/article/20260828500214)
+   - 메트로신문 · 생성형 AI · 16:41
+
+27. [하정우 "전남광주, AI·반도체 전략거점으로 육성"](https://www.yna.co.kr/amp/view/AKR20260828138500054)
+   - 연합뉴스 · AI 반도체 · 16:30
+
+28. [동신대, AI·반도체 시대 ‘학과별 특화교육과정’ 대대적 시행](https://news.unn.net/news/articleView.html?idxno=596604)
+   - 한국대학신문 · AI 반도체 · 16:14
+
+29. [[ET포토] 이수지, '스웃 하트'](https://www.etnews.com/20260828000274)
+   - 전자신문 · LLM · 16:06
+
+30. [AI·반도체에 시급한 LNG 열병합발전…사업 길 막는 용량시장](https://www.electimes.com/news/articleView.html?idxno=371746)
+   - 전기신문 · AI 반도체 · 16:00
+
+...외 9건
+
+## 1. 데이터 품질 지표 (정제 완료 39건 기준)
+
+| 지표 | 값 | 의미 |
+| --- | --- | --- |
+| 총 뉴스 수 | 39건 | 정제를 통과해 저장된 기사 수 |
+| 요약 완료율 | 0.0% (0/39건) | AI 요약이 끝난 기사 비율 |
+| 본문 확보율 | 43.6% (17/39건) | 본문이 300자 이상 확보된 비율. 미만은 크롤링이 본문을 못 찾아 메타 설명으로 대체된 경우 |
+| 평균 본문 길이 | 724자 | 기사 한 건당 평균 본문 글자 수 |
+| 본문 잘림 비율 | 0.0% (0/39건) | 본문 길이 상한을 넘어 뒷부분이 잘린 비율. 잘린 기사는 AI가 원문 일부만 보고 요약하게 됨 |
+
+## 2. 수집 분포 (정제 완료 39건 기준)
+
+### 카테고리별 뉴스 수
+
+| 카테고리 | 건수 |
+| --- | --- |
+| 생성형 AI | 10 |
+| LLM | 10 |
+| AI 반도체 | 10 |
+| 인공지능 | 9 |
+
+### 소스별 수집 건수
+
+| 소스 | 건수 |
+| --- | --- |
+| google | 39 |
+
+### 수집 방식별 비교
+
+| 수집 방식 | 소스 | 건수 | 평균 본문 | 본문 확보율 |
+| --- | --- | --- | --- | --- |
+| rss+crawl | google | 39건 | 724자 | 43.6% |
+
+> `rss+crawl` / `api+crawl` 은 RSS·API 로 기사 목록을 받은 뒤 원문을 크롤링한 방식이고, `crawl` 은 목록부터 본문까지 모두 크롤링한 방식입니다.
+>
+> RSS·API 는 목록을 빠르고 안정적으로 받아오지만 본문은 주지 않아 결국 크롤링이 필요하고, 실패하면 짧은 메타 설명으로 대체되어 본문 확보율이 떨어집니다. 반면 전체 크롤링은 본문 확보율이 높은 대신 사이트 구조에 맞춘 코드가 따로 필요하고 요청 간 지연을 둬야 해 느립니다.
+
+### 발행일별 추이
+
+- 집계된 일자 수: 1일
+- 최다 수집일: 2026-08-28 (39건)
+- 일평균: 39.0건
+
+## 3. TOP N 집계
+
+### AI 추출 키워드 TOP 0 (AI 요약 완료 0건 기준)
+
+| 순위 | 키워드 | 등장 기사 수 |
+| --- | --- | --- |
+| - | - | 0 |
+
+## 4. AI 인사이트 분석 (AI 요약 완료 0건 기준)
+
+AI 분석 결과가 없습니다. `python main.py analyze` 를 먼저 실행하세요.
+
+## 5. 차트
+
+### category_counts
+
+![category_counts](charts/category_counts.png)
+
+### daily_trend
+
+![daily_trend](charts/daily_trend.png)
+
+### top_keywords
+
+![top_keywords](charts/top_keywords.png)
+
+### source_share
+
+![source_share](charts/source_share.png)
