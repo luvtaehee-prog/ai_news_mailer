@@ -610,3 +610,23 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-30 00:03:33,463 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-08-29, 날짜 불일치로 제외 20건)
 2026-08-30 00:03:33,464 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-30 00:03:33,464 [INFO] 새로 추가된 뉴스: 0
+2026-08-31 00:21:18,057 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-08-31 00:21:18,575 [INFO]   'AI': 0건
+2026-08-31 00:21:19,053 [INFO]   '인공지능': 4건
+2026-08-31 00:21:19,435 [INFO]   '생성형 AI': 44건
+2026-08-31 00:21:19,710 [INFO]   'LLM': 14건
+2026-08-31 00:21:20,045 [INFO]   'AI 반도체': 36건
+2026-08-31 00:21:45,787 [ERROR] Article content fetch failed: https://www.kukinews.com/article/view/kuk202608280135
+2026-08-31 00:21:45,787 [ERROR] 403 Client Error: Forbidden for url: https://www.kukinews.com/article/view/kuk202608280135
+2026-08-31 00:22:01,660 [ERROR] Article request timed out: http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=546737
+2026-08-31 00:22:11,248 [ERROR] Article content fetch failed: https://www.timenews.co.kr/article/1703443
+2026-08-31 00:22:11,248 [ERROR] ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-08-31 00:22:41,476 [INFO] 수집된 Google News: 40건 (기준일 2026-08-30, 날짜 불일치로 제외 242건)
+2026-08-31 00:22:41,491 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-08-31 00:22:41,491 [INFO] 새로 추가된 뉴스: 40
+2026-08-31 00:22:42,223 [ERROR] NAVER API 인증정보가 없습니다.
+2026-08-31 00:22:42,223 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-08-31 00:22:44,476 [INFO] GOV.UK 응답 코드: 200
+2026-08-31 00:22:44,677 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-08-30, 날짜 불일치로 제외 20건)
+2026-08-31 00:22:44,679 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-08-31 00:22:44,679 [INFO] 새로 추가된 뉴스: 0
