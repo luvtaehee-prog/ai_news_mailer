@@ -547,3 +547,25 @@
 2026-09-01 01:12:49,696 [INFO] report: 리포트 저장: output/reports/report_20260901_011249/report.md
 2026-09-01 01:12:49,696 [INFO] report: 리포트 저장: output/reports/report_20260901_011249/report.txt
 2026-09-01 01:12:51,390 [INFO] mail: 이메일 발송 완료: output/reports/report_20260901_011249 -> (본인 계정) (첨부 4건)
+2026-09-01 23:57:41,721 [INFO] clean: 정제 시작: raw=data/raw, 정책=upsert
+2026-09-01 23:57:41,750 [INFO] clean: raw 로드: 972건
+2026-09-01 23:57:41,834 [INFO] clean: 정제 통과: 972건, 제외: 0건
+2026-09-01 23:57:41,834 [INFO] clean: 기준일 2026-09-01 필터: 972건 -> 40건
+2026-09-01 23:57:41,875 [INFO] clean: 저장 완료: 신규 38, 갱신 0, 스킵 0, 배치중복 0, 제목중복 2 -> 총 949건 (data/clean/news_clean.jsonl)
+2026-09-01 23:57:42,825 [INFO] analyze: clean 데이터 949건 로드
+2026-09-01 23:57:42,825 [INFO] analyze: 기준일 2026-09-01 필터: 949건 -> 38건
+2026-09-01 23:57:42,825 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-09-01 23:57:42,826 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-09-01 23:57:43,821 [INFO] analyze: 분석 대상 필터: 375건 -> 0건
+2026-09-01 23:57:43,821 [ERROR] analyze: 분석할 요약 데이터가 없습니다. 먼저 summarize 를 실행하세요.
+2026-09-01 23:57:44,350 [INFO] report: 데이터 로드: clean 949건, 요약 375건, 트렌드 있음
+2026-09-01 23:57:44,350 [WARNING] report: AI 인사이트(기간 기록 없음)가 이번 리포트 기간(2026-09-01 ~ 2026-09-01)과 달라 제외합니다.
+2026-09-01 23:57:44,350 [INFO] report: 필터 적용: 949건 -> 38건
+2026-09-01 23:57:44,351 [INFO] report: 한글 폰트 적용: NanumGothic
+2026-09-01 23:57:44,431 [INFO] report: 차트 저장: output/reports/report_20260901_235744/charts/category_counts.png
+2026-09-01 23:57:44,503 [INFO] report: 차트 저장: output/reports/report_20260901_235744/charts/daily_trend.png
+2026-09-01 23:57:44,540 [INFO] report: 차트 저장: output/reports/report_20260901_235744/charts/top_keywords.png
+2026-09-01 23:57:44,586 [INFO] report: 차트 저장: output/reports/report_20260901_235744/charts/source_share.png
+2026-09-01 23:57:44,586 [INFO] report: 리포트 저장: output/reports/report_20260901_235744/report.md
+2026-09-01 23:57:44,587 [INFO] report: 리포트 저장: output/reports/report_20260901_235744/report.txt
+2026-09-01 23:57:44,992 [ERROR] mail: 가장 최근 리포트(output/reports/report_20260901_235744)가 오늘(2026-09-02) 것이 아닙니다. report 단계가 실패했는지 확인하세요.

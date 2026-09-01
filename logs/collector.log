@@ -650,3 +650,21 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-01 01:12:45,314 [INFO] 수집된 GOV.UK AI 뉴스: 1건 (기준일 2026-08-31, 날짜 불일치로 제외 19건)
 2026-09-01 01:12:45,315 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-01 01:12:45,315 [INFO] 새로 추가된 뉴스: 1
+2026-09-01 23:55:55,262 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-01 23:55:55,780 [INFO]   'AI': 0건
+2026-09-01 23:55:56,234 [INFO]   '인공지능': 31건
+2026-09-01 23:55:56,706 [INFO]   '생성형 AI': 84건
+2026-09-01 23:55:57,183 [INFO]   'LLM': 36건
+2026-09-01 23:55:57,757 [INFO]   'AI 반도체': 80건
+2026-09-01 23:57:28,670 [ERROR] Article request timed out: https://m.seoul.co.kr/news/2026/09/01/20260901500026
+2026-09-01 23:57:34,878 [ERROR] Article content fetch failed: https://www.ikld.kr/news/articleView.html?idxno=339882
+2026-09-01 23:57:34,878 [ERROR] HTTPSConnectionPool(host='www.ikld.kr', port=443): Max retries exceeded with url: /news/articleView.html?idxno=339882 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))
+2026-09-01 23:57:39,402 [INFO] 수집된 Google News: 40건 (기준일 2026-09-01, 날짜 불일치로 제외 209건)
+2026-09-01 23:57:39,416 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-01 23:57:39,416 [INFO] 새로 추가된 뉴스: 40
+2026-09-01 23:57:39,903 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-01 23:57:39,903 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-01 23:57:41,183 [INFO] GOV.UK 응답 코드: 200
+2026-09-01 23:57:41,301 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-01, 날짜 불일치로 제외 20건)
+2026-09-01 23:57:41,302 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-01 23:57:41,303 [INFO] 새로 추가된 뉴스: 0
