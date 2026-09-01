@@ -630,3 +630,23 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-08-31 00:22:44,677 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-08-30, 날짜 불일치로 제외 20건)
 2026-08-31 00:22:44,679 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-08-31 00:22:44,679 [INFO] 새로 추가된 뉴스: 0
+2026-09-01 01:11:03,724 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-01 01:11:04,271 [INFO]   'AI': 0건
+2026-09-01 01:11:04,722 [INFO]   '인공지능': 4건
+2026-09-01 01:11:05,197 [INFO]   '생성형 AI': 44건
+2026-09-01 01:11:05,577 [INFO]   'LLM': 40건
+2026-09-01 01:11:06,146 [INFO]   'AI 반도체': 42건
+2026-09-01 01:11:11,628 [ERROR] Article content fetch failed: https://www.ikld.kr/news/articleView.html?idxno=339796
+2026-09-01 01:11:11,629 [ERROR] HTTPSConnectionPool(host='www.ikld.kr', port=443): Max retries exceeded with url: /news/articleView.html?idxno=339796 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))
+2026-09-01 01:12:26,077 [ERROR] Article request timed out: https://www.etnews.com/20260831000332
+2026-09-01 01:12:41,290 [ERROR] Article content fetch failed: https://www.timenews.co.kr/article/1703623
+2026-09-01 01:12:41,290 [ERROR] ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-09-01 01:12:41,790 [INFO] 수집된 Google News: 40건 (기준일 2026-08-31, 날짜 불일치로 제외 323건)
+2026-09-01 01:12:41,805 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-01 01:12:41,805 [INFO] 새로 추가된 뉴스: 40
+2026-09-01 01:12:42,437 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-01 01:12:42,437 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-01 01:12:43,507 [INFO] GOV.UK 응답 코드: 200
+2026-09-01 01:12:45,314 [INFO] 수집된 GOV.UK AI 뉴스: 1건 (기준일 2026-08-31, 날짜 불일치로 제외 19건)
+2026-09-01 01:12:45,315 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-01 01:12:45,315 [INFO] 새로 추가된 뉴스: 1
