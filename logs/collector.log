@@ -668,3 +668,20 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-01 23:57:41,301 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-01, 날짜 불일치로 제외 20건)
 2026-09-01 23:57:41,302 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-01 23:57:41,303 [INFO] 새로 추가된 뉴스: 0
+2026-09-02 23:58:00,578 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-02 23:58:01,108 [INFO]   'AI': 7건
+2026-09-02 23:58:01,641 [INFO]   '인공지능': 38건
+2026-09-02 23:58:02,175 [INFO]   '생성형 AI': 92건
+2026-09-02 23:58:02,566 [INFO]   'LLM': 45건
+2026-09-02 23:58:03,091 [INFO]   'AI 반도체': 76건
+2026-09-02 23:59:31,110 [ERROR] Article content fetch failed: https://www.etnews.com/20260902000296
+2026-09-02 23:59:31,110 [ERROR] HTTPSConnectionPool(host='www.etnews.com', port=443): Max retries exceeded with url: /20260902000296 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)')))
+2026-09-02 23:59:35,839 [INFO] 수집된 Google News: 40건 (기준일 2026-09-02, 날짜 불일치로 제외 189건)
+2026-09-02 23:59:35,857 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-02 23:59:35,857 [INFO] 새로 추가된 뉴스: 40
+2026-09-02 23:59:36,468 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-02 23:59:36,469 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-02 23:59:38,112 [INFO] GOV.UK 응답 코드: 200
+2026-09-02 23:59:38,266 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-02, 날짜 불일치로 제외 20건)
+2026-09-02 23:59:38,267 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-02 23:59:38,267 [INFO] 새로 추가된 뉴스: 0
