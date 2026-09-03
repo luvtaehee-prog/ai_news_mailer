@@ -1,0 +1,174 @@
+# AI 뉴스 트렌드 리포트
+
+- 생성 시각: 2026-09-03 23:55
+- 대상 기간(발행일 기준): 2026-09-03 ~ 2026-09-03
+- 분석 대상: 총 39건 (AI 요약 완료 0건)
+
+> 항목마다 세는 대상이 다릅니다. 수집·정제 현황은 정제 완료 39건 전체를, 키워드와 AI 인사이트는 요약이 끝난 0건을 기준으로 합니다. 키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.
+
+## 뉴스 목록 (39건)
+
+1. [[AI MY 뉴스] 뉴욕 반도체주 프리뷰...종목별 혼조세, 엔비디아↑·브로드컴↓](https://www.newspim.com/news/view/20260903001261)
+   - 뉴스핌 · AI 반도체 · 22:32
+
+2. [생성형AI 법령검색시스템 내년 2분기 시작…법제처, 내년 예산안에 포함](https://mobile.busan.com/view/election/view.php?code=2026090322242476170)
+   - 부산일보 · 생성형 AI · 22:25
+
+3. [대구정보보호지원센터, 생성형 AI 사이버 위협 대응 세미나 개최](https://www.imaeil.com/page/view/2026090321441223021)
+   - 매일신문 · 생성형 AI · 21:44
+
+4. [광양시, 관광산업에 인공지능 접목한 스마트 관광 AI 서비스 개발 교육생 모집 > 뉴스](http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=548597)
+   - 더코리아 · 인공지능 · 21:42
+
+5. [[2027 수시 특집] 성신여대, '융합AI반도체공학과' 신설…'무전공 재편·첨단학과' 확대](https://www.beyondpost.co.kr/view.php?ud=2026090320192242692e75d13a3_30)
+   - 비욘드포스트 · AI 반도체 · 21:27
+
+6. [GPU 넘어 AI 모델 유통망까지…엔비디아, 허깅페이스 18조원에 품어](https://v.daum.net/v/20260903212310035)
+   - v.daum.net · AI 반도체 · 21:23
+
+7. [KB국민은행, 경영진 대상 '생성형 AI 실습 교육' 실시](http://www.newsian.co.kr/news/articleViewAmp.html?idxno=94735)
+   - 뉴시안 · 생성형 AI · 20:42
+
+8. [비자, 자금 인출 전 금융기관의 사기 차단 돕는 AI기반 'A2A 프로텍트' 혁신 기능](https://www.aitimes.kr/news/articleView.html?idxno=41754)
+   - 인공지능신문 · 인공지능 · 19:56
+
+9. [‘AI와 인간’ 연애 예능의 근미래적 관계 실험](https://www.hani.co.kr/arti/opinion/column/1276160.html)
+   - 한겨레 · 인공지능 · 19:53
+
+10. [[2026 GGGF] 최재식 인이지 대표 피지컬 AI가 제조업 생산 방식 바꾼다](https://www.ajunews.com/view/20260903142701173)
+   - 아주경제 · 생성형 AI · 19:18
+
+11. [마케터 3명 중 1명 “GEO 대응법 모른다”…생성형 AI 검색 최적화 ‘초기 단계’](https://www.newstap.co.kr/news/articleView.html?idxno=333394)
+   - newstap.co.kr · 생성형 AI · 18:58
+
+12. [국민銀 경영진 대상 '생성형 AI 실습 교육' 진행](https://www.fnnews.com/news/202609031819055363)
+   - 파이낸셜뉴스 · 생성형 AI · 18:19
+
+13. [플릭, 생성형 AI 활용 영화 제작 레지던시 작품 공개](https://www.mssnews.com/news/articleView.html?idxno=2955)
+   - 중소벤처기업신문 · 생성형 AI · 18:08
+
+14. [전북대병원, ‘초지능 호흡기 인공지능 센터’ 개소...10만 건 이상 호흡기 임상데이터, 진단부터 맞춤형 치료제 개발까지](https://www.aitimes.kr/news/articleView.html?idxno=41750)
+   - 인공지능신문 · 인공지능 · 18:03
+
+15. [애경케미칼, AI로 업무·R&D·생산 혁신…전사 AX 전환 속도](https://m.dailian.co.kr/news/view/1686211/%EC%95%A0%EA%B2%BD%EC%BC%80%EB%AF%B8%EC%B9%BC-AI%EB%A1%9C-%EC%97%85%EB%AC%B4RampD%EC%83%9D%EC%82%B0-2026)
+   - 데일리안 · LLM · 17:55
+
+16. [‘미 최대 학군’ 뉴욕 공립학교서 새 학기부터 1년간 ‘AI 사용 금지’](https://www.hani.co.kr/arti/international/america/1276118.html)
+   - 한겨레 · 인공지능 · 17:47
+
+17. [더조은컴퓨터학원, ‘LLM·RAG 기반 AI 서비스 엔지니어’ 양성과정 운영…현업 개발자 AI 전환 지원](https://www.devtimes.co.kr/news/519181)
+   - 데브타임즈 · LLM · 17:32
+
+18. [고양서 인공지능 기반 '스마트 양봉' 실증 추진](https://www.yna.co.kr/amp/view/AKR20260903160800060)
+   - 연합뉴스 · 인공지능 · 17:31
+
+19. [토스증권, 대만서 AI 반도체 짚었다... '소부장 생태계' 주목](http://www.newslock.co.kr/news/articleView.html?idxno=135477)
+   - 뉴스락 · AI 반도체 · 17:29
+
+20. [“반도체는 여전히 원픽, 바벨 전략으로 변동성 방어”…신한운용 김정현 그룹장[ETF 딥다이버]](https://m.ekn.kr/view.php?key=20260903027020332)
+   - 에너지경제신문 · AI 반도체 · 17:24
+
+21. [KB국민은행 경영진 대상 생성형AI 교육, 이환주 "AI 활용 리더가 앞장서야"](https://www.businesspost.co.kr/BP?command=article_view&num=446361)
+   - 비즈니스포스트 · 생성형 AI · 16:45
+
+22. [디노티시아 ‘씨홀스 스토리지’, MLPerf 스토리지 v3.0 벡터DB 평가 ‘1위’](https://www.datanet.co.kr/news/articleView.html?idxno=214232)
+   - 데이터넷 · LLM · 15:53
+
+23. [“인문학도, 생성형 AI 날개를 달다”… ERICA, 융합형 문제 해결의 장 열어](https://www.newshyu.com/news/articleView.html?idxno=1026170)
+   - 뉴스H · 생성형 AI · 15:47
+
+24. [국민은행, 경영진 대상 생성형 AI실습 교육](https://www.sedaily.com/article/20086861)
+   - 서울경제 · 생성형 AI · 15:44
+
+25. [전북대병원, 호흡기 인공지능 센터 개소…맞춤형 치료제 등 개발](https://www.yna.co.kr/amp/view/AKR20260903136700055)
+   - 연합뉴스 · 인공지능 · 15:43
+
+26. ["AI 발전·생태계 확장 맞손"… 한국인공지능협회·디지털타임스 MOU](https://v.daum.net/v/uHww2qyOSm?f=p)
+   - v.daum.net · 인공지능 · 15:37
+
+27. [디노티시아, 씨홀스 스토리지 단일 인프라서 AI 학습·추론·검색 범용성 입증](https://www.hellot.net/news/article.html?no=114755)
+   - 헬로티 · LLM · 15:24
+
+28. [NC AI, LG전자와 K-반도체 탑재한 휴머노이드 기술 개발 협력](https://www.aitimes.com/news/articleView.html?idxno=214784)
+   - AI타임스 · AI 반도체 · 15:21
+
+29. [NC AI, LG전자와 휴머노이드 개발…로봇에 사람 동작 이식](https://www.thelec.kr/news/articleView.html?idxno=61757)
+   - 디일렉 · AI 반도체 · 15:04
+
+30. [미소정보기술, 독파모 기반 ‘공공 R&D 예산심의 AI’ 개발 수주](https://www.epnc.co.kr/news/articleView.html?idxno=406482)
+   - epnc.co.kr · LLM · 14:50
+
+...외 9건
+
+## 1. 데이터 품질 지표 (정제 완료 39건 기준)
+
+| 지표 | 값 | 의미 |
+| --- | --- | --- |
+| 총 뉴스 수 | 39건 | 정제를 통과해 저장된 기사 수 |
+| 요약 완료율 | 0.0% (0/39건) | AI 요약이 끝난 기사 비율 |
+| 본문 확보율 | 94.9% (37/39건) | 본문이 300자 이상 확보된 비율. 미만은 크롤링이 본문을 못 찾아 메타 설명으로 대체된 경우 |
+| 평균 본문 길이 | 1495자 | 기사 한 건당 평균 본문 글자 수 |
+| 본문 잘림 비율 | 0.0% (0/39건) | 본문 길이 상한을 넘어 뒷부분이 잘린 비율. 잘린 기사는 AI가 원문 일부만 보고 요약하게 됨 |
+
+## 2. 수집 분포 (정제 완료 39건 기준)
+
+### 카테고리별 뉴스 수
+
+| 카테고리 | 건수 |
+| --- | --- |
+| 생성형 AI | 11 |
+| LLM | 11 |
+| AI 반도체 | 9 |
+| 인공지능 | 8 |
+
+### 소스별 수집 건수
+
+| 소스 | 건수 |
+| --- | --- |
+| google | 39 |
+
+### 수집 방식별 비교
+
+| 수집 방식 | 소스 | 건수 | 평균 본문 | 본문 확보율 |
+| --- | --- | --- | --- | --- |
+| rss+crawl | google | 39건 | 1495자 | 94.9% |
+
+> `rss+crawl` / `api+crawl` 은 RSS·API 로 기사 목록을 받은 뒤 원문을 크롤링한 방식이고, `crawl` 은 목록부터 본문까지 모두 크롤링한 방식입니다.
+>
+> RSS·API 는 목록을 빠르고 안정적으로 받아오지만 본문은 주지 않아 결국 크롤링이 필요하고, 실패하면 짧은 메타 설명으로 대체되어 본문 확보율이 떨어집니다. 반면 전체 크롤링은 본문 확보율이 높은 대신 사이트 구조에 맞춘 코드가 따로 필요하고 요청 간 지연을 둬야 해 느립니다.
+
+### 발행일별 추이
+
+- 집계된 일자 수: 1일
+- 최다 수집일: 2026-09-03 (39건)
+- 일평균: 39.0건
+
+## 3. TOP N 집계
+
+### AI 추출 키워드 TOP 0 (AI 요약 완료 0건 기준)
+
+| 순위 | 키워드 | 등장 기사 수 |
+| --- | --- | --- |
+| - | - | 0 |
+
+## 4. AI 인사이트 분석 (AI 요약 완료 0건 기준)
+
+AI 분석 결과가 없습니다. `python main.py analyze` 를 먼저 실행하세요.
+
+## 5. 차트
+
+### category_counts
+
+![category_counts](charts/category_counts.png)
+
+### daily_trend
+
+![daily_trend](charts/daily_trend.png)
+
+### top_keywords
+
+![top_keywords](charts/top_keywords.png)
+
+### source_share
+
+![source_share](charts/source_share.png)
