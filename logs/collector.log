@@ -705,3 +705,24 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-03 23:55:42,614 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-03, 날짜 불일치로 제외 20건)
 2026-09-03 23:55:42,614 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-03 23:55:42,615 [INFO] 새로 추가된 뉴스: 0
+2026-09-04 23:52:38,536 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-04 23:52:39,095 [INFO]   'AI': 11건
+2026-09-04 23:52:39,607 [INFO]   '인공지능': 40건
+2026-09-04 23:52:40,086 [INFO]   '생성형 AI': 86건
+2026-09-04 23:52:40,472 [INFO]   'LLM': 43건
+2026-09-04 23:52:40,969 [INFO]   'AI 반도체': 93건
+2026-09-04 23:52:45,411 [ERROR] Article content fetch failed: https://kr.investing.com/news/stock-market-news/article-2084937
+2026-09-04 23:52:45,411 [ERROR] 403 Client Error: Forbidden for url: https://kr.investing.com/news/stock-market-news/article-2084937
+2026-09-04 23:53:01,245 [ERROR] Article request timed out: https://www.korea.kr/news/policyNewsView.do?newsId=148971274&pWise=sub&pWiseSub=R6
+2026-09-04 23:53:16,976 [ERROR] Article request timed out: https://www.korea.kr/news/policyFocusView.do?pkgId=49500845&newsId=148971286&pWise=main&pWiseMain=F3
+2026-09-04 23:53:58,436 [ERROR] Article request timed out: https://www.korea.kr/multi/policyPhotoView.do?bbsKey=73250&pageIndex=1
+2026-09-04 23:54:16,322 [ERROR] Article request timed out: https://www.etnews.com/20260904000362
+2026-09-04 23:54:42,197 [INFO] 수집된 Google News: 40건 (기준일 2026-09-04, 날짜 불일치로 제외 177건)
+2026-09-04 23:54:42,213 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-04 23:54:42,213 [INFO] 새로 추가된 뉴스: 40
+2026-09-04 23:54:42,719 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-04 23:54:42,720 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-04 23:54:45,777 [INFO] GOV.UK 응답 코드: 200
+2026-09-04 23:54:45,928 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-04, 날짜 불일치로 제외 20건)
+2026-09-04 23:54:45,929 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-04 23:54:45,929 [INFO] 새로 추가된 뉴스: 0
