@@ -726,3 +726,30 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-04 23:54:45,928 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-04, 날짜 불일치로 제외 20건)
 2026-09-04 23:54:45,929 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-04 23:54:45,929 [INFO] 새로 추가된 뉴스: 0
+2026-09-05 23:43:37,851 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-05 23:43:38,386 [INFO]   'AI': 11건
+2026-09-05 23:43:38,834 [INFO]   '인공지능': 30건
+2026-09-05 23:43:39,197 [INFO]   '생성형 AI': 34건
+2026-09-05 23:43:39,459 [INFO]   'LLM': 13건
+2026-09-05 23:43:39,796 [INFO]   'AI 반도체': 37건
+2026-09-05 23:43:44,962 [WARNING] Failed to parse headers (url=http://m.yakup.com:80/news/index.html?mode=view&pmode=&cat=&cat2=&nid=326480&num_start=780&csearch_word=%C3%89%C2%BE&csearch_type=news&cs_scope=): [MissingHeaderBodySeparatorDefect()], unparsed data: 'P3P : CP="ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC"\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nLast-Modified: Sat, 05 Sep 2026 23:43:44 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nSet-Cookie: PHPSESSID=mm8tp3l2rmc2ehphne3l0t1pa1; path=/\r\nSet-Cookie: MOBILE_CHECK=yes\r\nSet-Cookie: df_count_flag=1; path=/\r\nVary: Accept-Encoding,User-Agent\r\nContent-Encoding: gzip\r\nContent-Length: 17737\r\nKeep-Alive: timeout=5, max=100\r\nConnection: Keep-Alive\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n'
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/urllib3/connection.py", line 574, in getresponse
+    assert_header_parsing(httplib_response.msg)
+  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/urllib3/util/response.py", line 88, in assert_header_parsing
+    raise HeaderParsingError(defects=defects, unparsed_data=unparsed_data)
+urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unparsed data: 'P3P : CP="ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC"\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nLast-Modified: Sat, 05 Sep 2026 23:43:44 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nSet-Cookie: PHPSESSID=mm8tp3l2rmc2ehphne3l0t1pa1; path=/\r\nSet-Cookie: MOBILE_CHECK=yes\r\nSet-Cookie: df_count_flag=1; path=/\r\nVary: Accept-Encoding,User-Agent\r\nContent-Encoding: gzip\r\nContent-Length: 17737\r\nKeep-Alive: timeout=5, max=100\r\nConnection: Keep-Alive\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n'
+2026-09-05 23:44:27,049 [ERROR] Article request timed out: http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=549296
+2026-09-05 23:44:54,444 [ERROR] Article content fetch failed: https://kr.investing.com/news/economy-news/article-2085359
+2026-09-05 23:44:54,444 [ERROR] 403 Client Error: Forbidden for url: https://kr.investing.com/news/economy-news/article-2085359
+2026-09-05 23:45:01,092 [ERROR] Article content fetch failed: https://www.kukinews.com/article/view/kuk202605150011
+2026-09-05 23:45:01,092 [ERROR] 403 Client Error: Forbidden for url: https://www.kukinews.com/article/view/kuk202605150011
+2026-09-05 23:45:13,748 [INFO] 수집된 Google News: 40건 (기준일 2026-09-05, 날짜 불일치로 제외 199건)
+2026-09-05 23:45:13,765 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-05 23:45:13,765 [INFO] 새로 추가된 뉴스: 39
+2026-09-05 23:45:14,286 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-05 23:45:14,287 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-05 23:45:17,201 [INFO] GOV.UK 응답 코드: 200
+2026-09-05 23:45:17,367 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-05, 날짜 불일치로 제외 20건)
+2026-09-05 23:45:17,368 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-05 23:45:17,368 [INFO] 새로 추가된 뉴스: 0
