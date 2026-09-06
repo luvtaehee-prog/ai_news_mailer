@@ -753,3 +753,20 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-05 23:45:17,367 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-05, 날짜 불일치로 제외 20건)
 2026-09-05 23:45:17,368 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-05 23:45:17,368 [INFO] 새로 추가된 뉴스: 0
+2026-09-06 23:41:54,538 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-06 23:41:55,104 [INFO]   'AI': 0건
+2026-09-06 23:41:55,771 [INFO]   '인공지능': 10건
+2026-09-06 23:41:56,214 [INFO]   '생성형 AI': 38건
+2026-09-06 23:41:56,570 [INFO]   'LLM': 22건
+2026-09-06 23:41:56,968 [INFO]   'AI 반도체': 38건
+2026-09-06 23:42:10,441 [ERROR] Article content fetch failed: https://www.seoul.co.kr/news/international/2026/09/06/20260906500079
+2026-09-06 23:42:10,441 [ERROR] 404 Client Error: Not Found for url: https://www.seoul.co.kr/news/international/2026/09/06/20260906500079
+2026-09-06 23:43:27,547 [INFO] 수집된 Google News: 40건 (기준일 2026-09-06, 날짜 불일치로 제외 230건)
+2026-09-06 23:43:27,565 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-06 23:43:27,565 [INFO] 새로 추가된 뉴스: 39
+2026-09-06 23:43:28,068 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-06 23:43:28,068 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-06 23:43:29,433 [INFO] GOV.UK 응답 코드: 200
+2026-09-06 23:43:29,563 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-06, 날짜 불일치로 제외 20건)
+2026-09-06 23:43:29,564 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-06 23:43:29,564 [INFO] 새로 추가된 뉴스: 0
