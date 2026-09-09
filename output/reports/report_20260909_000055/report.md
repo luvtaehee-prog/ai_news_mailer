@@ -1,0 +1,174 @@
+# AI 뉴스 트렌드 리포트
+
+- 생성 시각: 2026-09-09 00:00
+- 대상 기간(발행일 기준): 2026-09-08 ~ 2026-09-08
+- 분석 대상: 총 36건 (AI 요약 완료 0건)
+
+> 항목마다 세는 대상이 다릅니다. 수집·정제 현황은 정제 완료 36건 전체를, 키워드와 AI 인사이트는 요약이 끝난 0건을 기준으로 합니다. 키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.
+
+## 뉴스 목록 (36건)
+
+1. [퀄컴, 아마존과 AI 동맹…10년간 최대 600억달러 계약](https://v.daum.net/v/20260908235149807)
+   - v.daum.net · AI 반도체 · 23:51
+
+2. [[김정호의 AI시대 전략] HBM 이후, 한국 AI산업 성장은 ‘전력 반도체’에 달렸다](https://www.chosun.com/opinion/specialist_column/2026/09/08/XT7AKBSDQZH3NHJDR6IJN7SBT4/)
+   - 조선일보 · 인공지능 · 23:44
+
+3. [한·프랑스, 군사비밀정보보호협정 개정…AI·반도체 MOU 등 16건 체결](https://v.daum.net/v/QvnJErRfvW)
+   - v.daum.net · AI 반도체 · 23:39
+
+4. [[W 언박싱] 사상 첫 ‘수능 만점’ 일 냈는데…뉴욕 교실서 AI 사라진다?](https://v.daum.net/v/20260908233352655)
+   - v.daum.net · 인공지능 · 23:33
+
+5. [韓佛, 협력문건 16건 채택…방산 협력·반도체교류 기반 확대](https://www.yna.co.kr/view/AKR20260908171400001)
+   - 연합뉴스 · AI 반도체 · 23:17
+
+6. [생성형AI 제작 이미지.](https://www.etnews.com/tools/image_popup.html?v=bjQ5VkNYY2dLZTZMZFBUbmNzandvWmpGcjBTK1pHYm1CUVRXR0pTMldlYVZkdE5JeGJVUFVVNURJN04rbmhKTUxzY1VjKzlkWnR1T0RNY3NNT29yUjR2RlZhSnBhSmhHZk1UVmJpSnVMTTJseFlPd3QzUUc5Rmk2TWtSc1FlcFF4NWJ6REN0RDBuVkZtZVpDUk9mbVFuUXVQV095MlZRZi9LT3VsWmhWWk9LQnlPdjhSS3V5eGlWR3lva0lkSnl2Vk4zM3pEdlY1Z29LMkwwTURUaFVQTG9kZ3NrUVNwNjVFa3FzR3o0T296akZIUUc0Q2sxcGlzMTQ4ZlVvUGl3RQ)
+   - etnews.com · 생성형 AI · 22:55
+
+7. [수원특례시, 생성형 AI 활용한 감성 뮤직비디오 수원연화로 가을축제 매력 선사 > 뉴스](http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=550407)
+   - 더코리아 · 생성형 AI · 22:44
+
+8. [강남구, 생성형 AI 마케팅 청년 교육생 모집…교육비 전액 지원](http://www.ignnews.kr/news/articleView.html?idxno=15963)
+   - 강남포스트 · 생성형 AI · 22:18
+
+9. [“상상이 현실로”…복잡한 과업도 척척 범용AI 온다](https://v.daum.net/v/20260908214613159)
+   - v.daum.net · 인공지능 · 21:46
+
+10. [[인간들의 인공지능 이야기] AI 에이전트가 만든 문명의 흥망](https://www.mobiinside.co.kr/2026/09/08/ai-agent-collaboration-control-risk/)
+   - mobiinside.co.kr · 인공지능 · 19:52
+
+11. [인스웨이브, 일본 기업과 기술 교류 확대…현지 시장 공략 박차](https://zdnet.co.kr/view/?no=20260908194627)
+   - 지디넷코리아 · 생성형 AI · 19:47
+
+12. [하이퍼엑셀, 세미파이브 통해 첫 AI반도체 '베르다' 양산 돌입 - 머니투데이](https://www.mt.co.kr/amp/future/2026/09/08/2026090816543489828)
+   - 머니투데이 · LLM · 19:15
+
+13. [하이퍼엑셀, 세미파이브 통해 첫 AI반도체 '베르다' 양산 돌입](https://news.nate.com/view/20260908n34303)
+   - news.nate.com · LLM · 19:15
+
+14. [삼성전자, 요코하마에 첨단패키징 연구소…AI반도체 경쟁력 강화](https://v.daum.net/v/20260908191214732)
+   - v.daum.net · AI 반도체 · 19:12
+
+15. [국립금오공과대학교, ‘2026 글로벌 AX 교육’ 성료](https://www.gmilbo.net/news/article.html?no=81250)
+   - 구미일보 · LLM · 19:04
+
+16. [제주 '인공지능 대전환(AX)' 비전 선포식 열린다](https://www.headlinejeju.co.kr/news/articleView.html?idxno=598701)
+   - 헤드라인제주 · 인공지능 · 17:49
+
+17. [삼성, 日 50개사와 AI 반도체 연합..요코하마에 3484억 투자](https://v.daum.net/v/20260908174643720)
+   - v.daum.net · AI 반도체 · 17:46
+
+18. [[AI프리즘] 하정우 "정부·민간 '원팀'이 한국 강점…AI 3강 굳힌다"(종합)](https://www.yna.co.kr/amp/view/AKR20260908115251017)
+   - 연합뉴스 · 인공지능 · 17:41
+
+19. [국가AI전략위 출범 1년…"대체불가 인공지능 공급망 국가로 도약"](https://www.yonhapnewstv.co.kr/news/AKR20260908172346Tj7)
+   - yonhapnewstv.co.kr · 인공지능 · 17:23
+
+20. [[대전소식] 인공지능 기반 도시 안전 모형 개발 나서 외](https://daily.hankooki.com/news/articleViewAmp.html?idxno=1403582)
+   - 데일리한국 · 인공지능 · 17:22
+
+21. [대구경북 대학, ‘초광역 성장엔진’ 날개 달았다… AI·반도체 인재 3000명 육성](https://v.daum.net/v/20260908165414374)
+   - v.daum.net · AI 반도체 · 16:54
+
+22. [카지노 가입꽁머니 전문가들이 알려주는 핵심 노하우 - 전문가의 관점에서](https://www.histoire-pour-tous.fr/inventions/2732-invention-bombe-atomique.html?ID=4620.html)
+   - Histoire pour tous · LLM · 16:46
+
+23. [카스퍼스키 “AI·LLM 서비스 취약점 2분기 935건...4분기 대비 10배 급증”](https://www.hellot.net/news/article.html?no=114845)
+   - hellot.net · LLM · 16:46
+
+24. [“인공지능으로 시 쓰고 글 짓는다”… 고령층 디지털 격차 허무는 ‘생성형 AI’ 실습](https://www.bokjitoday.com/news/articleView.html?idxno=17931)
+   - 복지투데이 · 생성형 AI · 16:40
+
+25. [中, 한국산 수입 108% 급증…AI 반도체가 한중 교역 견인](https://www.yonhapnewstv.co.kr/news/AKR20260908163504aOi)
+   - yonhapnewstv.co.kr · AI 반도체 · 16:35
+
+26. [AI로 만드는 영화시대 열렸다…90분 영화, 제작비 10억](https://www.mstoday.co.kr/news/articleView.html?idxno=102538)
+   - mstoday.co.kr · 생성형 AI · 16:13
+
+27. ['AI 친구' 찾는 10대 수십만명…청소년 보호 입법 첫발](https://v.daum.net/v/20260908153152185)
+   - v.daum.net · 생성형 AI · 15:31
+
+28. [[밀양 24시] 생성형 AI 시대 직업·인재상은…‘밀양시민대학’ 강연](https://www.sisajournal.com/news/articleViewAmp.html?idxno=386439)
+   - 시사저널 · 생성형 AI · 15:31
+
+29. [주식회사 큐빅(CUBIG), 서대문구도시관리공단에 ‘LLM Capsule’ 공급](http://www.sisunnews.co.kr/news/articleViewAmp.html?idxno=245648)
+   - 시선뉴스 · LLM · 15:15
+
+30. [금오공대, '피지컬 AI' 융합 교육으로 AX 인재 양성 - 머니투데이](https://www.mt.co.kr/amp/policy/2026/09/08/2026090815061062044)
+   - 머니투데이 · LLM · 15:13
+
+...외 6건
+
+## 1. 데이터 품질 지표 (정제 완료 36건 기준)
+
+| 지표 | 값 | 의미 |
+| --- | --- | --- |
+| 총 뉴스 수 | 36건 | 정제를 통과해 저장된 기사 수 |
+| 요약 완료율 | 0.0% (0/36건) | AI 요약이 끝난 기사 비율 |
+| 본문 확보율 | 88.9% (32/36건) | 본문이 300자 이상 확보된 비율. 미만은 크롤링이 본문을 못 찾아 메타 설명으로 대체된 경우 |
+| 평균 본문 길이 | 1631자 | 기사 한 건당 평균 본문 글자 수 |
+| 본문 잘림 비율 | 0.0% (0/36건) | 본문 길이 상한을 넘어 뒷부분이 잘린 비율. 잘린 기사는 AI가 원문 일부만 보고 요약하게 됨 |
+
+## 2. 수집 분포 (정제 완료 36건 기준)
+
+### 카테고리별 뉴스 수
+
+| 카테고리 | 건수 |
+| --- | --- |
+| 생성형 AI | 11 |
+| LLM | 10 |
+| 인공지능 | 8 |
+| AI 반도체 | 7 |
+
+### 소스별 수집 건수
+
+| 소스 | 건수 |
+| --- | --- |
+| google | 36 |
+
+### 수집 방식별 비교
+
+| 수집 방식 | 소스 | 건수 | 평균 본문 | 본문 확보율 |
+| --- | --- | --- | --- | --- |
+| rss+crawl | google | 36건 | 1631자 | 88.9% |
+
+> `rss+crawl` / `api+crawl` 은 RSS·API 로 기사 목록을 받은 뒤 원문을 크롤링한 방식이고, `crawl` 은 목록부터 본문까지 모두 크롤링한 방식입니다.
+>
+> RSS·API 는 목록을 빠르고 안정적으로 받아오지만 본문은 주지 않아 결국 크롤링이 필요하고, 실패하면 짧은 메타 설명으로 대체되어 본문 확보율이 떨어집니다. 반면 전체 크롤링은 본문 확보율이 높은 대신 사이트 구조에 맞춘 코드가 따로 필요하고 요청 간 지연을 둬야 해 느립니다.
+
+### 발행일별 추이
+
+- 집계된 일자 수: 1일
+- 최다 수집일: 2026-09-08 (36건)
+- 일평균: 36.0건
+
+## 3. TOP N 집계
+
+### AI 추출 키워드 TOP 0 (AI 요약 완료 0건 기준)
+
+| 순위 | 키워드 | 등장 기사 수 |
+| --- | --- | --- |
+| - | - | 0 |
+
+## 4. AI 인사이트 분석 (AI 요약 완료 0건 기준)
+
+AI 분석 결과가 없습니다. `python main.py analyze` 를 먼저 실행하세요.
+
+## 5. 차트
+
+### category_counts
+
+![category_counts](charts/category_counts.png)
+
+### daily_trend
+
+![daily_trend](charts/daily_trend.png)
+
+### top_keywords
+
+![top_keywords](charts/top_keywords.png)
+
+### source_share
+
+![source_share](charts/source_share.png)
