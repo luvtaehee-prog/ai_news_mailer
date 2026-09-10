@@ -745,3 +745,25 @@
 2026-09-10 00:01:58,482 [INFO] report: 리포트 저장: output/reports/report_20260910_000158/report.md
 2026-09-10 00:01:58,483 [INFO] report: 리포트 저장: output/reports/report_20260910_000158/report.txt
 2026-09-10 00:02:08,064 [INFO] mail: 이메일 발송 완료: output/reports/report_20260910_000158 -> (본인 계정) (첨부 4건)
+2026-09-10 23:57:29,641 [INFO] clean: 정제 시작: raw=data/raw, 정책=upsert
+2026-09-10 23:57:29,670 [INFO] clean: raw 로드: 1330건
+2026-09-10 23:57:29,746 [INFO] clean: 정제 통과: 1330건, 제외: 0건
+2026-09-10 23:57:29,747 [INFO] clean: 기준일 2026-09-10 필터: 1330건 -> 40건
+2026-09-10 23:57:29,807 [INFO] clean: 저장 완료: 신규 40, 갱신 0, 스킵 0, 배치중복 0, 제목중복 0 -> 총 1292건 (data/clean/news_clean.jsonl)
+2026-09-10 23:57:30,572 [INFO] analyze: clean 데이터 1292건 로드
+2026-09-10 23:57:30,572 [INFO] analyze: 기준일 2026-09-10 필터: 1292건 -> 40건
+2026-09-10 23:57:30,572 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-09-10 23:57:30,573 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-09-10 23:57:31,356 [INFO] analyze: 분석 대상 필터: 375건 -> 0건
+2026-09-10 23:57:31,357 [ERROR] analyze: 분석할 요약 데이터가 없습니다. 먼저 summarize 를 실행하세요.
+2026-09-10 23:57:31,818 [INFO] report: 데이터 로드: clean 1292건, 요약 375건, 트렌드 있음
+2026-09-10 23:57:31,818 [WARNING] report: AI 인사이트(기간 기록 없음)가 이번 리포트 기간(2026-09-10 ~ 2026-09-10)과 달라 제외합니다.
+2026-09-10 23:57:31,818 [INFO] report: 필터 적용: 1292건 -> 40건
+2026-09-10 23:57:31,819 [INFO] report: 한글 폰트 적용: NanumGothic
+2026-09-10 23:57:31,882 [INFO] report: 차트 저장: output/reports/report_20260910_235731/charts/category_counts.png
+2026-09-10 23:57:31,933 [INFO] report: 차트 저장: output/reports/report_20260910_235731/charts/daily_trend.png
+2026-09-10 23:57:31,961 [INFO] report: 차트 저장: output/reports/report_20260910_235731/charts/top_keywords.png
+2026-09-10 23:57:31,994 [INFO] report: 차트 저장: output/reports/report_20260910_235731/charts/source_share.png
+2026-09-10 23:57:31,995 [INFO] report: 리포트 저장: output/reports/report_20260910_235731/report.md
+2026-09-10 23:57:31,995 [INFO] report: 리포트 저장: output/reports/report_20260910_235731/report.txt
+2026-09-10 23:57:32,338 [ERROR] mail: 가장 최근 리포트(output/reports/report_20260910_235731)가 오늘(2026-09-11) 것이 아닙니다. report 단계가 실패했는지 확인하세요.

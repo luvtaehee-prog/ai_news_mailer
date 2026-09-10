@@ -818,3 +818,22 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-10 00:01:53,813 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-09, 날짜 불일치로 제외 20건)
 2026-09-10 00:01:53,814 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-10 00:01:53,814 [INFO] 새로 추가된 뉴스: 0
+2026-09-10 23:55:56,886 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-10 23:55:57,415 [INFO]   'AI': 1건
+2026-09-10 23:55:57,912 [INFO]   '인공지능': 12건
+2026-09-10 23:55:58,360 [INFO]   '생성형 AI': 89건
+2026-09-10 23:55:58,689 [INFO]   'LLM': 31건
+2026-09-10 23:55:59,139 [INFO]   'AI 반도체': 81건
+2026-09-10 23:56:13,912 [ERROR] Article content fetch failed: http://m.journalist.or.kr/m/m_article.html?no=61638
+2026-09-10 23:56:13,912 [ERROR] HTTPConnectionPool(host='m.journalist.or.kr', port=80): Max retries exceeded with url: /m/m_article.html?no=61638 (Caused by NameResolutionError("HTTPConnection(host='m.journalist.or.kr', port=80): Failed to resolve 'm.journalist.or.kr' ([Errno -3] Temporary failure in name resolution)"))
+2026-09-10 23:57:09,005 [ERROR] Article content fetch failed: https://mnlnews.net/news/view.php?bIdx=50362
+2026-09-10 23:57:09,005 [ERROR] 403 Client Error: Forbidden for url: https://mnlnews.net/news/view.php?bIdx=50362
+2026-09-10 23:57:26,919 [INFO] 수집된 Google News: 40건 (기준일 2026-09-10, 날짜 불일치로 제외 224건)
+2026-09-10 23:57:26,933 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-10 23:57:26,933 [INFO] 새로 추가된 뉴스: 40
+2026-09-10 23:57:27,322 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-10 23:57:27,323 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-10 23:57:29,198 [INFO] GOV.UK 응답 코드: 200
+2026-09-10 23:57:29,308 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-10, 날짜 불일치로 제외 20건)
+2026-09-10 23:57:29,308 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-10 23:57:29,308 [INFO] 새로 추가된 뉴스: 0
