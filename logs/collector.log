@@ -802,3 +802,19 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-09 00:00:51,775 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-08, 날짜 불일치로 제외 20건)
 2026-09-09 00:00:51,776 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-09 00:00:51,776 [INFO] 새로 추가된 뉴스: 0
+2026-09-10 00:00:15,434 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-10 00:00:16,044 [INFO]   'AI': 0건
+2026-09-10 00:00:16,558 [INFO]   '인공지능': 12건
+2026-09-10 00:00:17,048 [INFO]   '생성형 AI': 90건
+2026-09-10 00:00:17,428 [INFO]   'LLM': 44건
+2026-09-10 00:00:17,966 [INFO]   'AI 반도체': 73건
+2026-09-10 00:01:11,042 [ERROR] Article request timed out: http://m.jlmaeil.com/view.php?idx=303830
+2026-09-10 00:01:50,949 [INFO] 수집된 Google News: 40건 (기준일 2026-09-09, 날짜 불일치로 제외 228건)
+2026-09-10 00:01:50,971 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-10 00:01:50,971 [INFO] 새로 추가된 뉴스: 40
+2026-09-10 00:01:51,616 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-10 00:01:51,617 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-10 00:01:53,597 [INFO] GOV.UK 응답 코드: 200
+2026-09-10 00:01:53,813 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-09, 날짜 불일치로 제외 20건)
+2026-09-10 00:01:53,814 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-10 00:01:53,814 [INFO] 새로 추가된 뉴스: 0

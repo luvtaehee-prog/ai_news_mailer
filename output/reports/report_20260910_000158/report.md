@@ -1,0 +1,174 @@
+# AI 뉴스 트렌드 리포트
+
+- 생성 시각: 2026-09-10 00:01
+- 대상 기간(발행일 기준): 2026-09-09 ~ 2026-09-09
+- 분석 대상: 총 37건 (AI 요약 완료 0건)
+
+> 항목마다 세는 대상이 다릅니다. 수집·정제 현황은 정제 완료 37건 전체를, 키워드와 AI 인사이트는 요약이 끝난 0건을 기준으로 합니다. 키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.
+
+## 뉴스 목록 (37건)
+
+1. [충남교육청, 생태놀이와 인공지능 잇는 현장 중심 연수 실시](http://www.cmni.news/news/articleView.html?idxno=105296)
+   - 엠뉴스 · 인공지능 · 23:18
+
+2. [한·프랑스, AI·반도체·양자 기술 협력 강화…정례회의 개최](https://v.daum.net/v/1bitZqyON2)
+   - v.daum.net · AI 반도체 · 22:57
+
+3. [韓, 프랑스와 AI·반도체·양자기술 투자 협력 늘린다](https://zdnet.co.kr/view/?no=20260909225456)
+   - 지디넷코리아 · AI 반도체 · 22:54
+
+4. [과기정통부, 프랑스와 인공지능·양자 기술 협력 강화](https://v.daum.net/v/20260909220414955)
+   - v.daum.net · 인공지능 · 22:04
+
+5. [한-프, AI·반도체·양자 협력 강화…공동연구·투자 확대](https://v.daum.net/v/20260909220201908)
+   - v.daum.net · 인공지능 · 22:02
+
+6. [과기정통부, 프랑스와 AI·반도체·양자 협력 강화](http://www.inews24.com/view/2003579)
+   - 아이뉴스24 · AI 반도체 · 22:00
+
+7. [과기정통부, 프랑스와 AI·반도체·양자 기술 협력 본격화](https://www.etnews.com/20260909000403)
+   - 전자신문 · AI 반도체 · 22:00
+
+8. ["AI·반도체·양자 협력 강화" 과기정통부, 프랑스와 양해각서](https://www.hankookilbo.com/news/article/amp/A2026090918010003858)
+   - 한국일보 · AI 반도체 · 22:00
+
+9. [인공지능: 오픈AI, ‘90년간 수학 난제, 88시간 만에 풀어’](https://www.bbc.com/korean/articles/cew9y0vknddo)
+   - BBC · 인공지능 · 21:47
+
+10. [한양대 학부생이 '전력 먹는 하마' AI 반도체 난제 풀었다](https://v.daum.net/v/20260909213529380)
+   - v.daum.net · AI 반도체 · 21:35
+
+11. [타지키스탄, 인공지능 개발 추진 가속화](https://www.dcnews.kr/news/articleView.html?idxno=2917)
+   - 외교문화뉴스 · 인공지능 · 21:24
+
+12. [“AI가 10년 내 모두 죽일 수도” 앤트로픽 연구원 퇴사하며 경고](https://www.hani.co.kr/arti/international/international_general/1276990.html)
+   - hani.co.kr · 인공지능 · 21:12
+
+13. [시니어의 삶·추억, 생성형 AI로 다시 태어나다](https://www.kyongbuk.co.kr/news/articleView.html?idxno=4083753)
+   - kyongbuk.co.kr · 생성형 AI · 19:42
+
+14. [하동·사천·남해축협, 손잡고 '생성형 AI' 실무 역량 키운다](https://www.chuksannews.co.kr/news/article.html?no=273541)
+   - 축산신문 · 생성형 AI · 18:57
+
+15. [비트컴퓨터, AWS와 ‘한국 의료 특화 LLM’ 개발 추진](https://www.khanews.com/news/articleView.html?idxno=249992)
+   - 병원신문 · LLM · 18:44
+
+16. [삼성·SK하이닉스도 주목한 ‘물산업’…대구서 AI·반도체와 융합](https://www.kyongbuk.co.kr/news/articleView.html?idxno=4083739)
+   - kyongbuk.co.kr · AI 반도체 · 18:42
+
+17. [경상국립대 ‘장기기억 인공지능’ 기술 개발 추진](https://www.idomin.com/news/articleView.html?idxno=2014530)
+   - 경남도민일보 · 인공지능 · 18:36
+
+18. [스마트시티에 인공지능 더한다… 2030년 시범도시 조성](https://v.daum.net/v/6CurPe7119)
+   - v.daum.net · 인공지능 · 18:12
+
+19. [“인공지능, 낯설었지만 이젠 새로운 도전”… 국민연금 수급자들, AI 성과대회 성황](https://v.daum.net/v/20260909174330463?f=p)
+   - v.daum.net · 인공지능 · 17:43
+
+20. [“바이오 AI, 빅테크 독점 LLM과 달라…韓도 글로벌 경쟁서 승산 충분”](https://www.sedaily.com/article/20089064)
+   - 서울경제 · LLM · 17:40
+
+21. ["남의 GPU·클라우드로 AI 돌린다"…신종 해킹 'LLM재킹' 비상](https://mobile.newsis.com/view_amp.html?ar_id=NISX20260909_0003782759)
+   - newsis.com · LLM · 17:10
+
+22. [“AI가 만들었다고 내 것이 아니다”... EU, 생성형 AI 시대 ‘IP 함정’ 경고](http://www.e-patentnews.com/15406)
+   - 특허뉴스 · 생성형 AI · 16:52
+
+23. [국민연금 자체 생성형 AI ‘N-GPT’ 실무 투입 초읽기](http://m.jlmaeil.com/view.php?idx=303830)
+   - 전라매일 · 생성형 AI · 16:08
+
+24. [동국대 WISE캠퍼스 이영찬 교수, 생성형 AI 금융자문 연구로 국제학술지 ‘최다피인용 논문상’ 수상](https://www.hidomin.com/news/articleView.html?idxno=720503)
+   - hidomin.com · 생성형 AI · 16:04
+
+25. [고려대, 생성형 AI 한 곳에서 이용하는 ‘멀티 LLM’ 서비스 도입](https://www.kunews.ac.kr/news/articleView.html?idxno=51345)
+   - 고대신문 · LLM · 16:02
+
+26. [리본인텔리전스-프로텐, 전략적 제휴…금융 특화 생성형 AI 검색·에이전트 시장 공략](https://www.itdaily.kr/news/articleView.html?idxno=241500)
+   - 아이티데일리 · 생성형 AI · 15:36
+
+27. [대동, 'K-온디바이스 AI반도체' 무인 농작업 로봇 과제 총괄](https://www.asiae.co.kr/article/2026090915171835713)
+   - 아시아경제 · AI 반도체 · 15:17
+
+28. [[단독] 고려대, 생성형 AI 통합 플랫폼 열었다…챗GPT·클로드를 한 곳에서 무료로](https://v.daum.net/v/20260909150302099)
+   - v.daum.net · LLM · 15:03
+
+29. [모니터랩, 생성형 AI 보안 전면에…EDR 사업화는 내년 상반기로](https://www.etnews.com/20260909000324)
+   - 전자신문 · 생성형 AI · 15:02
+
+30. [佛 미스트랄 품은 삼성, 반도체 전용 LLM 만든다](https://ket.kr/news/article.html?no=40652)
+   - 경제타임스 · LLM · 14:07
+
+...외 7건
+
+## 1. 데이터 품질 지표 (정제 완료 37건 기준)
+
+| 지표 | 값 | 의미 |
+| --- | --- | --- |
+| 총 뉴스 수 | 37건 | 정제를 통과해 저장된 기사 수 |
+| 요약 완료율 | 0.0% (0/37건) | AI 요약이 끝난 기사 비율 |
+| 본문 확보율 | 94.6% (35/37건) | 본문이 300자 이상 확보된 비율. 미만은 크롤링이 본문을 못 찾아 메타 설명으로 대체된 경우 |
+| 평균 본문 길이 | 1675자 | 기사 한 건당 평균 본문 글자 수 |
+| 본문 잘림 비율 | 0.0% (0/37건) | 본문 길이 상한을 넘어 뒷부분이 잘린 비율. 잘린 기사는 AI가 원문 일부만 보고 요약하게 됨 |
+
+## 2. 수집 분포 (정제 완료 37건 기준)
+
+### 카테고리별 뉴스 수
+
+| 카테고리 | 건수 |
+| --- | --- |
+| LLM | 11 |
+| 인공지능 | 9 |
+| 생성형 AI | 9 |
+| AI 반도체 | 8 |
+
+### 소스별 수집 건수
+
+| 소스 | 건수 |
+| --- | --- |
+| google | 37 |
+
+### 수집 방식별 비교
+
+| 수집 방식 | 소스 | 건수 | 평균 본문 | 본문 확보율 |
+| --- | --- | --- | --- | --- |
+| rss+crawl | google | 37건 | 1675자 | 94.6% |
+
+> `rss+crawl` / `api+crawl` 은 RSS·API 로 기사 목록을 받은 뒤 원문을 크롤링한 방식이고, `crawl` 은 목록부터 본문까지 모두 크롤링한 방식입니다.
+>
+> RSS·API 는 목록을 빠르고 안정적으로 받아오지만 본문은 주지 않아 결국 크롤링이 필요하고, 실패하면 짧은 메타 설명으로 대체되어 본문 확보율이 떨어집니다. 반면 전체 크롤링은 본문 확보율이 높은 대신 사이트 구조에 맞춘 코드가 따로 필요하고 요청 간 지연을 둬야 해 느립니다.
+
+### 발행일별 추이
+
+- 집계된 일자 수: 1일
+- 최다 수집일: 2026-09-09 (37건)
+- 일평균: 37.0건
+
+## 3. TOP N 집계
+
+### AI 추출 키워드 TOP 0 (AI 요약 완료 0건 기준)
+
+| 순위 | 키워드 | 등장 기사 수 |
+| --- | --- | --- |
+| - | - | 0 |
+
+## 4. AI 인사이트 분석 (AI 요약 완료 0건 기준)
+
+AI 분석 결과가 없습니다. `python main.py analyze` 를 먼저 실행하세요.
+
+## 5. 차트
+
+### category_counts
+
+![category_counts](charts/category_counts.png)
+
+### daily_trend
+
+![daily_trend](charts/daily_trend.png)
+
+### top_keywords
+
+![top_keywords](charts/top_keywords.png)
+
+### source_share
+
+![source_share](charts/source_share.png)
