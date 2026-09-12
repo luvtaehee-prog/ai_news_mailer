@@ -853,3 +853,23 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-12 00:04:32,009 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-11, 날짜 불일치로 제외 20건)
 2026-09-12 00:04:32,010 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-12 00:04:32,010 [INFO] 새로 추가된 뉴스: 0
+2026-09-12 23:54:12,739 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-12 23:54:13,242 [INFO]   'AI': 5건
+2026-09-12 23:54:13,717 [INFO]   '인공지능': 11건
+2026-09-12 23:54:14,096 [INFO]   '생성형 AI': 40건
+2026-09-12 23:54:14,397 [INFO]   'LLM': 12건
+2026-09-12 23:54:14,784 [INFO]   'AI 반도체': 28건
+2026-09-12 23:54:41,021 [ERROR] Article request timed out: http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=551829
+2026-09-12 23:55:01,047 [ERROR] Article content fetch failed: https://kr.investing.com/news/stock-market-news/article-2092485
+2026-09-12 23:55:01,048 [ERROR] 403 Client Error: Forbidden for url: https://kr.investing.com/news/stock-market-news/article-2092485
+2026-09-12 23:55:19,748 [ERROR] Article request timed out: http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=551915
+2026-09-12 23:55:56,959 [ERROR] Article request timed out: https://www.etnews.com/tools/image_popup.html?v=bjQ5VkNYY2dLZTZMZFBUbmNzandvWmpGcjBTK1pHYm1CUVRXR0pTMldlYVZkdE5JeGJVUFVVNURJN04rbmhKTS9JZGdhUVNUTlBYV2w1WnZPd3ZmRys0WjFtcDJaVU9yL3ljNjJuWG5TbDg2ckJHamFwMG8vVnRyKzdXN2FQcnpOR1BJTExtTGxHZERiTU1uRDZEV2FVRHlFd1RJZ3FHMjZGM3JaRmNXNnkxTmhReXVqSkJWWURuWE01NHN4NGJBcndnV29sa0dSdldzRWZxd0dwNzYxUURjdWZVd0d4MUE4S3NyL0piZzFSM3c2bXhKVmVRblhGQkFDVEgxc0FPcA
+2026-09-12 23:55:59,496 [INFO] 수집된 Google News: 40건 (기준일 2026-09-12, 날짜 불일치로 제외 217건)
+2026-09-12 23:55:59,521 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-12 23:55:59,521 [INFO] 새로 추가된 뉴스: 40
+2026-09-12 23:56:00,165 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-12 23:56:00,165 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-12 23:56:02,302 [INFO] GOV.UK 응답 코드: 200
+2026-09-12 23:56:02,517 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-12, 날짜 불일치로 제외 20건)
+2026-09-12 23:56:02,518 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-12 23:56:02,519 [INFO] 새로 추가된 뉴스: 0

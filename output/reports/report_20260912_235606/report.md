@@ -1,0 +1,175 @@
+# AI 뉴스 트렌드 리포트
+
+- 생성 시각: 2026-09-12 23:56
+- 대상 기간(발행일 기준): 2026-09-12 ~ 2026-09-12
+- 분석 대상: 총 38건 (AI 요약 완료 0건)
+
+> 항목마다 세는 대상이 다릅니다. 수집·정제 현황은 정제 완료 38건 전체를, 키워드와 AI 인사이트는 요약이 끝난 0건을 기준으로 합니다. 키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.
+
+## 뉴스 목록 (38건)
+
+1. [고전사천성 마작 전문가들이 알려주는 핵심 노하우 - 전문가의 관점에서](https://www.calgaryroughnecks.com/get-to-know-shane-simpson-2/?ID=6055.html)
+   - Calgary Roughnecks · LLM · 23:53
+
+2. [허준이 등 필즈상 수상자 25명 “AI 수학풀이, 지적 활동 위협”](https://weekly.khan.co.kr/article/202609122352001)
+   - 주간경향 · AI · 23:52
+
+3. [광주서부교육지원청, 상담인력 대상 인공지능 활용 연수 개최 > 뉴스](http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=551915)
+   - 더코리아 · 인공지능 · 23:49
+
+4. [Anthropic CEO, 보안 사고 후 AI 개발 속도 늦춰야 한다고 촉구](https://kr.investing.com/news/stock-market-news/article-2092485)
+   - Investing.com 한국어 · AI · 23:47
+
+5. [AI, 인간의 통제선을 넘기 시작했다...“10년 내 인류 파괴” 경고도](https://www.dongponews.net/news/articleView.html?idxno=60468)
+   - 재외동포신문 · AI · 23:18
+
+6. [염제 룰렛 이용 중 휴식 알림 설정](https://www.calgaryroughnecks.com/3-thoughts-from-coach-11-16-19/?ID=8270.html)
+   - Calgary Roughnecks · AI 반도체 · 22:32
+
+7. [대명중, 제5회 인공지능 로봇 끝장 개발 한마당’ 금·은·동 전 부문 석권 쾌거](http://www.cmni.news/news/articleView.html?idxno=105401)
+   - 엠뉴스 · 인공지능 · 22:16
+
+8. [진교훈 강서구청장 “인공지능 사람의 삶과 맞닿아야”](https://v.daum.net/v/20260912205747142?f=p)
+   - v.daum.net · 인공지능 · 20:57
+
+9. [부산 동구 생성형 인공지능 시범 운영 > 뉴스](http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=551829)
+   - 더코리아 · 생성형 AI · 20:54
+
+10. [엔비디아 투자한 반도체 주식, 왜 50% 폭락했나](https://contents.premium.naver.com/finfarmer00/finfarmer/contents/260912192815277or)
+   - 네이버 프리미엄콘텐츠 · AI 반도체 · 20:00
+
+11. [인공지능과 아동 보호에 관한 2025년 사이버보안법의 주요 새로운 특징.](https://www.vietnam.vn/ko/nhung-diem-moi-dang-chu-y-cua-luat-an-ninh-mang-nam-2025-ve-ai-va-bao-ve-tre-em)
+   - Vietnam.vn · 인공지능 · 19:52
+
+12. [합성소비자부터 반도체 공정사고 예방까지…유망 K-스타트업 32개사 본선행](https://www.sanhaknews.kr/news/articleView.html?idxno=21734)
+   - 산학뉴스 · AI 반도체 · 19:16
+
+13. ["답 맞히기가 수학의 목적 아니다"…필즈상 25명, AI 기업에 경고 - 머니투데이](https://www.mt.co.kr/amp/tech/2026/09/12/2026091218195215176)
+   - 머니투데이 · LLM · 18:38
+
+14. [게임 용어를 화면 위치와 연결하는 피망 맞고 앱 입문 설명](https://www.histoire-pour-tous.fr/dossiers/232-al?ID=365%20%EC%B9%B4%EC%A7%80%EB%85%B8.html)
+   - histoire-pour-tous.fr · LLM · 18:27
+
+15. [삼양엔씨켐, 2027년 더 무섭다… AI 반도체 타고 성장률 가속](https://www.pinpointnews.co.kr/news/articleViewAmp.html?idxno=486422)
+   - 핀포인트뉴스 · AI 반도체 · 18:06
+
+16. [[차이나 인사이트] 중국 최고인민법원, 첫 ‘AI 사법지침’…생성형 AI 산출물의 침해 판단 기준 발표](https://www.ipdaily.co.kr/2026/09/12/17/39/19/50587/%EC%B0%A8%EC%9D%B4%EB%82%98-%EC%9D%B8%EC%82%AC%EC%9D%B4%ED%8A%B8-%EC%A4%91%EA%B5%AD-%EC%B5%9C%EA%B3%A0%EC%9D%B8%EB%AF%BC%EB%B2%95%EC%9B%90-%EC%B2%AB-ai-%EC%82%AC%EB%B2%95%EC%A7%80%EC%B9%A8/)
+   - IPDaily · 생성형 AI · 17:39
+
+17. [구글, AI 도구 학습 '툴그래드' 공개..."답부터 만들고 질문 붙여 성공률 99.8%"](https://www.aitimes.com/news/articleView.html?idxno=215188)
+   - AI타임스 · LLM · 17:24
+
+18. [난제 풀어버린 AI, 다급한 수학자들 집단성명…“수학계에 해악”[김현지의 with AI]](https://www.donga.com/news/It/article/all/20260912/134655136/1)
+   - 동아일보 · AI · 17:18
+
+19. [용인특례시, ‘제6기 반도체 AI 최고위 과정’ 입학식 개최](https://www.kgnews.net/news/articleViewAmp.html?idxno=418049)
+   - 광교신문 · AI 반도체 · 17:14
+
+20. ["자소서 대신 AI 활용 경험"…SK하이닉스, 채용 방식 뒤집었다[AI로 달라진 채용③]](https://mobile.newsis.com/view_amp.html?ar_id=NISX20260911_0003786161)
+   - 뉴시스 · LLM · 17:00
+
+21. [[뉴스초점] "AI가 모든 인간 죽일 수도"…통제 상실 경고](https://www.yna.co.kr/amp/view/MYH20260912009200038)
+   - 연합뉴스 · 인공지능 · 16:32
+
+22. [필즈상 수상 25인, AI 수학 풀이에…‘인간 지적 활동’ 위협 우려](https://www.hani.co.kr/arti/international/international_general/1277473.html)
+   - hani.co.kr · 인공지능 · 16:26
+
+23. [게임 정보가 바뀌었는지 확인하는 one 토토 변경 기록](https://www.calgaryroughnecks.com/roster/?ID=%EC%99%80%EC%9D%B4%EC%A6%88%20%ED%86%A0%ED%86%A0%EC%8A%AC%EB%A1%AF%EA%B2%80%EC%A6%9D%EC%82%AC%EC%9D%B4%ED%8A%B8.html)
+   - Calgary Roughnecks · LLM · 16:05
+
+24. [공부도 쇼핑도 AI에게 묻는다…10대 85%, 주 2회 이상 사용](https://www.venturesquare.net/1112933/)
+   - 벤처스퀘어 · 생성형 AI · 15:52
+
+25. [테렌스 타오·허준이 등 필즈상 수상자 25명, AI 수학 경쟁에 경고](https://www.kyobit.com/news/articleView.html?idxno=7034)
+   - 교육을 비추다 · LLM · 15:41
+
+26. [‘수학계 노벨상’ 필즈상 수상자 25인의 경고…“AI의 문제풀이 경쟁 우려스러워”](https://www.khan.co.kr/article/202609121527001)
+   - 경향신문 · AI · 15:27
+
+27. [AI·로봇株 극심한 양극화…에스투더블유 26% 폭등랠리 '눈에 띄네'](https://www.pinpointnews.co.kr/news/articleViewAmp.html?idxno=486387)
+   - 핀포인트뉴스 · 생성형 AI · 14:42
+
+28. [세계로 눈 돌린 K-반도체…‘성능 경쟁’ 넘어 ‘고객 확보전’[빛이 나는 비즈]](https://www.sedaily.com/article/20090124)
+   - 서울경제 · AI 반도체 · 14:28
+
+29. [[글로벌] 오픈AI, 금융 특화 챗GPT 출시...범용 AI 넘어 전문 업무로 확장](https://www.techm.kr/news/articleView.html?idxno=155156)
+   - techm.kr · 생성형 AI · 13:24
+
+30. [[AI 대전환 리딩 전략] 쿠쿠홈시스, AI 더한 '맞춤형 가전' 승부](https://www.bloter.net/news/articleViewAmp.html?idxno=673370)
+   - bloter.net · AI 반도체 · 13:05
+
+...외 8건
+
+## 1. 데이터 품질 지표 (정제 완료 38건 기준)
+
+| 지표 | 값 | 의미 |
+| --- | --- | --- |
+| 총 뉴스 수 | 38건 | 정제를 통과해 저장된 기사 수 |
+| 요약 완료율 | 0.0% (0/38건) | AI 요약이 끝난 기사 비율 |
+| 본문 확보율 | 84.2% (32/38건) | 본문이 300자 이상 확보된 비율. 미만은 크롤링이 본문을 못 찾아 메타 설명으로 대체된 경우 |
+| 평균 본문 길이 | 1662자 | 기사 한 건당 평균 본문 글자 수 |
+| 본문 잘림 비율 | 0.0% (0/38건) | 본문 길이 상한을 넘어 뒷부분이 잘린 비율. 잘린 기사는 AI가 원문 일부만 보고 요약하게 됨 |
+
+## 2. 수집 분포 (정제 완료 38건 기준)
+
+### 카테고리별 뉴스 수
+
+| 카테고리 | 건수 |
+| --- | --- |
+| 생성형 AI | 9 |
+| AI 반도체 | 9 |
+| LLM | 9 |
+| 인공지능 | 6 |
+| AI | 5 |
+
+### 소스별 수집 건수
+
+| 소스 | 건수 |
+| --- | --- |
+| google | 38 |
+
+### 수집 방식별 비교
+
+| 수집 방식 | 소스 | 건수 | 평균 본문 | 본문 확보율 |
+| --- | --- | --- | --- | --- |
+| rss+crawl | google | 38건 | 1662자 | 84.2% |
+
+> `rss+crawl` / `api+crawl` 은 RSS·API 로 기사 목록을 받은 뒤 원문을 크롤링한 방식이고, `crawl` 은 목록부터 본문까지 모두 크롤링한 방식입니다.
+>
+> RSS·API 는 목록을 빠르고 안정적으로 받아오지만 본문은 주지 않아 결국 크롤링이 필요하고, 실패하면 짧은 메타 설명으로 대체되어 본문 확보율이 떨어집니다. 반면 전체 크롤링은 본문 확보율이 높은 대신 사이트 구조에 맞춘 코드가 따로 필요하고 요청 간 지연을 둬야 해 느립니다.
+
+### 발행일별 추이
+
+- 집계된 일자 수: 1일
+- 최다 수집일: 2026-09-12 (38건)
+- 일평균: 38.0건
+
+## 3. TOP N 집계
+
+### AI 추출 키워드 TOP 0 (AI 요약 완료 0건 기준)
+
+| 순위 | 키워드 | 등장 기사 수 |
+| --- | --- | --- |
+| - | - | 0 |
+
+## 4. AI 인사이트 분석 (AI 요약 완료 0건 기준)
+
+AI 분석 결과가 없습니다. `python main.py analyze` 를 먼저 실행하세요.
+
+## 5. 차트
+
+### category_counts
+
+![category_counts](charts/category_counts.png)
+
+### daily_trend
+
+![daily_trend](charts/daily_trend.png)
+
+### top_keywords
+
+![top_keywords](charts/top_keywords.png)
+
+### source_share
+
+![source_share](charts/source_share.png)
