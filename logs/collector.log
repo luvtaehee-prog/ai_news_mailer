@@ -873,3 +873,20 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-12 23:56:02,517 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-12, 날짜 불일치로 제외 20건)
 2026-09-12 23:56:02,518 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-12 23:56:02,519 [INFO] 새로 추가된 뉴스: 0
+2026-09-14 00:01:42,444 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-14 00:01:42,916 [INFO]   'AI': 1건
+2026-09-14 00:01:43,374 [INFO]   '인공지능': 3건
+2026-09-14 00:01:43,715 [INFO]   '생성형 AI': 44건
+2026-09-14 00:01:43,983 [INFO]   'LLM': 15건
+2026-09-14 00:01:44,372 [INFO]   'AI 반도체': 51건
+2026-09-14 00:02:53,988 [ERROR] Article content fetch failed: https://dealsite.co.kr/articles/168895
+2026-09-14 00:02:53,988 [ERROR] 403 Client Error: Forbidden for url: https://dealsite.co.kr/articles/168895
+2026-09-14 00:03:22,340 [INFO] 수집된 Google News: 40건 (기준일 2026-09-13, 날짜 불일치로 제외 236건)
+2026-09-14 00:03:22,367 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-14 00:03:22,367 [INFO] 새로 추가된 뉴스: 40
+2026-09-14 00:03:23,059 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-14 00:03:23,059 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-14 00:03:24,759 [INFO] GOV.UK 응답 코드: 200
+2026-09-14 00:03:24,959 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-13, 날짜 불일치로 제외 20건)
+2026-09-14 00:03:24,960 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-14 00:03:24,960 [INFO] 새로 추가된 뉴스: 0
