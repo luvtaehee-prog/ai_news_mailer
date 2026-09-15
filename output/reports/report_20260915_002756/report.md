@@ -1,0 +1,174 @@
+# AI 뉴스 트렌드 리포트
+
+- 생성 시각: 2026-09-15 00:27
+- 대상 기간(발행일 기준): 2026-09-14 ~ 2026-09-14
+- 분석 대상: 총 40건 (AI 요약 완료 0건)
+
+> 항목마다 세는 대상이 다릅니다. 수집·정제 현황은 정제 완료 40건 전체를, 키워드와 AI 인사이트는 요약이 끝난 0건을 기준으로 합니다. 키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.
+
+## 뉴스 목록 (40건)
+
+1. [[AI MY 뉴스] 뉴욕 반도체주 프리뷰...AI '속도 조절론'에 반도체주 '일제 급락'](https://www.newspim.com/news/view/20260914001158)
+   - 뉴스핌 · AI 반도체 · 22:27
+
+2. [서울대 인공지능신뢰성 연구센터 2026 월례세미나 시리즈-신뢰할 수 있는 인공지능 만들기(9/22(화))](https://www.snu.ac.kr/snunow/events?md=v&bbsidx=175670)
+   - 서울대학교 · 인공지능 · 22:14
+
+3. [생성형 AI 뉴스 추천, 연합뉴스 인용 비중 국내 언론 중 ‘최고’](https://www.sisaworld.kr/news/articleView.html?idxno=25167)
+   - sisaworld.kr · 생성형 AI · 21:33
+
+4. [용인시의회, 생성형 AI 활용 행정사무감사 특강 개최](https://www.bizwnews.com/news/articleView.html?idxno=146241)
+   - 비즈월드 · 생성형 AI · 21:25
+
+5. [계명대 ‘차세대 생성형 AI 플랫폼’ 도입…DX 가속화](https://www.idaegu.co.kr/news/articleView.html?idxno=559562)
+   - idaegu.co.kr · 생성형 AI · 20:36
+
+6. [생성형 AI로 방폭안전관리 역량 강화](http://www.ujeil.com/news/articleView.html?idxno=392067)
+   - 울산제일일보 · 생성형 AI · 19:28
+
+7. [딥엑스, AI 가속기 4종 정부 '녹색기술제품' 인증](https://www.thelec.kr/news/articleView.html?idxno=62243)
+   - thelec.kr · AI 반도체 · 19:05
+
+8. [하나손보, 생성형 AI로 보험광고 제작 방식 넓혀](https://www.insnews.co.kr/news/articleView.html?idxno=92807)
+   - 한국보험신문 · 생성형 AI · 18:07
+
+9. ["AI는 왜 ‘정답 데이터’보다 ‘보상’을 배워야 하는가"...김용덕 변리사, 구글의 컴퓨터 비전 강화학습 특허 분석](https://www.aitimes.kr/news/articleView.html?idxno=41909)
+   - 인공지능신문 · 생성형 AI · 18:05
+
+10. [아시아 반도체 공급망 일제히 흔들…'AI 속도조절론'에 주가 급락](https://www.aitimes.com/news/articleView.html?idxno=215248)
+   - AI타임스 · AI 반도체 · 17:41
+
+11. [[새로 나온 책] 인공지능 AI시대에 “○○해도 될까요?” 외](https://v.daum.net/v/FIRjEd8BWu?f=p)
+   - v.daum.net · 인공지능 · 17:29
+
+12. [중원대, AI·반도체·바이오 등 미래산업 실무 인재 양성 기반 마련](https://www.news1.kr/amp/local/sejong-chungbuk/6290123)
+   - 뉴스1 · AI 반도체 · 17:25
+
+13. [LG화학, AI·HBM 시장 공략…中 장화웨이와 반도체 소재 협력](https://www.m-i.kr/news/articleViewAmp.html?idxno=1413800)
+   - 매일일보 · AI 반도체 · 17:25
+
+14. [[HY-AI 리터러시 뉴스] #42 한양대 학부생이 푼 AI 반도체 난제!](https://www.newshyu.com/news/articleView.html?idxno=1026313)
+   - 뉴스H · AI 반도체 · 17:20
+
+15. [생성형 AI 활용한 피부 데이터 분석 전략 공개](https://www.cmn.co.kr/sub/news/news_view.asp?news_idx=50967)
+   - 주간신문씨엠엔 · 생성형 AI · 17:18
+
+16. [차기 '깐부회동'은 K-스타트업과?…업스테이지, 매디슨 황과 AI 협력 논의](https://www.newsis.com/view/NISX20260914_0003789024)
+   - 뉴시스 · LLM · 17:18
+
+17. [[단독] 한미반도체, 테라팹에 AI 시스템반도체 패키징 장비 공급](https://www.hankyung.com/article/202609143780i)
+   - hankyung.com · AI 반도체 · 17:10
+
+18. [프린스턴대, 이전 계산 결과 이어서 토큰 생성하는 '순환 루프 변환기' 공개](https://www.aitimes.com/news/articleView.html?idxno=215227)
+   - AI타임스 · LLM · 17:05
+
+19. [용인특례시의회, 행정사무감사에 생성형 AI 활용…검증 역량 강화](https://www.discoverynews.kr/news/articleView.html?idxno=1101504)
+   - 디스커버리뉴스(DISCOVERYNEWS) · 생성형 AI · 16:54
+
+20. [시진핑 “AI 기술 혜택 함께 나누자”…브릭스 공동 생태계 제안](https://www.newsworker.co.kr/news/articleViewAmp.html?idxno=504240)
+   - 뉴스워커 · LLM · 16:42
+
+21. [교실서 배운 AI·반도체, 일본 공장서 확인했다…재능고 학생들의 ‘기술 연수’](https://www.newsenc.com/news/articleView.html?idxno=4994)
+   - 쓰담미디어 · AI 반도체 · 16:33
+
+22. [서강대 연구팀, LLM 강화학습 효율 높이는 데이터 재활용법 개발](https://v.daum.net/v/20260914162209009)
+   - v.daum.net · LLM · 16:22
+
+23. [공무원이 직접 만든 ‘전북AI’ 대통령상…연 25억원 절감 기대](https://v.daum.net/v/20260914155808764)
+   - v.daum.net · 생성형 AI · 15:58
+
+24. [메디슨 황이 부른 업스테이지…엔비디아 본사서 AI 협력 논의](https://stock.mk.co.kr/news/view/1158751)
+   - 매일경제 마켓 · LLM · 15:35
+
+25. [딥엑스, 저전력 AI 반도체 기술 정부 '녹색기술' 인증 획득](https://www.aitimes.com/news/articleView.html?idxno=215232)
+   - AI타임스 · AI 반도체 · 15:26
+
+26. [SK AX ‘생성형 AI 자격제도’, 고용부 장관상](https://it.chosun.com/news/articleViewAmp.html?idxno=2023092170093)
+   - IT조선 · 생성형 AI · 15:24
+
+27. ["생성형AI는 매출 공식 모른다"…AI-레디 넘어 에이전틱-레디로](https://zdnet.co.kr/view/?no=20260914152208)
+   - 지디넷코리아 · 생성형 AI · 15:24
+
+28. [특히 눈에 띄는 ‘LLM 추론 최적화’ 방식들](http://www.apple-economy.com/news/articleView.html?idxno=80012)
+   - 애플경제 · LLM · 14:31
+
+29. [딥엑스, AI 반도체 에너지 효율성 입증…녹색기술 인증 확보](https://www.epnc.co.kr/news/articleView.html?idxno=406885)
+   - 테크월드 · AI 반도체 · 14:14
+
+30. [[AI 대전환 리딩 전략] 한화세미텍, AI 반도체 패키징 장비 도전장](https://www.bloter.net/news/articleViewAmp.html?idxno=673518)
+   - 블로터 · AI 반도체 · 14:13
+
+...외 10건
+
+## 1. 데이터 품질 지표 (정제 완료 40건 기준)
+
+| 지표 | 값 | 의미 |
+| --- | --- | --- |
+| 총 뉴스 수 | 40건 | 정제를 통과해 저장된 기사 수 |
+| 요약 완료율 | 0.0% (0/40건) | AI 요약이 끝난 기사 비율 |
+| 본문 확보율 | 95.0% (38/40건) | 본문이 300자 이상 확보된 비율. 미만은 크롤링이 본문을 못 찾아 메타 설명으로 대체된 경우 |
+| 평균 본문 길이 | 1623자 | 기사 한 건당 평균 본문 글자 수 |
+| 본문 잘림 비율 | 0.0% (0/40건) | 본문 길이 상한을 넘어 뒷부분이 잘린 비율. 잘린 기사는 AI가 원문 일부만 보고 요약하게 됨 |
+
+## 2. 수집 분포 (정제 완료 40건 기준)
+
+### 카테고리별 뉴스 수
+
+| 카테고리 | 건수 |
+| --- | --- |
+| 생성형 AI | 13 |
+| LLM | 13 |
+| AI 반도체 | 12 |
+| 인공지능 | 2 |
+
+### 소스별 수집 건수
+
+| 소스 | 건수 |
+| --- | --- |
+| google | 40 |
+
+### 수집 방식별 비교
+
+| 수집 방식 | 소스 | 건수 | 평균 본문 | 본문 확보율 |
+| --- | --- | --- | --- | --- |
+| rss+crawl | google | 40건 | 1623자 | 95.0% |
+
+> `rss+crawl` / `api+crawl` 은 RSS·API 로 기사 목록을 받은 뒤 원문을 크롤링한 방식이고, `crawl` 은 목록부터 본문까지 모두 크롤링한 방식입니다.
+>
+> RSS·API 는 목록을 빠르고 안정적으로 받아오지만 본문은 주지 않아 결국 크롤링이 필요하고, 실패하면 짧은 메타 설명으로 대체되어 본문 확보율이 떨어집니다. 반면 전체 크롤링은 본문 확보율이 높은 대신 사이트 구조에 맞춘 코드가 따로 필요하고 요청 간 지연을 둬야 해 느립니다.
+
+### 발행일별 추이
+
+- 집계된 일자 수: 1일
+- 최다 수집일: 2026-09-14 (40건)
+- 일평균: 40.0건
+
+## 3. TOP N 집계
+
+### AI 추출 키워드 TOP 0 (AI 요약 완료 0건 기준)
+
+| 순위 | 키워드 | 등장 기사 수 |
+| --- | --- | --- |
+| - | - | 0 |
+
+## 4. AI 인사이트 분석 (AI 요약 완료 0건 기준)
+
+AI 분석 결과가 없습니다. `python main.py analyze` 를 먼저 실행하세요.
+
+## 5. 차트
+
+### category_counts
+
+![category_counts](charts/category_counts.png)
+
+### daily_trend
+
+![daily_trend](charts/daily_trend.png)
+
+### top_keywords
+
+![top_keywords](charts/top_keywords.png)
+
+### source_share
+
+![source_share](charts/source_share.png)
