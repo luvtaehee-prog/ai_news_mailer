@@ -907,3 +907,20 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-15 00:27:53,717 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-14, 날짜 불일치로 제외 20건)
 2026-09-15 00:27:53,718 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-15 00:27:53,718 [INFO] 새로 추가된 뉴스: 0
+2026-09-16 00:05:30,501 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-16 00:05:31,036 [INFO]   'AI': 0건
+2026-09-16 00:05:31,547 [INFO]   '인공지능': 4건
+2026-09-16 00:05:32,022 [INFO]   '생성형 AI': 83건
+2026-09-16 00:05:32,399 [INFO]   'LLM': 44건
+2026-09-16 00:05:32,887 [INFO]   'AI 반도체': 76건
+2026-09-16 00:05:35,878 [ERROR] Article content fetch failed: https://www.unipress.co.kr/news/articleView.html?idxno=15276
+2026-09-16 00:05:35,878 [ERROR] HTTPSConnectionPool(host='www.unipress.co.kr', port=443): Max retries exceeded with url: /news/articleView.html?idxno=15276 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))
+2026-09-16 00:06:52,926 [INFO] 수집된 Google News: 40건 (기준일 2026-09-15, 날짜 불일치로 제외 240건)
+2026-09-16 00:06:52,952 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-16 00:06:52,952 [INFO] 새로 추가된 뉴스: 39
+2026-09-16 00:06:53,486 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-16 00:06:53,486 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-16 00:06:54,959 [INFO] GOV.UK 응답 코드: 200
+2026-09-16 00:06:57,031 [INFO] 수집된 GOV.UK AI 뉴스: 1건 (기준일 2026-09-15, 날짜 불일치로 제외 19건)
+2026-09-16 00:06:57,032 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-16 00:06:57,032 [INFO] 새로 추가된 뉴스: 1
