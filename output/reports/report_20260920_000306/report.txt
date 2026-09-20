@@ -1,0 +1,197 @@
+
+AI 뉴스 트렌드 리포트
+-----------------
+
+- 생성 시각: 2026-09-20 00:03
+- 대상 기간(발행일 기준): 2026-09-19 ~ 2026-09-19
+- 분석 대상: 총 40건 (AI 요약 완료 0건)
+
+> 항목마다 세는 대상이 다릅니다. 수집·정제 현황은 정제 완료 40건 전체를, 키워드와 AI 인사이트는 요약이 끝난 0건을 기준으로 합니다. 키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.
+
+
+뉴스 목록 (40건)
+---------------
+
+1. MS AI수장, 오픈AI '이상행동'에 "심각한 상황…AI 갈수록 강력" (https://www.yna.co.kr/view/AKR20260919059000072)
+   - 연합뉴스 · AI · 23:31
+
+2. "AI 오판 탓에 전쟁 날 뻔"...미중 정상 '속도조절' 논의 (https://www.ytn.co.kr/_ln/0104_202609192309561302)
+   - YTN · 인공지능 · 23:09
+
+3. “코스피 6900인데 내년엔 5200 아래로”…전문가가 경고한 세 가지 변수 (https://www.daily25news.com/news/articleView.html?idxno=7289)
+   - daily25news.com · AI 반도체 · 22:41
+
+4. 국회예산정책처 “생성형 AI, 현시점 노동시장에 뚜렷한 영향 확인 어려워”…청년 고용 감소도 AI 때문이라 보기 힘들어 (https://www.sisaworld.kr/news/articleView.html?idxno=25314)
+   - sisaworld.kr · 생성형 AI · 22:16
+
+5. [[데일리시큐 웨비나] “EDR이 놓친 브라우저가 새로운 공격 표면”…아카마이, ‘Browser EDR’로 제로트러스트 확장](https://www.dailysecu.com/news/articleView.html?idxno=208554)
+   - 데일리시큐 · 생성형 AI · 22:12
+
+6. [[쇼츠] 미군 150만명이 AI 쓰는데…중국 선박 사건 터졌다](https://www.coxnews.co.kr/news/articleView.html?idxno=6166)
+   - 콕스뉴스 · 생성형 AI · 21:49
+
+7. 엔비디아냐 스페이스X냐…‘5조2,000억달러 실적’과 ‘우주 AI’의 정면승부 (https://www.coinreaders.com/259208)
+   - 코인리더스 · AI 반도체 · 21:47
+
+8. 서해구, 지능형 업무관리플랫폼 온AI 시범기관 선정 > 뉴스 (http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=554785)
+   - thekorea.kr · 생성형 AI · 21:12
+
+9. [[알고보니] 'AI 때문에 인류 멸망' 잇따른 경고‥근거는?](https://imnews.imbc.com/replay/2026/nwdesk/article/6853030_37004.html)
+   - MBC 뉴스 · 인공지능 · 20:25
+
+10. 오픈AI '더 똑똑해진' GPT-4 출시 (https://chosundaily.com/bbs/board.php?bo_table=hotclick&wr_id=12065&sca=%EA%B2%BD%EC%A0%9C&sst=wr_hit&sod=asc&sop=and&spt=-15624&page=43&device=pc)
+   - chosundaily.com · 생성형 AI · 19:54
+
+11. 게임별 규칙의 차이를 놓치지 않는 카지노 칩 환전 비교 (https://www.histoire-pour-tous.fr/dossiers/3762-les-armes-de-la-guerre-de-secession-linfanterie.html?ID=%ED%86%A0%ED%86%A0%20%EC%82%AC%EC%9D%B4%ED%8A%B8%20%EC%86%94%EB%A3%A8%EC%85%98%20%20%EB%B2%A0%EC%8A%A4%ED%8A%B8%20%EC%98%A8%EB%9D%BC%EC%9D%B8%20%EC%B9%B4%EC%A7%80%EB%85%B8%EC%8A%AC%EB%A1%AF%EB%B3%B4%EC%A6%9D.html)
+   - Histoire pour tous · LLM · 19:23
+
+12. 인공지능으로 노지감귤 관측…자동화 가능성 확인 (https://www.seogwipo.co.kr/news/articleView.html?idxno=235930)
+   - 서귀포신문 · 인공지능 · 19:21
+
+13. "오픈AI, 매출 10배 늘어도 2030년까지 386兆 부족" (https://www.asiae.co.kr/article/2026091919115054686)
+   - 아시아경제 · 생성형 AI · 19:11
+
+14. MS, 소형언어모델 '파이-3' 출시 (https://chosundaily.com/bbs/board.php?bo_table=hotclick&wr_id=19280&sca=%EA%B2%BD%EC%A0%9C&sst=wr_hit&sod=desc&sop=and&spt=-21947&page=2)
+   - chosundaily.com · LLM · 18:58
+
+15. [[뉴욕증시 3일] AI ·반도체 관련 주 고점부담 하락](https://chosundaily.com/bbs/board.php?bo_table=hotclick&wr_id=31371&sca=%EA%B2%BD%EC%A0%9C&spt=-32136&page=9)
+   - chosundaily.com · AI 반도체 · 18:15
+
+16. 데이터센터·AI·반도체 시대… "정읍의 미래산업 전략은 어디에 있는가" ! (https://newsasia.kr/news/article.html?no=436178)
+   - newsasia.kr · AI 반도체 · 18:06
+
+17. CyberLink, 영상·이미지 편집 소프트웨어 신버전 출시 (https://www.sisakoreanews.kr/119319)
+   - sisakoreanews.kr · 생성형 AI · 17:59
+
+18. ‘우리도 못 읽는 요청 본문’… OrcaRouter, 양자내성 암호화 추진 (https://www.corporateeconomic.com/news/articleView.html?idxno=69538)
+   - corporateeconomic.com · LLM · 17:39
+
+19. '애플 인수설' 프리즘ML, 270억 매개변수 모델 5.9GB로 압축 (https://www.aitimes.com/news/articleView.html?idxno=215479)
+   - AI타임스 · LLM · 17:36
+
+20. 아산, 반도체 후공정 소부장 특화단지 지정…첨단반도체 핵심 거점 도약 (http://www.asandesk.co.kr/news/articleView.html?idxno=37579)
+   - 아산데스크 · AI 반도체 · 17:09
+
+21. [[AI 대전환 리딩 전략] 주성엔지니어링, ALG로 반도체 난제 극복](https://v.daum.net/v/6HrWYHlwDX)
+   - v.daum.net · AI 반도체 · 17:04
+
+22. 게임 개발자 85.8%가 생성형 AI 쓴다 (http://www.gamey.kr/news/articleView.html?idxno=3018799)
+   - 게임와이 · 생성형 AI · 16:57
+
+23. 비그라운드, 인프라 자동화·AI 기술 '두 축' 강화…LLM 기술 특허 확보 (https://www.etnews.com/tools/image_popup.html?v=bjQ5VkNYY2dLZTZMZFBUbmNzandvWmpGcjBTK1pHYm1CUVRXR0pTMldlYVZkdE5JeGJVUFVVNURJN04rbmhKTS9JZGdhUVNUTlBYV2w1WnZPd3ZmRzRKTXRUbXlmUzdBSzJ5ZnJQR01jMC9pWGowaGFES3JxbkNhdEVjZUtjOFRpRnd4TGV3cEs3N3hIMjUzczQreTJ2dXNKSjBXY0N5SjJ0Mm9yV2xxMEJtN2hhSVA3NDlRMWZRNmVTaXpoL2RVczVwOG43VmVtQ244MEdJQkx1NG4xS2xBem0wR3FINVZXei80MHFxbVRlR0Q1RUxOOVdldkR4R1JlUTVlNzVQY1hneTVqZnlNOUFOWGpJL1FPNmxvRXlPeXZLY0tJR3JFRzJiZUZJa1o2YnVMbThISGZvWFhLRFJRZU5RUTM3UVdrSHVudHdFaiswZzEwUFQ2eklaQ2JwQzZlQ3VoZ1VNN1g4WURtVHk0Zy9CNUZvMUtUY0ZDL3lIMGJrYkNOMEp0OURrbHhsUC9WRldocnZkSUFHZCtPOUVDRGhiWVJQYnNBSEpTK1p2aWNvST0)
+   - 전자신문 · LLM · 16:19
+
+24. 설명에 없는 기능을 찾고 있다면? 캐릭터 슬롯 정보 점검 (https://www.histoire-pour-tous.fr/dossiers/3762-les-armes-de-la-guerre-de-secession-linfanterie.html?ID=%ED%86%A0%ED%86%A0%EB%A8%B9%ED%8A%80%EA%B2%80%EC%A6%9D.html)
+   - Histoire pour tous · LLM · 16:11
+
+25. 처음 읽는 규칙 문서와 친해지는 벨벳 토토 (https://www.calgaryroughnecks.com/?ID=%EC%B9%B4%EC%A7%80%EB%85%B8%ED%86%A1.html)
+   - Calgary Roughnecks · LLM · 15:51
+
+26. [[Weekly Issue] 삼성전자, 네덜란드 AI 반도체 스타트업 ‘유클리드(Euclyd)’ 시리즈A 공동 투자 참여](https://www.kipost.net/news/articleView.html?idxno=341637)
+   - KIPOST · AI 반도체 · 15:15
+
+27. ["AI·반도체 주도주 2개면 충분"…압축형 상품 '봇물' [이수의 ETF줌인]](https://www.hankyung.com/article/2026091842676)
+   - 한국경제 · AI 반도체 · 15:00
+
+28. 마블, AI 히어로를 손수 제작하다: ‘VisionQuest’ 생성형 AI 전면 배제… 장인정신 강조 (https://ko.martincid.com/movies-ko/visionquest-no-genai-matalas/)
+   - ko.martincid.com · 생성형 AI · 14:00
+
+29. 교사 81.2%가 AI 수업 준비 효과 긍정, 학생 효과는 64.2% (https://www.kyobit.com/news/articleView.html?idxno=7158)
+   - 교육을 비추다 · 생성형 AI · 13:14
+
+30. [[테크톡노트] AI에 '안전벨트'를 채워라…하네스가 필요한 이유](https://www.yna.co.kr/view/AKR20260918115000017)
+   - 연합뉴스 · LLM · 13:10
+
+...외 10건
+
+
+1. 데이터 품질 지표 (정제 완료 40건 기준)
+-------------------------------
+
+  지표	값	의미
+  총 뉴스 수	40건	정제를 통과해 저장된 기사 수
+  요약 완료율	0.0% (0/40건)	AI 요약이 끝난 기사 비율
+  본문 확보율	87.5% (35/40건)	본문이 300자 이상 확보된 비율. 미만은 크롤링이 본문을 못 찾아 메타 설명으로 대체된 경우
+  평균 본문 길이	1656자	기사 한 건당 평균 본문 글자 수
+  본문 잘림 비율	0.0% (0/40건)	본문 길이 상한을 넘어 뒷부분이 잘린 비율. 잘린 기사는 AI가 원문 일부만 보고 요약하게 됨
+
+
+2. 수집 분포 (정제 완료 40건 기준)
+---------------------------
+
+
+카테고리별 뉴스 수
+--------------
+
+  카테고리	건수
+  생성형 AI	13
+  AI 반도체	12
+  LLM	11
+  인공지능	3
+  AI	1
+
+
+소스별 수집 건수
+-------------
+
+  소스	건수
+  google	40
+
+
+수집 방식별 비교
+-------------
+
+  수집 방식	소스	건수	평균 본문	본문 확보율
+  rss+crawl	google	40건	1656자	87.5%
+
+> `rss+crawl` / `api+crawl` 은 RSS·API 로 기사 목록을 받은 뒤 원문을 크롤링한 방식이고, `crawl` 은 목록부터 본문까지 모두 크롤링한 방식입니다.
+>
+> RSS·API 는 목록을 빠르고 안정적으로 받아오지만 본문은 주지 않아 결국 크롤링이 필요하고, 실패하면 짧은 메타 설명으로 대체되어 본문 확보율이 떨어집니다. 반면 전체 크롤링은 본문 확보율이 높은 대신 사이트 구조에 맞춘 코드가 따로 필요하고 요청 간 지연을 둬야 해 느립니다.
+
+
+발행일별 추이
+-----------
+
+- 집계된 일자 수: 1일
+- 최다 수집일: 2026-09-19 (40건)
+- 일평균: 40.0건
+
+
+3. TOP N 집계
+---------------
+
+
+AI 추출 키워드 TOP 0 (AI 요약 완료 0건 기준)
+------------------------------------
+
+  순위	키워드	등장 기사 수
+  -	-	0
+
+
+4. AI 인사이트 분석 (AI 요약 완료 0건 기준)
+----------------------------------
+
+AI 분석 결과가 없습니다. `python main.py analyze` 를 먼저 실행하세요.
+
+
+5. 차트
+---------
+
+
+category_counts
+-------------------
+
+
+
+daily_trend
+---------------
+
+
+
+top_keywords
+----------------
+
+
+
+source_share
+----------------

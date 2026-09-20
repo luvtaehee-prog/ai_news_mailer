@@ -979,3 +979,26 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-19 00:07:05,044 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-18, 날짜 불일치로 제외 20건)
 2026-09-19 00:07:05,045 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-19 00:07:05,045 [INFO] 새로 추가된 뉴스: 0
+2026-09-20 00:01:19,042 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-20 00:01:19,682 [INFO]   'AI': 1건
+2026-09-20 00:01:20,317 [INFO]   '인공지능': 4건
+2026-09-20 00:01:20,807 [INFO]   '생성형 AI': 45건
+2026-09-20 00:01:21,120 [INFO]   'LLM': 19건
+2026-09-20 00:01:21,496 [INFO]   'AI 반도체': 31건
+2026-09-20 00:01:36,809 [ERROR] Article request timed out: https://www.etnews.com/tools/image_popup.html?v=bjQ5VkNYY2dLZTZMZFBUbmNzandvWmpGcjBTK1pHYm1CUVRXR0pTMldlYVZkdE5JeGJVUFVVNURJN04rbmhKTS9JZGdhUVNUTlBYV2w1WnZPd3ZmRzRKTXRUbXlmUzdBSzJ5ZnJQR01jMC9pWGowaGFES3JxbkNhdEVjZUtjOFRpRnd4TGV3cEs3N3hIMjUzczQreTJ2dXNKSjBXY0N5SjJ0Mm9yV2xxMEJtN2hhSVA3NDlRMWZRNmVTaXpoL2RVczVwOG43VmVtQ244MEdJQkx1NG4xS2xBem0wR3FINVZXei80MHFxbVRlR0Q1RUxOOVdldkR4R1JlUTVlNzVQY1hneTVqZnlNOUFOWGpJL1FPNmxvRXlPeXZLY0tJR3JFRzJiZUZJa1o2YnVMbThISGZvWFhLRFJRZU5RUTM3UVdrSHVudHdFaiswZzEwUFQ2eklaQ2JwQzZlQ3VoZ1VNN1g4WURtVHk0Zy9CNUZvMUtUY0ZDL3lIMGJrYkNOMEp0OURrbHhsUC9WRldocnZkSUFHZCtPOUVDRGhiWVJQYnNBSEpTK1p2aWNvST0
+2026-09-20 00:02:15,383 [ERROR] Article request timed out: http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=554785
+2026-09-20 00:02:28,695 [ERROR] Article content fetch failed: https://chosundaily.com/bbs/board.php?bo_table=hotclick&wr_id=31371&sca=%EA%B2%BD%EC%A0%9C&spt=-32136&page=9
+2026-09-20 00:02:28,696 [ERROR] 403 Client Error: Forbidden for url: https://chosundaily.com/bbs/board.php?bo_table=hotclick&wr_id=31371&sca=%EA%B2%BD%EC%A0%9C&spt=-32136&page=9
+2026-09-20 00:02:37,078 [ERROR] Article content fetch failed: https://chosundaily.com/bbs/board.php?bo_table=hotclick&wr_id=12065&sca=%EA%B2%BD%EC%A0%9C&sst=wr_hit&sod=asc&sop=and&spt=-15624&page=43&device=pc
+2026-09-20 00:02:37,078 [ERROR] 403 Client Error: Forbidden for url: https://chosundaily.com/bbs/board.php?bo_table=hotclick&wr_id=12065&sca=%EA%B2%BD%EC%A0%9C&sst=wr_hit&sod=asc&sop=and&spt=-15624&page=43&device=pc
+2026-09-20 00:02:50,778 [ERROR] Article content fetch failed: https://chosundaily.com/bbs/board.php?bo_table=hotclick&wr_id=19280&sca=%EA%B2%BD%EC%A0%9C&sst=wr_hit&sod=desc&sop=and&spt=-21947&page=2
+2026-09-20 00:02:50,778 [ERROR] 403 Client Error: Forbidden for url: https://chosundaily.com/bbs/board.php?bo_table=hotclick&wr_id=19280&sca=%EA%B2%BD%EC%A0%9C&sst=wr_hit&sod=desc&sop=and&spt=-21947&page=2
+2026-09-20 00:03:01,231 [INFO] 수집된 Google News: 40건 (기준일 2026-09-19, 날짜 불일치로 제외 227건)
+2026-09-20 00:03:01,261 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-20 00:03:01,261 [INFO] 새로 추가된 뉴스: 40
+2026-09-20 00:03:01,889 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-20 00:03:01,889 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-20 00:03:03,235 [INFO] GOV.UK 응답 코드: 200
+2026-09-20 00:03:03,431 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-19, 날짜 불일치로 제외 20건)
+2026-09-20 00:03:03,432 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-20 00:03:03,433 [INFO] 새로 추가된 뉴스: 0
