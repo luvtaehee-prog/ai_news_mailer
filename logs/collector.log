@@ -1002,3 +1002,20 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-20 00:03:03,431 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-19, 날짜 불일치로 제외 20건)
 2026-09-20 00:03:03,432 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-20 00:03:03,433 [INFO] 새로 추가된 뉴스: 0
+2026-09-21 00:03:24,082 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-21 00:03:24,642 [INFO]   'AI': 0건
+2026-09-21 00:03:25,141 [INFO]   '인공지능': 6건
+2026-09-21 00:03:25,526 [INFO]   '생성형 AI': 28건
+2026-09-21 00:03:25,857 [INFO]   'LLM': 17건
+2026-09-21 00:03:26,261 [INFO]   'AI 반도체': 45건
+2026-09-21 00:04:11,479 [ERROR] Article content fetch failed: https://www.news1.kr/amp/world/usa-canada/6296506
+2026-09-21 00:04:11,480 [ERROR] 403 Client Error: Forbidden for url: https://www.news1.kr/amp/world/usa-canada/6296506
+2026-09-21 00:04:51,616 [INFO] 수집된 Google News: 40건 (기준일 2026-09-20, 날짜 불일치로 제외 256건)
+2026-09-21 00:04:51,637 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-21 00:04:51,637 [INFO] 새로 추가된 뉴스: 40
+2026-09-21 00:04:52,087 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-21 00:04:52,087 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-21 00:04:53,968 [INFO] GOV.UK 응답 코드: 200
+2026-09-21 00:04:54,087 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-20, 날짜 불일치로 제외 20건)
+2026-09-21 00:04:54,088 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-21 00:04:54,088 [INFO] 새로 추가된 뉴스: 0
