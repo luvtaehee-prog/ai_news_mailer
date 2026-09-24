@@ -1,0 +1,200 @@
+
+AI 뉴스 트렌드 리포트
+-----------------
+
+- 생성 시각: 2026-09-24 00:23
+- 대상 기간(발행일 기준): 2026-09-23 ~ 2026-09-23
+- 분석 대상: 총 40건 (AI 요약 완료 0건)
+
+> 항목마다 세는 대상이 다릅니다. 수집·정제 현황은 정제 완료 40건 전체를, 키워드와 AI 인사이트는 요약이 끝난 0건을 기준으로 합니다. 키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.
+
+
+뉴스 목록 (40건)
+---------------
+
+1. 인공지능 쓰레기 – 대응에서 예방으로의 전환 (https://www.vietnam.vn/ko/rac-tri-tue-nhan-tao-chuyen-tu-ung-pho-sang-phong-ngua)
+   - Vietnam.vn · 인공지능 · 23:55
+
+2. [[인식개선&ESG]서울시립북부장애인종합복지관, 생성형 AI 활용 장애인 인권 공모전 개최:장애인인식개선신문](http://www.dpi1004.com/sub_read_amp.html?uid=17643)
+   - 장애인인식개선신문 · 생성형 AI · 23:45
+
+3. [[경제포커스] AI는 세 살배기 수퍼맨](https://www.chosun.com/opinion/economic_focus/2026/09/23/64CWMM7RORCIZOXJVP5UQOUKIE/)
+   - 조선일보 · AI · 23:37
+
+4. 애플, M6 '맥 미니'·M5 울트라 '맥 스튜디오' 출시… 온디바이스 AI 성능 강화 (https://www.aitimes.kr/news/articleView.html?idxno=42058)
+   - 인공지능신문 · LLM · 23:04
+
+5. 광주 첨단3지구 호반써밋, AI·반도체 배후 수요로 주목 (https://www.jungannews.com/news/article.html?no=854144)
+   - 정안뉴스 · AI 반도체 · 22:57
+
+6. 딥엑스, CES 2027 사전 행사 참가 (https://www.thelec.kr/news/articleView.html?idxno=62747)
+   - 디일렉 · AI 반도체 · 22:39
+
+7. 알리바바, AI 풀스택 전략 공개… 차세대 '큐웬' 최대 10조 매개변수 로드맵 (https://www.aitimes.kr/news/articleView.html?idxno=42057)
+   - 인공지능신문 · AI · 22:37
+
+8. 유엔 달군 AI 논쟁…"통제 반대" "핵처럼 안전장치" (https://v.daum.net/v/1ofFk4hDUT)
+   - v.daum.net · 인공지능 · 22:15
+
+9. AI 호황 이면에 ‘레버리지’ 리스크…미 투자사 손실에 금융주 ‘흔들’ (https://www.hani.co.kr/arti/economy/finance/1279343.html)
+   - 한겨레 · AI 반도체 · 21:44
+
+10. [[VOA 인터뷰] 유엔은 변화를 따라잡을 수 있는가? – AI 시대, 강대국 경쟁과 외교전](https://www.voakorea.com/amp/can-the-un-keep-up-ai-big-powers-and-behind-the-scenes-diplomacy-092226/8203311.html)
+   - VOA 한국어 홈페이지 · AI · 21:33
+
+11. 아스테로모프 과학 연구 혁신 사이언티픽 AI 주목 | (http://www.hansbiz.co.kr/news/articleViewAmp.html?idxno=867943)
+   - 한스경제 · LLM · 21:31
+
+12. [논산여고, 2026학년도 인공지능과 데이터과학 [AI+X] 캠프 개최](http://www.cmni.news/news/articleView.html?idxno=105732)
+   - 엠뉴스 · 인공지능 · 21:08
+
+13. ‘빅쇼트’ 마이클 버리, AI·반도체에 숏 베팅…대신 어떤 종목 샀나? (https://www.coinreaders.com/259876)
+   - 코인리더스 · AI 반도체 · 20:44
+
+14. [[ETF 매치업] 1조 SOL에 도전…한화운용, AI 반도체 소부장 ETF 출시 : 네이버 블로그](https://blog.naver.com/PostView.naver?blogId=dealsite&logNo=224420574111&redirect=Dlog)
+   - Naver Blog · AI 반도체 · 20:40
+
+15. 유엔 “냉전시기 핵무기급 위험” 지적에도…트럼프 “AI 규제 전면 거부” (https://www.hani.co.kr/arti/international/international_general/1279242.html)
+   - 한겨레 · 인공지능 · 20:33
+
+16. “유쾌한 홍보부터 재난 대응까지“…지자체 ’AI 행정’ 성과 (https://www.yonhapnewstv.co.kr/news/MYH20260923201008JtN)
+   - 연합뉴스TV · AI · 20:10
+
+17. 서울창조경제혁신센터+업스테이지+퓨리오사AI+아이티동아, 국산 AI 소버린 생태계 구축 위한 협약식 체결 (https://www.donga.com/news/amp/all/20260923/134730235/1)
+   - 동아일보 · LLM · 19:43
+
+18. 인공지능: '중국식 속도' 내몽골 평원에 무섭게 생겨나는 AI 데이터 센터 (https://www.bbc.com/korean/articles/cmn8eq2w0yq9o)
+   - BBC · 인공지능 · 18:45
+
+19. “AI 반도체 순풍”OECD 올 韓성장률 3.7%로 상향… G20 최대폭 (https://www.kmib.co.kr/article/view_amp.asp?arcid=9000016966)
+   - kmib.co.kr · AI 반도체 · 17:47
+
+20. 삼성전자 3%·SK하이닉스 1%대 상승…AI 훈풍에 반도체株 강세 (https://www.sankyungtoday.com/news/articleViewAmp.html?idxno=63227)
+   - 산경투데이 · AI 반도체 · 17:39
+
+21. 전곡선사박물관, 구석기에 AI 입힌다…‘정답 아닌 오답’도 전시 콘텐츠로 (https://weekly.hankooki.com/news/articleViewAmp.html?idxno=7185790)
+   - 주간한국 · 생성형 AI · 16:18
+
+22. [[껌이지]“AI로 그려낸 우리 가족 이야기”…생성형 AI 창작 공모전 개최](https://www.eduplusnews.com/news/articleView.html?idxno=20250)
+   - eduplusnews.com · 생성형 AI · 16:00
+
+23. 사천시립도서관, AI·미디어 특화 프로그램 확대 (https://www.mediagn.co.kr/news/articleView.html?idxno=28651)
+   - 경남미디어 · 생성형 AI · 15:44
+
+24. “AI를 모르면 특허도 경영도 뒤처진다”... 기업 CEO에 ‘AI×IP’ 경영전략 심는다 (http://www.e-patentnews.com/15509)
+   - 특허뉴스 · 생성형 AI · 15:42
+
+25. 부산대, 인공지능 인재 양성…165억 원 투입 (https://v.daum.net/v/20260923153938045)
+   - v.daum.net · 인공지능 · 15:39
+
+26. [[AI 비용③]AI 게이트웨이, 토큰 비용 절감 이끄는 축](https://www.theitplus.kr/news/articleView.html?idxno=2207)
+   - theitplus.kr · LLM · 15:29
+
+27. 몬스테라텍, 생성형 AI 실습 더한 ‘언리얼엔진5 부트캠프’ 5기 모집 (https://www.donga.com/news/amp/all/20260923/134727174/1)
+   - 동아일보 · 생성형 AI · 15:28
+
+28. 경상국립대, 신뢰성 높은 뉴로심볼릭 AI 기반 드론 음성제어 기술 개발 (https://www.irobotnews.com/news/articleView.html?idxno=48664)
+   - 로봇신문 · LLM · 14:50
+
+29. "AI로 게임·3D 취업 준비"… 몬스테라텍, 생성형 AI 실무교육 강화 | (https://it.chosun.com/news/articleViewAmp.html?idxno=2023092170799)
+   - IT조선 · 생성형 AI · 14:45
+
+30. 보험업권, 생성형 AI 도입 앞두고 ‘면책’과 ‘보장’ 기로 (https://www.straightnews.co.kr/news/articleView.html?idxno=311898)
+   - 스트레이트뉴스 · 생성형 AI · 14:43
+
+...외 10건
+
+
+1. 데이터 품질 지표 (정제 완료 40건 기준)
+-------------------------------
+
+  지표	값	의미
+  총 뉴스 수	40건	정제를 통과해 저장된 기사 수
+  요약 완료율	0.0% (0/40건)	AI 요약이 끝난 기사 비율
+  본문 확보율	97.5% (39/40건)	본문이 300자 이상 확보된 비율. 미만은 크롤링이 본문을 못 찾아 메타 설명으로 대체된 경우
+  평균 본문 길이	1949자	기사 한 건당 평균 본문 글자 수
+  본문 잘림 비율	2.5% (1/40건)	본문 길이 상한을 넘어 뒷부분이 잘린 비율. 잘린 기사는 AI가 원문 일부만 보고 요약하게 됨
+
+
+2. 수집 분포 (정제 완료 40건 기준)
+---------------------------
+
+
+카테고리별 뉴스 수
+--------------
+
+  카테고리	건수
+  생성형 AI	10
+  LLM	10
+  AI 반도체	8
+  인공지능	7
+  AI	4
+  정책/정부	1
+
+
+소스별 수집 건수
+-------------
+
+  소스	건수
+  google	39
+  gov.uk	1
+
+
+수집 방식별 비교
+-------------
+
+  수집 방식	소스	건수	평균 본문	본문 확보율
+  rss+crawl	google	39건	1922자	97.4%
+  crawl	gov.uk	1건	2992자	100.0%
+
+> `rss+crawl` / `api+crawl` 은 RSS·API 로 기사 목록을 받은 뒤 원문을 크롤링한 방식이고, `crawl` 은 목록부터 본문까지 모두 크롤링한 방식입니다.
+>
+> RSS·API 는 목록을 빠르고 안정적으로 받아오지만 본문은 주지 않아 결국 크롤링이 필요하고, 실패하면 짧은 메타 설명으로 대체되어 본문 확보율이 떨어집니다. 반면 전체 크롤링은 본문 확보율이 높은 대신 사이트 구조에 맞춘 코드가 따로 필요하고 요청 간 지연을 둬야 해 느립니다.
+
+
+발행일별 추이
+-----------
+
+- 집계된 일자 수: 1일
+- 최다 수집일: 2026-09-23 (40건)
+- 일평균: 40.0건
+
+
+3. TOP N 집계
+---------------
+
+
+AI 추출 키워드 TOP 0 (AI 요약 완료 0건 기준)
+------------------------------------
+
+  순위	키워드	등장 기사 수
+  -	-	0
+
+
+4. AI 인사이트 분석 (AI 요약 완료 0건 기준)
+----------------------------------
+
+AI 분석 결과가 없습니다. `python main.py analyze` 를 먼저 실행하세요.
+
+
+5. 차트
+---------
+
+
+category_counts
+-------------------
+
+
+
+daily_trend
+---------------
+
+
+
+top_keywords
+----------------
+
+
+
+source_share
+----------------
