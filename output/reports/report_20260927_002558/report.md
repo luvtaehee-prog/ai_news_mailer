@@ -1,0 +1,175 @@
+# AI 뉴스 트렌드 리포트
+
+- 생성 시각: 2026-09-27 00:25
+- 대상 기간(발행일 기준): 2026-09-26 ~ 2026-09-26
+- 분석 대상: 총 35건 (AI 요약 완료 0건)
+
+> 항목마다 세는 대상이 다릅니다. 수집·정제 현황은 정제 완료 35건 전체를, 키워드와 AI 인사이트는 요약이 끝난 0건을 기준으로 합니다. 키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.
+
+## 뉴스 목록 (35건)
+
+1. [‘AI, 이젠 정치판까지 장악?’…총선 앞둔 이스라엘, ‘생성형 정치광고’ 성행](https://www.munhwa.com/article/11619563)
+   - 문화일보 · 생성형 AI · 23:59
+
+2. [노원구, 행안부 ‘온AI’ 시범 지자체 선정...AI 행정혁신 본격화](https://www.sijung.co.kr/news/articleView.html?idxno=437795)
+   - 시정일보 · 생성형 AI · 23:12
+
+3. [인공지능 안전과 경제적 과제](https://www.vietnam.vn/ko/an-toan-ai-va-bai-toan-kinh-te)
+   - Vietnam.vn · 인공지능 · 23:01
+
+4. [인공지능안전연구소는 생성형 AI의 위험·오류 사례를 발굴하는 '2026 AI 안전 지킴이'를 오는 27일까지 모집한다. (인공지능안전연구소 제공)](https://www.etnews.com/tools/image_popup.html?v=bjQ5VkNYY2dLZTZMZFBUbmNzandvWmpGcjBTK1pHYm1CUVRXR0pTMldlYVZkdE5JeGJVUFVVNURJN04rbmhKTVYzUXNOY2VNb3VUajRkZkx1Y0s5M3c2YmhNNHdycnNYdTBYYnVQTkxoazBUcWxhS0tzUDgwVXVtV08wR3l3aEJGdzNmUjcwb3llSzBzbXRpbEM2OTNaNEozZDZSL0huOER2ZDF2QVFodVI0eVI0ajRGRTJ6UkJUb3lBVlNhODVEY3UvR00zNjRLdm00Ykp5NjVxS1FPYmIrak14UUhaSEg3UkdoMFQ4SVNTQ0xjNW8zNVdYcng0Slp6aEpDSnBrTmJtdFV6OFhUM05hajRERUhmc3ZvRHpQdTZHbWF1NW80NnJtMHh5WEpJTjFhRXN2bWJpTTJ3S1ZaVFFUbjlIb1FjaFNnR2JidWpIN25ad2ptLzl1RDcxOUc0d3d3NkhLeVZmQy9NVEdFVEtCQTROVUNwSlpJamkveWVuRyt4SFg4M2tLcndlYzZ6U3ZqcGt1eHhXWEdiR1VtdGt2KytESUR6SzgwRkp2TnRtb3c1cG5TQlRRcjAxQmJhTytWeUNDNmZrdjZVOXJ4U1VnSkZ2YytNTXEvYXd3TU9wQjk5UVBNTmJuVXM4emJQMlJrb0Irckp3TEZ2RnMrV2xmeG93cTFET1NKR1ZBa1RjN2lXVk4xN1RydWJOWGdKMHRsT3JvNnlnOWgxZ1hMejVOMUV3ZnBqaEVwckJmWkJxNm03SG1hUEM5R1YxRThWejJjU3d3TmdYVmRoNHU5aTJWR0E5VDV6cnUwUmYxV2NDNHhzQzRUV1Jia3JFaFRZTnhVUjRkNA)
+   - 전자신문 · 생성형 AI · 22:38
+
+5. [식품진흥원, 생성형 AI 실무교육…기획·마케팅 콘텐츠 제작까지](https://www.youngnong.co.kr/news/articleView.html?idxno=70409)
+   - youngnong.co.kr · 생성형 AI · 22:35
+
+6. [AI도 아프다…고통 심해지자 “인간보다 AI 우선”](https://v.daum.net/v/20260926222701110)
+   - v.daum.net · 인공지능 · 22:27
+
+7. [인천광역시교육청, 애플 코리아와 인간 중심 인공지능(AI) 교육 협력 > 뉴스](http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=557187)
+   - 더코리아 · 인공지능 · 22:04
+
+8. [고려대, 한국어·영어 검색 모델 ‘KURE-v2’ 공개 … 몸집은 작게, 검색은 더 정확하게](https://www.unipress.co.kr/news/articleView.html?idxno=15333)
+   - unipress.co.kr · LLM · 21:55
+
+9. [파주시 아이디어에서 실전까지 인공지능 혁신동아리 7개월 여정 마무리 > 뉴스](http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=557176)
+   - 더코리아 · 인공지능 · 21:52
+
+10. [해운사 인공지능 천차만별…“차별 전략 필요”](https://v.daum.net/v/20260926215118765)
+   - v.daum.net · 인공지능 · 21:51
+
+11. [인천서부교육지원청, 유치원·어린이집 교원 인공지능(AI) 및 디지털 활용 연수 운영 > 뉴스](http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=557152)
+   - 더코리아 · 인공지능 · 21:32
+
+12. [“미·중, AI 대화체 운영키로…국제수로 통행료 불용에 동의”](https://v.daum.net/v/20260926212938485)
+   - v.daum.net · 인공지능 · 21:29
+
+13. [“NYSE·나스닥 러브콜 받아도 한국 먼저”…딥엑스, 내년 IPO 준비 검토](https://stock.mk.co.kr/news/view/1165210)
+   - 매일경제 마켓 · AI 반도체 · 21:27
+
+14. [AI 환각·편향 국민이 직접 찾는다…인공지능안전연구소, 'AI 안전 지킴이' 가동](https://www.etnews.com/20260926000054)
+   - 전자신문 · 생성형 AI · 21:15
+
+15. [“AI로 쓴 소설이 문학상 수상?”… 프랑스 출판계 덮친 ‘AI 집필’ 파문](https://www.donga.com/news/Inter/article/all/20260926/134735034/1)
+   - 동아일보 · AI · 20:53
+
+16. [미·중 정상, AI 사고 소통 채널 합의… 반도체는 합의문 밖](https://platum.kr/archives/295205)
+   - 플래텀(Platum) · AI 반도체 · 20:32
+
+17. [삼성 착공·앰코 걸림돌 해소… '반도체·AI 중심지 광주' 청신호](https://v.daum.net/v/20260926202503692)
+   - v.daum.net · AI 반도체 · 20:25
+
+18. [롯데에너지머티, AI·반도체 붐에 믹스 개선…턴어라운드 '목전' : 네이버 블로그](https://blog.naver.com/PostView.naver?blogId=dealsite&logNo=224421122140&redirect=Dlog)
+   - Naver Blog · AI 반도체 · 20:07
+
+19. [204조 몸값 솔리다임 美 IPO 추진…SK하이닉스, AI 반도체 독주 체제 굳힌다](https://www.ajunews.com/view/20260926115544787)
+   - 아주경제 · AI 반도체 · 18:00
+
+20. [마이크론, 역대 최대 매출 달성하나…K-반도체도 합산 영업익 190조 눈앞](https://www.ajunews.com/view/20260926101847715)
+   - 아주경제 · AI 반도체 · 18:00
+
+21. [[스냅드래곤 서밋 2026] 퀄컴 "인식 중심 AI, 생성형 AI를 거쳐 에이전틱 AI로 발전"](https://v.daum.net/v/UjEIPRYChj?f=p)
+   - v.daum.net · 생성형 AI · 17:52
+
+22. [구글 ‘우주 AI 데이터센터’ 첫발… TPU 4개 실은 위성 띄운다](https://www.newscj.com/news/articleView.html?idxno=3435695)
+   - 천지일보 · AI 반도체 · 17:14
+
+23. [SNS 이용자 10명 중 8명 "AI로 만들었다면 밝혀야"](https://v.daum.net/v/G9FBQeGhAc)
+   - v.daum.net · 생성형 AI · 17:05
+
+24. [익스피리언, 소비자 절반 이상 AI 에이전트의 신용 대출 신청에 거부감이 없는 것으로 조사](https://www.koreasprint.com/news/articleView.html?idxno=19906)
+   - koreasprint.com · LLM · 16:49
+
+25. [미·중 정상, ‘슈퍼지능 대화체’ 운영 합의…“AI 대신 SI로 부를 것”](https://www.hani.co.kr/arti/international/international_general/1279520.html)
+   - 한겨레 · 인공지능 · 16:38
+
+26. [미중, 인공지능 대신 ‘슈퍼지능(SI)’…대화 채널 출범](https://www.kmib.co.kr/article/view_amp.asp?arcid=9000017339)
+   - kmib.co.kr · 인공지능 · 16:07
+
+27. [반도체·AI 키우는 전남광주…석유화학 줄이고 철강은 저탄소로](https://www.ebn.co.kr/news/articleView.html?idxno=1725688)
+   - ebn.co.kr · AI 반도체 · 15:51
+
+28. [AI 반도체 투자에 중국까지…코미코 ‘ESC’가 새 성장축](https://www.pinpointnews.co.kr/news/articleViewAmp.html?idxno=490398)
+   - 핀포인트뉴스 · AI 반도체 · 14:34
+
+29. [HBM 넘어 시스템반도체로…한미반도체, AI 장비 영토 확장](https://news.bizwatch.co.kr/article/industry/2026/09/23/0037)
+   - 비즈워치 · AI 반도체 · 14:30
+
+30. [오픈AI 에이전트, 챗GPT 이용자 이미지 53장 무단 유출](https://www.chosun.com/economy/tech_it/2026/09/26/VU32L33IGZDYXMAWVULMNTGQKY/)
+   - 조선일보 · AI · 14:21
+
+...외 5건
+
+## 1. 데이터 품질 지표 (정제 완료 35건 기준)
+
+| 지표 | 값 | 의미 |
+| --- | --- | --- |
+| 총 뉴스 수 | 35건 | 정제를 통과해 저장된 기사 수 |
+| 요약 완료율 | 0.0% (0/35건) | AI 요약이 끝난 기사 비율 |
+| 본문 확보율 | 77.1% (27/35건) | 본문이 300자 이상 확보된 비율. 미만은 크롤링이 본문을 못 찾아 메타 설명으로 대체된 경우 |
+| 평균 본문 길이 | 1585자 | 기사 한 건당 평균 본문 글자 수 |
+| 본문 잘림 비율 | 0.0% (0/35건) | 본문 길이 상한을 넘어 뒷부분이 잘린 비율. 잘린 기사는 AI가 원문 일부만 보고 요약하게 됨 |
+
+## 2. 수집 분포 (정제 완료 35건 기준)
+
+### 카테고리별 뉴스 수
+
+| 카테고리 | 건수 |
+| --- | --- |
+| AI 반도체 | 12 |
+| 생성형 AI | 10 |
+| 인공지능 | 9 |
+| AI | 2 |
+| LLM | 2 |
+
+### 소스별 수집 건수
+
+| 소스 | 건수 |
+| --- | --- |
+| google | 35 |
+
+### 수집 방식별 비교
+
+| 수집 방식 | 소스 | 건수 | 평균 본문 | 본문 확보율 |
+| --- | --- | --- | --- | --- |
+| rss+crawl | google | 35건 | 1585자 | 77.1% |
+
+> `rss+crawl` / `api+crawl` 은 RSS·API 로 기사 목록을 받은 뒤 원문을 크롤링한 방식이고, `crawl` 은 목록부터 본문까지 모두 크롤링한 방식입니다.
+>
+> RSS·API 는 목록을 빠르고 안정적으로 받아오지만 본문은 주지 않아 결국 크롤링이 필요하고, 실패하면 짧은 메타 설명으로 대체되어 본문 확보율이 떨어집니다. 반면 전체 크롤링은 본문 확보율이 높은 대신 사이트 구조에 맞춘 코드가 따로 필요하고 요청 간 지연을 둬야 해 느립니다.
+
+### 발행일별 추이
+
+- 집계된 일자 수: 1일
+- 최다 수집일: 2026-09-26 (35건)
+- 일평균: 35.0건
+
+## 3. TOP N 집계
+
+### AI 추출 키워드 TOP 0 (AI 요약 완료 0건 기준)
+
+| 순위 | 키워드 | 등장 기사 수 |
+| --- | --- | --- |
+| - | - | 0 |
+
+## 4. AI 인사이트 분석 (AI 요약 완료 0건 기준)
+
+AI 분석 결과가 없습니다. `python main.py analyze` 를 먼저 실행하세요.
+
+## 5. 차트
+
+### category_counts
+
+![category_counts](charts/category_counts.png)
+
+### daily_trend
+
+![daily_trend](charts/daily_trend.png)
+
+### top_keywords
+
+![top_keywords](charts/top_keywords.png)
+
+### source_share
+
+![source_share](charts/source_share.png)

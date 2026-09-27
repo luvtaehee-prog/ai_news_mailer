@@ -1099,3 +1099,25 @@ urllib3.exceptions.HeaderParsingError: [MissingHeaderBodySeparatorDefect()], unp
 2026-09-26 00:29:56,050 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-25, 날짜 불일치로 제외 20건)
 2026-09-26 00:29:56,052 [INFO] 저장 완료: data/raw/govuk_news.jsonl
 2026-09-26 00:29:56,052 [INFO] 새로 추가된 뉴스: 0
+2026-09-27 00:24:01,772 [INFO] Google News 검색어: AI, 인공지능, 생성형 AI, LLM, AI 반도체
+2026-09-27 00:24:02,297 [INFO]   'AI': 2건
+2026-09-27 00:24:02,763 [INFO]   '인공지능': 12건
+2026-09-27 00:24:03,131 [INFO]   '생성형 AI': 35건
+2026-09-27 00:24:03,503 [INFO]   'LLM': 3건
+2026-09-27 00:24:03,884 [INFO]   'AI 반도체': 24건
+2026-09-27 00:24:19,516 [ERROR] Article content fetch failed: https://www.unipress.co.kr/news/articleView.html?idxno=15333
+2026-09-27 00:24:19,516 [ERROR] HTTPSConnectionPool(host='www.unipress.co.kr', port=443): Max retries exceeded with url: /news/articleView.html?idxno=15333 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))
+2026-09-27 00:24:57,549 [ERROR] Article request timed out: http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=557176
+2026-09-27 00:25:04,606 [ERROR] Article content fetch failed: https://www.etnews.com/tools/image_popup.html?v=bjQ5VkNYY2dLZTZMZFBUbmNzandvWmpGcjBTK1pHYm1CUVRXR0pTMldlYVZkdE5JeGJVUFVVNURJN04rbmhKTVYzUXNOY2VNb3VUajRkZkx1Y0s5M3c2YmhNNHdycnNYdTBYYnVQTkxoazBUcWxhS0tzUDgwVXVtV08wR3l3aEJGdzNmUjcwb3llSzBzbXRpbEM2OTNaNEozZDZSL0huOER2ZDF2QVFodVI0eVI0ajRGRTJ6UkJUb3lBVlNhODVEY3UvR00zNjRLdm00Ykp5NjVxS1FPYmIrak14UUhaSEg3UkdoMFQ4SVNTQ0xjNW8zNVdYcng0Slp6aEpDSnBrTmJtdFV6OFhUM05hajRERUhmc3ZvRHpQdTZHbWF1NW80NnJtMHh5WEpJTjFhRXN2bWJpTTJ3S1ZaVFFUbjlIb1FjaFNnR2JidWpIN25ad2ptLzl1RDcxOUc0d3d3NkhLeVZmQy9NVEdFVEtCQTROVUNwSlpJamkveWVuRyt4SFg4M2tLcndlYzZ6U3ZqcGt1eHhXWEdiR1VtdGt2KytESUR6SzgwRkp2TnRtb3c1cG5TQlRRcjAxQmJhTytWeUNDNmZrdjZVOXJ4U1VnSkZ2YytNTXEvYXd3TU9wQjk5UVBNTmJuVXM4emJQMlJrb0Irckp3TEZ2RnMrV2xmeG93cTFET1NKR1ZBa1RjN2lXVk4xN1RydWJOWGdKMHRsT3JvNnlnOWgxZ1hMejVOMUV3ZnBqaEVwckJmWkJxNm03SG1hUEM5R1YxRThWejJjU3d3TmdYVmRoNHU5aTJWR0E5VDV6cnUwUmYxV2NDNHhzQzRUV1Jia3JFaFRZTnhVUjRkNA
+2026-09-27 00:25:04,606 [ERROR] HTTPSConnectionPool(host='www.etnews.com', port=443): Max retries exceeded with url: /tools/image_popup.html?v=bjQ5VkNYY2dLZTZMZFBUbmNzandvWmpGcjBTK1pHYm1CUVRXR0pTMldlYVZkdE5JeGJVUFVVNURJN04rbmhKTVYzUXNOY2VNb3VUajRkZkx1Y0s5M3c2YmhNNHdycnNYdTBYYnVQTkxoazBUcWxhS0tzUDgwVXVtV08wR3l3aEJGdzNmUjcwb3llSzBzbXRpbEM2OTNaNEozZDZSL0huOER2ZDF2QVFodVI0eVI0ajRGRTJ6UkJUb3lBVlNhODVEY3UvR00zNjRLdm00Ykp5NjVxS1FPYmIrak14UUhaSEg3UkdoMFQ4SVNTQ0xjNW8zNVdYcng0Slp6aEpDSnBrTmJtdFV6OFhUM05hajRERUhmc3ZvRHpQdTZHbWF1NW80NnJtMHh5WEpJTjFhRXN2bWJpTTJ3S1ZaVFFUbjlIb1FjaFNnR2JidWpIN25ad2ptLzl1RDcxOUc0d3d3NkhLeVZmQy9NVEdFVEtCQTROVUNwSlpJamkveWVuRyt4SFg4M2tLcndlYzZ6U3ZqcGt1eHhXWEdiR1VtdGt2KytESUR6SzgwRkp2TnRtb3c1cG5TQlRRcjAxQmJhTytWeUNDNmZrdjZVOXJ4U1VnSkZ2YytNTXEvYXd3TU9wQjk5UVBNTmJuVXM4emJQMlJrb0Irckp3TEZ2RnMrV2xmeG93cTFET1NKR1ZBa1RjN2lXVk4xN1RydWJOWGdKMHRsT3JvNnlnOWgxZ1hMejVOMUV3ZnBqaEVwckJmWkJxNm03SG1hUEM5R1YxRThWejJjU3d3TmdYVmRoNHU5aTJWR0E5VDV6cnUwUmYxV2NDNHhzQzRUV1Jia3JFaFRZTnhVUjRkNA (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)')))
+2026-09-27 00:25:17,362 [ERROR] Article request timed out: http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=557187
+2026-09-27 00:25:31,622 [ERROR] Article request timed out: http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=557152
+2026-09-27 00:25:52,558 [INFO] 수집된 Google News: 40건 (기준일 2026-09-26, 날짜 불일치로 제외 230건)
+2026-09-27 00:25:52,580 [INFO] 저장 완료: data/raw/google_news.jsonl
+2026-09-27 00:25:52,580 [INFO] 새로 추가된 뉴스: 40
+2026-09-27 00:25:53,045 [ERROR] NAVER API 인증정보가 없습니다.
+2026-09-27 00:25:53,045 [ERROR] .env 파일의 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET을 확인하세요.
+2026-09-27 00:25:55,917 [INFO] GOV.UK 응답 코드: 200
+2026-09-27 00:25:56,029 [INFO] 수집된 GOV.UK AI 뉴스: 0건 (기준일 2026-09-26, 날짜 불일치로 제외 20건)
+2026-09-27 00:25:56,030 [INFO] 저장 완료: data/raw/govuk_news.jsonl
+2026-09-27 00:25:56,030 [INFO] 새로 추가된 뉴스: 0
