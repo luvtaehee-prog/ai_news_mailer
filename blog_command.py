@@ -35,14 +35,15 @@ def find_latest_report_dir(out_root: str = "output") -> str:
     return candidates[-1] if candidates else None
 
 
-def _strip_markdown_links(text: str) -> str:
-    """남아 있는 마크다운 링크 `[제목](url)` 을 `제목 (url)` 로 편다.
+def _markdown_to_html(md_text: str) -> str:
+    """리포트 마크다운(report.md)을 블로그 본문용 HTML 로 변환한다.
 
-    report.txt 는 대부분 평문이지만, 제목에 대괄호가 든 기사 몇 건은
-    `[[제목]](url)` 형태로 남는다. 블로그 본문에서는 깔끔하게 편다.
-    스마트에디터가 본문의 벌거벗은 URL 을 자동으로 링크로 걸어 준다.
+    평문으로 붙여넣으면 스마트에디터가 `-----`, `- `, `#` 를 마크다운으로
+    오해해 서식이 깨진다(취소선 등). HTML 로 넣으면 그 해석 없이 제목·목록·
+    링크가 그대로 반영된다. `extra` 확장으로 표·중첩목록까지 처리한다.
     """
-    return re.sub(r"\[(.+?)\]\((https?://[^)]+)\)", r"\1 (\2)", text)
+    import markdown
+    return markdown.markdown(md_text, extensions=["extra", "sane_lists", "nl2br"])
 
 
 def add_blog_parser(subparsers) -> None:
@@ -94,33 +95,35 @@ def cmd_blog(args) -> dict:
                       "report 단계가 실패했는지 확인하세요.", report_dir, today)
             return {"posted": False}
 
-    # 블로그 본문은 평문 판본(report.txt)을 쓴다. 없으면 report.md.
-    body_path = os.path.join(report_dir, "report.txt")
+    # 블로그 본문은 마크다운 판본(report.md)을 HTML 로 변환해 쓴다.
+    # (report.txt 평문을 붙여넣으면 서식이 깨져서 md 를 우선한다)
+    body_path = os.path.join(report_dir, "report.md")
     if not os.path.exists(body_path):
-        body_path = os.path.join(report_dir, "report.md")
+        body_path = os.path.join(report_dir, "report.txt")
     if not os.path.exists(body_path):
         log.error("%s 안에 report.md/report.txt 가 없습니다.", report_dir)
         return {"posted": False}
 
     with open(body_path, encoding="utf-8") as f:
-        body_text = _strip_markdown_links(f.read())
+        md_text = f.read()
+    body_html = _markdown_to_html(md_text)
 
     # 제목: 접두어 + 발행일 + 건수. (mail 커맨드와 같은 규칙으로 날짜/건수를 뽑는다)
     period = re.search(r"대상 기간\(발행일 기준\): (\d{4}-\d{2}-\d{2})"
-                       r"(?: ~ (\d{4}-\d{2}-\d{2}))?", body_text)
+                       r"(?: ~ (\d{4}-\d{2}-\d{2}))?", md_text)
     if period:
         start, end = period.group(1), period.group(2)
         date_label = start if not end or end == start else f"{start} ~ {end}"
     else:
         date_label = today
-    match = re.search(r"뉴스 목록 \((\d+)건\)", body_text)
+    match = re.search(r"뉴스 목록 \((\d+)건\)", md_text)
     count_label = f" ({match.group(1)}건)" if match else ""
     prefix = blog_conf.get("title_prefix", "AI 뉴스 리포트")
     title = f"{prefix} | {date_label}{count_label}"
 
     headless = getattr(args, "headless", False) or bool(blog_conf.get("headless"))
 
-    result = naverblog.post(title, body_text, blog_id=blog_id,
+    result = naverblog.post(title, body_html, blog_id=blog_id,
                             headless=headless, user_data_dir=profile_dir)
 
     if result.get("posted"):

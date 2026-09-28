@@ -52,14 +52,52 @@ def _screenshot(page, name: str) -> str:
 
 
 def _paste(page, text: str) -> None:
-    """클립보드를 거쳐 붙여넣는다.
+    """평문을 클립보드를 거쳐 붙여넣는다(아이디·비번 등).
 
     네이버 로그인은 키 입력(type)을 봇으로 잘 잡아내므로, 아이디·비번은
-    클립보드 복사 후 Ctrl+V 로 넣는 편이 안전하다. 본문에도 같은 방식을 쓴다.
+    클립보드 복사 후 Ctrl+V 로 넣는 편이 안전하다.
     """
     import pyperclip
     pyperclip.copy(text)
     page.keyboard.press("Control+V")
+
+
+def _set_html_clipboard(html_fragment: str) -> None:
+    """Windows 클립보드에 HTML(CF_HTML) 형식으로 넣는다.
+
+    본문을 '평문'으로 붙여넣으면 스마트에디터가 `-----`, `- `, `#` 같은 기호를
+    마크다운으로 오해해 서식(취소선 등)이 깨진다. HTML 로 붙여넣으면 그 해석이
+    일어나지 않고, `<a>` 링크도 그대로 살아난다.
+
+    CF_HTML 헤더의 오프셋은 '바이트' 기준이라, 한글이 섞인 본문은 반드시
+    UTF-8 로 인코딩한 길이로 계산해야 한다(문자 수로 세면 어긋난다).
+    """
+    import win32clipboard
+
+    prefix = "<html><body><!--StartFragment-->"
+    suffix = "<!--EndFragment--></body></html>"
+    body = prefix + html_fragment + suffix
+
+    header_tpl = ("Version:0.9\r\n"
+                  "StartHTML:{:010d}\r\n"
+                  "EndHTML:{:010d}\r\n"
+                  "StartFragment:{:010d}\r\n"
+                  "EndFragment:{:010d}\r\n")
+    header_len = len(header_tpl.format(0, 0, 0, 0).encode("utf-8"))
+    start_html = header_len
+    start_fragment = header_len + len(prefix.encode("utf-8"))
+    end_fragment = header_len + len((prefix + html_fragment).encode("utf-8"))
+    end_html = header_len + len(body.encode("utf-8"))
+    header = header_tpl.format(start_html, end_html, start_fragment, end_fragment)
+    data = header.encode("utf-8") + body.encode("utf-8")
+
+    cf_html = win32clipboard.RegisterClipboardFormat("HTML Format")
+    win32clipboard.OpenClipboard()
+    try:
+        win32clipboard.EmptyClipboard()
+        win32clipboard.SetClipboardData(cf_html, data)
+    finally:
+        win32clipboard.CloseClipboard()
 
 
 def _get_editor_frame(page, timeout_ms: int = 20000):
@@ -117,11 +155,11 @@ def _write_title(frame, title: str) -> None:
     raise RuntimeError("제목 입력 영역을 찾지 못했습니다.")
 
 
-def _write_body(frame, body_text: str) -> None:
-    """본문 영역을 클릭하고 본문을 붙여넣는다.
+def _write_body(frame, body_html: str) -> None:
+    """본문 영역을 클릭하고 본문을 HTML 로 붙여넣는다.
 
-    본문에는 기사 URL 이 그대로 들어 있는데, 스마트에디터가 붙여넣은 URL 을
-    자동으로 클릭 가능한 링크로 바꿔 준다. 그래서 평문으로 넣어도 링크가 산다.
+    HTML(CF_HTML) 로 붙여넣어야 마크다운 오해로 인한 서식 깨짐(취소선 등)이
+    없고, `<a>` 링크가 클릭 가능한 상태로 들어간다.
     """
     candidates = [
         ".se-section-text .se-text-paragraph",
@@ -142,7 +180,8 @@ def _write_body(frame, body_text: str) -> None:
     if not clicked:
         # 제목 입력 후 Tab/Enter 로 본문으로 내려가는 경우
         frame.page.keyboard.press("Enter")
-    _paste(frame.page, body_text)
+    _set_html_clipboard(body_html)
+    frame.page.keyboard.press("Control+V")
 
 
 def _publish(frame) -> None:
@@ -256,10 +295,12 @@ def login(blog_id: str = None, user_data_dir: str = DEFAULT_PROFILE_DIR,
                   "'로그인 상태 유지'를 체크했는지 확인하고 다시 실행하세요.")
 
 
-def post(title: str, body_text: str, blog_id: str = None,
+def post(title: str, body_html: str, blog_id: str = None,
          headless: bool = False, user_data_dir: str = DEFAULT_PROFILE_DIR) -> dict:
     """네이버 블로그에 글 하나를 발행한다.
 
+    body_html 은 HTML 조각이다(평문 아님). 스마트에디터에 HTML 로 붙여넣어
+    링크·서식이 그대로 반영되게 한다.
     성공하면 {"posted": True}, 실패하면 {"posted": False, "error": ...} 를 돌려준다.
     """
     from playwright.sync_api import sync_playwright
@@ -296,7 +337,7 @@ def post(title: str, body_text: str, blog_id: str = None,
             _dismiss_popups(frame)
             _write_title(frame, title)
             frame.page.wait_for_timeout(500)
-            _write_body(frame, body_text)
+            _write_body(frame, body_html)
             frame.page.wait_for_timeout(1000)
             _publish(frame)
             # 발행 처리 시간을 준다
