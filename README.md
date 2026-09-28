@@ -2,9 +2,10 @@
 
 AI 뉴스 트렌드 분석 팀 프로젝트
 
-**하루치 AI 뉴스만 모아 리포트로 만들어 이메일로 보냅니다.**
+**하루치 AI 뉴스만 모아 리포트로 만들어 이메일과 네이버 블로그로 보냅니다.**
 GitHub Actions 가 매일 아침 07:00 KST 에 **전날(00~24시) 발행분**을 수집 → 정제 → AI 요약·분석 → 리포트 → 메일까지 자동으로 돌립니다.
-자세한 내용은 [정기 실행 스케줄링](#정기-실행-스케줄링-보너스) 을 보세요.
+**네이버 블로그 발행**은 네이버의 봇 차단 때문에 본인 PC에서 `run_daily.ps1`(작업 스케줄러)로 돌립니다 — [네이버 블로그 자동 발행](#네이버-블로그-자동-발행-blog-커맨드) 참고.
+스케줄 전반은 [정기 실행 스케줄링](#정기-실행-스케줄링-보너스) 을 보세요.
 
 ### 바로 돌려보기
 
@@ -15,6 +16,7 @@ python main.py summarize --today                  # 오늘치만 AI 요약 (OPEN
 python main.py analyze --today                    # 오늘치 트렌드 분석
 python main.py report --today --format both       # 오늘치 리포트 + 차트
 python main.py mail --attach-charts --require-today   # 메일 발송
+python main.py blog --require-today                # 네이버 블로그 발행 (최초 1회 `blog --login`)
 ```
 
 `--today` 는 오늘(KST) 발행분을 뜻합니다. 전날치를 보려면 `--date 2026-08-26` 처럼 날짜를 직접 줍니다.
@@ -113,6 +115,7 @@ python main.py analyze                                   # 3. AI 트렌드 분�
 python main.py report     --format both                  # 4. 차트 + 리포트
 python main.py export     --format excel                 # 4. 파일 내보내기
 python main.py mail       --attach-charts                # 5. 리포트 이메일 발송
+python main.py blog       --require-today                # 5. 리포트 네이버 블로그 발행
 
 python main.py list --category IT --page 1               # (보너스) 목록 조회
 python main.py show <뉴스 id>                             # (보너스) 상세 조회
@@ -133,6 +136,7 @@ python main.py show <뉴스 id>                             # (보너스) 상세
 | `analyze` | `--today`, `--date-from`, `--date-to` | 전체 |
 | `report` | `--today`, `--date-from`, `--date-to`, `--articles N` | 전체 |
 | `mail` | `--require-today` | 끔 |
+| `blog` | `--require-today`, `--login`, `--headless`, `--blog-id` | 끔 |
 
 - `fetch` 는 날짜 필터가 **기본값** 입니다. 이 프로젝트의 목적이 "당일 뉴스"이기 때문이며,
   과거 기사까지 모으려면 `--all-dates` 를 붙입니다.
@@ -646,19 +650,126 @@ NAVER_CLIENT_SECRET=your_client_secret
 OPENAI_API_KEY=your_openai_api_key
 GMAIL_ADDRESS=you@gmail.com
 GMAIL_APP_PASSWORD=abcdefghijklmnop
+NAVER_BLOG_ID=your_blog_id
+NAVER_ID=your_naver_login_id
+NAVER_PW=your_naver_password
 ```
 
-- `NAVER_*` : NAVER 뉴스 검색 API (수집 단계)
+- `NAVER_CLIENT_*` : NAVER 뉴스 검색 API (수집 단계)
 - `OPENAI_API_KEY` : OpenAI API (AI 요약·분석 단계)
 - `GMAIL_*` : 리포트 메일 발송 (`mail` 커맨드).
   `GMAIL_APP_PASSWORD` 는 계정 비밀번호가 아니라 Google 계정 → 보안 → 2단계 인증 →
   앱 비밀번호에서 발급하는 **16자리** 값입니다.
+- `NAVER_BLOG_ID` : 내 블로그 주소 `blog.naver.com/<여기>` 의 아이디 (`blog` 커맨드).
+- `NAVER_ID` / `NAVER_PW` : 네이버 로그인 정보. **선택** 값입니다. 정공법은 세션 저장
+  (`blog --login` 1회)이고, 이 둘은 세션이 없을 때 자동 로그인을 시도하는 보조 수단입니다.
+  캡차가 뜨면 자동 로그인은 실패할 수 있습니다.
 
 수집·요약 단계가 없어도 메일 단계는 `GMAIL_*` 만 있으면 동작합니다.
 
 AI 모델은 `config.json` 의 `ai.model` 에서 바꿀 수 있습니다.
 
 실제 API 키가 포함된 .env 파일은 GitHub에 업로드하지 않습니다
+
+## 네이버 블로그 자동 발행 (`blog` 커맨드)
+
+리포트를 이메일뿐 아니라 **네이버 블로그에도 자동으로 올립니다.** 메일 발송은 그대로
+두고, 블로그 발행이 하나 더 붙는 구조입니다.
+
+### 왜 클라우드가 아니라 '내 PC'에서 도는가
+
+- 네이버 공식 **글쓰기 API 는 2020년에 종료**되어, 지금은 신규로 쓸 수 없습니다.
+  그래서 브라우저(Playwright)로 **스마트에디터에 직접 글을 쓰는 방식**을 씁니다.
+- 네이버는 낯선 IP(예: GitHub Actions 같은 클라우드)나 봇스러운 접근을 **캡차·기기인증으로
+  강하게 막습니다.** 클라우드에서 로그인하면 거의 막힙니다. 그래서 블로그 발행은
+  **본인 PC(신뢰된 IP)에서** 돌립니다. (메일 워크플로는 원하면 그대로 클라우드에 둬도 됩니다.)
+- 로그인은 **최초 1회만 사람이 직접** 합니다. 그 세션이 `.naver_profile/` 폴더에 저장되어,
+  이후 실행은 로그인 없이 바로 글쓰기로 들어갑니다. (세션이 만료되면 다시 1회만 로그인)
+
+### 준비 (최초 1회)
+
+```powershell
+pip install -r requirements.txt   # playwright, pyperclip 포함
+python -m playwright install chromium   # 브라우저 엔진 설치 (한 번만)
+```
+
+`.env` 에 `NAVER_BLOG_ID` 를(그리고 원하면 `NAVER_ID`/`NAVER_PW`) 넣거나,
+`config.json` 의 `blog.blog_id` 를 채웁니다.
+
+```json
+"blog": {
+  "blog_id": "내블로그아이디",
+  "title_prefix": "AI 뉴스 리포트",
+  "profile_dir": ".naver_profile",
+  "headless": false
+}
+```
+
+그다음 **로그인 세션을 한 번 만들어 둡니다.** 창이 뜨면 직접 로그인(캡차가 나오면 직접 풀기):
+
+```powershell
+python main.py blog --login
+```
+
+로그인 후 네이버 메인/블로그로 넘어가면 세션이 저장되고 창이 닫힙니다.
+`.naver_profile/` 폴더에는 로그인 쿠키가 들어 있으니 **절대 커밋·공유하면 안 됩니다**
+(`.gitignore` 에 이미 제외해 두었습니다).
+
+### 발행
+
+```powershell
+python main.py report --format both --date-from 2026-09-27 --date-to 2026-09-27   # 먼저 리포트
+python main.py blog --require-today          # 최신 리포트를 블로그에 발행
+python main.py blog --headless               # 창 없이 발행(세션이 이미 있을 때만)
+```
+
+- 제목은 `AI 뉴스 리포트 | 2026-09-27 (40건)` 처럼 **기사 발행일 + 건수**로 붙습니다
+  (메일 제목과 같은 규칙, 리포트 본문의 "대상 기간"에서 읽습니다).
+- 본문은 평문(`report.txt`)을 붙여넣습니다. 스마트에디터가 본문 속 기사 URL 을 **자동으로
+  클릭 가능한 링크로** 바꿔 줍니다.
+- 발행에 실패하면 그 순간 화면을 `output/blog_debug/` 에 캡처해 둡니다. 스마트에디터가
+  개편돼 버튼 위치가 바뀌면, 그 스크린샷을 보고 `naverblog.py` 의 셀렉터를 조정하면 됩니다.
+
+### 매일 자동 실행 — Windows 작업 스케줄러
+
+`run_daily.ps1` 이 **수집 → 정제 → 요약·분석 → 리포트 → 메일 → 블로그**를 한 번에 돌립니다.
+(기준일은 어제, 즉 하루가 온전히 끝난 날. 인자로 `-Date 2026-09-27` 지정 가능)
+
+먼저 수동으로 한 번 돌려 확인:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File run_daily.ps1
+```
+
+잘 되면 작업 스케줄러에 등록합니다(관리자 PowerShell):
+
+```powershell
+$action  = New-ScheduledTaskAction -Execute "powershell.exe" `
+  -Argument "-ExecutionPolicy Bypass -File `"C:\Users\luvta\ai_news_mailer\run_daily.ps1`"" `
+  -WorkingDirectory "C:\Users\luvta\ai_news_mailer"
+$trigger = New-ScheduledTaskTrigger -Daily -At 7:30am
+$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -WakeToRun
+Register-ScheduledTask -TaskName "AI뉴스_블로그발행" -Action $action `
+  -Trigger $trigger -Settings $settings -Description "매일 AI 뉴스 리포트를 메일+네이버블로그로 발행"
+```
+
+- 스케줄러 실행 계정은 **로그인해서 세션을 만든 그 사용자 계정**이어야 합니다
+  (`.naver_profile/` 로그인 세션이 계정별로 저장되므로). "사용자가 로그온했을 때만 실행"이
+  블로그 발행(헤드풀)에는 가장 안정적입니다.
+- 그 시각에 **PC가 켜져 있어야** 합니다(`-WakeToRun` 으로 절전에서 깨우도록 했습니다).
+- 삭제/수정: `Unregister-ScheduledTask -TaskName "AI뉴스_블로그발행"`, 또는 작업 스케줄러 GUI.
+
+### 문제 해결
+
+| 증상 | 원인·대처 |
+| --- | --- |
+| "로그인 세션이 없습니다" | `python main.py blog --login` 을 한 번 실행해 직접 로그인 |
+| 로그인이 자꾸 풀림 | 로그인 시 "로그인 상태 유지"를 켜고, 헤드리스 대신 헤드풀로 실행 |
+| 제목/본문이 안 써지거나 발행 버튼을 못 찾음 | 스마트에디터 개편으로 셀렉터가 바뀐 것. `output/blog_debug/` 스크린샷을 보고 `naverblog.py` 의 후보 셀렉터를 조정 |
+| 캡차가 뜸 | 클라우드/낯선 환경에서 실행 중일 가능성. 반드시 본인 PC에서 실행 |
+
+> **주의**: 자동화는 네이버 이용약관 및 봇 정책의 영향을 받습니다. 하루 1회 수준의 개인
+> 발행은 대체로 문제되지 않지만, 과도하게 자주 돌리면 계정이 제한될 수 있습니다.
 
 ## 정기 실행 스케줄링 (보너스)
 

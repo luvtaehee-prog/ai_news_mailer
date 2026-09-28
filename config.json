@@ -54,6 +54,13 @@
     "to": ""
   },
 
+  "blog": {
+    "blog_id": "",
+    "title_prefix": "AI 뉴스 리포트",
+    "profile_dir": ".naver_profile",
+    "headless": false
+  },
+
   "clean": {
     "min_title_length": 2,
     "max_content_length": 3000,

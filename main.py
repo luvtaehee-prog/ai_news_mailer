@@ -10,6 +10,7 @@
     export    CSV/JSONL/Excel    (4번 파트: export_command.py)
     list/show 저장된 뉴스 조회    (보너스: query_command.py)
     mail      최신 리포트 이메일 발송 (mail_command.py)
+    blog      최신 리포트 네이버 블로그 발행 (blog_command.py)
 
 각 파트는 자기 모듈에 add_*_parser(서브파서 등록)와 cmd_*(실행 본체)를 두고,
 main.py 는 그것들을 모아 연결하기만 한다. 그래야 파트별로 따로 작업해도
@@ -30,6 +31,7 @@ from export_command import add_export_parser, cmd_export
 from query_command import (add_list_parser, add_show_parser,
                            cmd_list, cmd_show)
 from mail_command import add_mail_parser, cmd_mail
+from blog_command import add_blog_parser, cmd_blog
 
 
 def add_fetch_parser(subparsers) -> None:
@@ -84,6 +86,7 @@ def build_parser() -> argparse.ArgumentParser:
     add_list_parser(subparsers)       # 보너스: 조회 CLI
     add_show_parser(subparsers)       # 보너스: 조회 CLI
     add_mail_parser(subparsers)       # 최신 리포트 이메일 발송
+    add_blog_parser(subparsers)       # 최신 리포트 네이버 블로그 발행
     return parser
 
 
@@ -98,6 +101,7 @@ COMMANDS = {
     "list": cmd_list,
     "show": cmd_show,
     "mail": cmd_mail,
+    "blog": cmd_blog,
 }
 
 
@@ -105,9 +109,10 @@ def main():
     args = build_parser().parse_args()
     result = COMMANDS[args.command](args)
 
-    # 실패를 조용히 넘기지 않는다. 종료 코드가 0 이면 GitHub Actions 가
-    # 성공으로 표시해서, 메일이 안 온 것을 한참 뒤에야 알게 된다.
-    if isinstance(result, dict) and result.get("sent") is False:
+    # 실패를 조용히 넘기지 않는다. 종료 코드가 0 이면 스케줄러가
+    # 성공으로 표시해서, 메일/블로그가 안 나간 것을 한참 뒤에야 알게 된다.
+    if isinstance(result, dict) and (result.get("sent") is False
+                                     or result.get("posted") is False):
         raise SystemExit(1)
 
 

@@ -5,3 +5,5 @@ python-dotenv
 openai
 matplotlib
 openpyxl
+playwright
+pyperclip
