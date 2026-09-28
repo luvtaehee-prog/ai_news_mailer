@@ -7,5 +7,4 @@ matplotlib
 openpyxl
 playwright
 pyperclip
-markdown
 pywin32; platform_system == "Windows"

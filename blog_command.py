@@ -35,15 +35,85 @@ def find_latest_report_dir(out_root: str = "output") -> str:
     return candidates[-1] if candidates else None
 
 
-def _markdown_to_html(md_text: str) -> str:
-    """리포트 마크다운(report.md)을 블로그 본문용 HTML 로 변환한다.
+def _esc(text: str) -> str:
+    """HTML 텍스트 이스케이프."""
+    import html
+    return html.escape(text, quote=True)
 
-    평문으로 붙여넣으면 스마트에디터가 `-----`, `- `, `#` 를 마크다운으로
-    오해해 서식이 깨진다(취소선 등). HTML 로 넣으면 그 해석 없이 제목·목록·
-    링크가 그대로 반영된다. `extra` 확장으로 표·중첩목록까지 처리한다.
+
+def _markdown_to_html(md_text: str) -> str:
+    """리포트 마크다운(report.md)을 블로그 본문용 HTML 로 직접 변환한다.
+
+    마크다운 라이브러리는 `1. [제목](url)` + 들여쓴 `- 출처` 를 중첩 목록으로
+    제대로 못 묶어, 제목과 출처가 각각 번호 항목으로 쪼개지고 "- "가 노출된다.
+    그래서 리포트의 알려진 형식을 직접 파싱해 기사 한 건을 문단 하나로 만든다:
+        <p><a href=url>제목</a><br><span>출처 · 분류 · 시각</span></p>
+    평문 기호(#, -, >, 1.)를 출력에 남기지 않아 스마트에디터의 마크다운
+    재해석도 피한다.
     """
-    import markdown
-    return markdown.markdown(md_text, extensions=["extra", "sane_lists", "nl2br"])
+    lines = md_text.splitlines()
+    out = []
+    i = 0
+    n = len(lines)
+    item_re = re.compile(r"^\s*\d+\.\s+\[(.+?)\]\((https?://[^)]+)\)\s*$")
+    meta_re = re.compile(r"^\s*-\s*(.+?)\s*$")
+    table_buf = []
+
+    def flush_table():
+        # 표는 각 행의 셀을 ' · ' 로 이어 문단으로 (구분선 행은 버린다)
+        for row in table_buf:
+            cells = [c.strip() for c in row.strip().strip("|").split("|")]
+            if all(set(c) <= set("-: ") for c in cells):
+                continue
+            text = " · ".join(c for c in cells if c)
+            if text:
+                out.append(f'<p style="color:#555;">{_esc(text)}</p>')
+        table_buf.clear()
+
+    while i < n:
+        line = lines[i]
+        stripped = line.strip()
+
+        if stripped.startswith("|"):
+            table_buf.append(line)
+            i += 1
+            continue
+        elif table_buf:
+            flush_table()
+
+        if not stripped:
+            i += 1
+            continue
+
+        m = item_re.match(line)
+        if m:
+            title, url = m.group(1), m.group(2)
+            meta = ""
+            if i + 1 < n:
+                mm = meta_re.match(lines[i + 1])
+                if mm:
+                    meta = mm.group(1)
+                    i += 1
+            meta_html = (f'<br><span style="color:#888;font-size:13px;">'
+                         f'{_esc(meta)}</span>') if meta else ""
+            out.append(f'<p><a href="{_esc(url)}" target="_blank">'
+                       f'{_esc(title)}</a>{meta_html}</p>')
+        elif stripped.startswith("## "):
+            out.append(f'<h3>{_esc(stripped[3:].strip())}</h3>')
+        elif stripped.startswith("# "):
+            # 최상단 문서 제목은 글 제목과 겹치므로 생략
+            pass
+        elif stripped.startswith(">"):
+            out.append(f'<p style="color:#888;">{_esc(stripped.lstrip("> ").strip())}</p>')
+        elif stripped.startswith("- "):
+            out.append(f'<p style="color:#555;">{_esc(stripped[2:].strip())}</p>')
+        else:
+            out.append(f'<p>{_esc(stripped)}</p>')
+        i += 1
+
+    if table_buf:
+        flush_table()
+    return "\n".join(out)
 
 
 def add_blog_parser(subparsers) -> None:

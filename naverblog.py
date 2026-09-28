@@ -135,6 +135,29 @@ def _dismiss_popups(frame) -> None:
             pass
 
 
+def _ensure_no_strikethrough(frame) -> None:
+    """에디터 기본 서식에 '취소선'이 켜져 있으면 끈다.
+
+    이 블로그처럼 예전에 취소선을 켠 상태가 저장돼 있으면, 이후 입력·붙여넣는
+    모든 글자가 취소선으로 들어간다(내용과 무관). 현재 커서 위치의 취소선
+    토글 버튼이 눌린 상태(se-is-selected)면 한 번 눌러 끈다.
+    반드시 본문/제목에 포커스를 준 '뒤에' 호출해야 그 영역의 상태에 적용된다.
+    """
+    try:
+        # 포커스 직후 툴바 상태가 갱신될 때까지 잠깐 기다린다.
+        # (안 기다리면 이전 상태를 읽어 토글을 건너뛴다)
+        frame.page.wait_for_timeout(500)
+        btn = frame.locator("button.se-strikethrough-toolbar-button, "
+                            "[data-name='strikethrough']").first
+        if btn.count() == 0:
+            return
+        if "se-is-selected" in (btn.get_attribute("class") or ""):
+            btn.click(timeout=2000)
+            frame.page.wait_for_timeout(400)
+    except Exception:
+        pass
+
+
 def _write_title(frame, title: str) -> None:
     """제목 영역을 클릭하고 제목을 입력한다."""
     candidates = [
@@ -148,6 +171,7 @@ def _write_title(frame, title: str) -> None:
             el = frame.locator(sel).first
             if el.count() > 0 and el.is_visible():
                 el.click(timeout=3000)
+                _ensure_no_strikethrough(frame)
                 frame.page.keyboard.type(title, delay=20)
                 return
         except Exception:
@@ -180,6 +204,8 @@ def _write_body(frame, body_html: str) -> None:
     if not clicked:
         # 제목 입력 후 Tab/Enter 로 본문으로 내려가는 경우
         frame.page.keyboard.press("Enter")
+    # 붙여넣기 전에 취소선 기본 서식을 끈다(안 그러면 전체가 취소선으로 들어간다).
+    _ensure_no_strikethrough(frame)
     _set_html_clipboard(body_html)
     frame.page.keyboard.press("Control+V")
 
