@@ -13,9 +13,12 @@ name: 일일 AI 뉴스 리포트 메일
 # 당일 밤에 받고 싶다면 cron 을 "0 14 * * *"(23:00 KST)로 바꾸고 아래
 # 기준일에서 `-d yesterday` 를 빼면 된다(대신 23~24시 기사는 빠진다).
 on:
-  schedule:
-    # 매일 07:00 KST = 전날 22:00 UTC (KST 는 UTC+9 라 날짜가 하루 당겨진다)
-    - cron: "0 22 * * *"
+  # [중단됨] 메일 자동화는 더 이상 쓰지 않는다. 리포트는 내 PC의 run_daily.ps1 이
+  # 만들어 네이버 블로그로 발행한다. 클라우드 예약(cron)을 꺼서 매일 메일이
+  # 나가지 않도록 했다. 필요하면 아래 workflow_dispatch 로 수동 실행할 수 있다.
+  # schedule:
+  #   # 매일 07:00 KST = 전날 22:00 UTC (KST 는 UTC+9 라 날짜가 하루 당겨진다)
+  #   - cron: "0 22 * * *"
   workflow_dispatch:
     inputs:
       date:

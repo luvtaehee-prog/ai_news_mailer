@@ -50,8 +50,21 @@ def _markdown_to_html(md_text: str) -> str:
         <p><a href=url>제목</a><br><span>출처 · 분류 · 시각</span></p>
     평문 기호(#, -, >, 1.)를 출력에 남기지 않아 스마트에디터의 마크다운
     재해석도 피한다.
+
+    뉴스 목록 이후의 통계·차트 섹션(데이터 품질 지표, 수집 분포, TOP N,
+    AI 인사이트, 차트 이미지)은 블로그에 넣지 않는다. 차트 PNG 는 업로드하지
+    않아 어차피 깨져 보이고, 통계표는 블로그 독자에게 불필요하다.
     """
     lines = md_text.splitlines()
+
+    # '## 뉴스 목록' 섹션 다음에 오는 그 다음 '## ' 헤딩부터 끝까지 잘라낸다.
+    news_idx = next((k for k, l in enumerate(lines)
+                     if l.strip().startswith("## 뉴스 목록")), None)
+    if news_idx is not None:
+        cut = next((k for k in range(news_idx + 1, len(lines))
+                    if lines[k].strip().startswith("## ")), len(lines))
+        lines = lines[:cut]
+
     out = []
     i = 0
     n = len(lines)

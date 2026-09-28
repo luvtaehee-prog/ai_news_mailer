@@ -2,9 +2,10 @@
 #
 # GitHub Actions 대신 '내 PC'에서 매일 도는 스크립트다.
 # 네이버 블로그 발행은 본인 PC(신뢰된 IP) + 저장된 로그인 세션이 있어야 하므로,
-# 클라우드가 아니라 여기서 돌린다. 메일 발송도 그대로 함께 나간다.
+# 클라우드가 아니라 여기서 돌린다.
 #
-# 흐름: fetch(google/naver/govuk) -> clean -> summarize -> analyze -> report -> mail -> blog
+# 흐름: fetch(google/naver/govuk) -> clean -> summarize -> analyze -> report -> blog
+# (메일 발송은 더 이상 자동으로 하지 않는다. 필요하면 `python main.py mail` 을 수동 실행)
 #
 # 수동 실행:
 #   powershell -ExecutionPolicy Bypass -File run_daily.ps1
@@ -68,10 +69,7 @@ try {
     # 4) 리포트
     Run "리포트·차트 생성" @("main.py","report","--format","both","--date-from",$Date,"--date-to",$Date)
 
-    # 5) 메일 발송 (기존 유지). --require-today: 리포트가 오늘 것이 아니면 안 보냄.
-    try { Run "메일 발송" @("main.py","mail","--attach-charts","--require-today") } catch { Log "△ 메일 발송 실패: $_" }
-
-    # 6) 네이버 블로그 발행. 창을 띄워 진행(헤드풀)해야 안정적이다.
+    # 5) 네이버 블로그 발행. 창을 띄워 진행(헤드풀)해야 안정적이다.
     #    세션이 없으면 실패하니, 최초 1회 `python main.py blog --login` 을 먼저 해 둘 것.
     Run "네이버 블로그 발행" @("main.py","blog","--require-today")
 
