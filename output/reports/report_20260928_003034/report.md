@@ -1,0 +1,174 @@
+# AI 뉴스 트렌드 리포트
+
+- 생성 시각: 2026-09-28 00:30
+- 대상 기간(발행일 기준): 2026-09-27 ~ 2026-09-27
+- 분석 대상: 총 40건 (AI 요약 완료 0건)
+
+> 항목마다 세는 대상이 다릅니다. 수집·정제 현황은 정제 완료 40건 전체를, 키워드와 AI 인사이트는 요약이 끝난 0건을 기준으로 합니다. 키워드는 AI가 추출하는 값이라 요약 전 기사에는 존재하지 않습니다.
+
+## 뉴스 목록 (40건)
+
+1. [의정부시 AI 활용 기업 마케팅 실무 교육 실시 > 뉴스](http://www.thekorea.kr/bbs/board.php?bo_table=news&wr_id=557551)
+   - 더코리아 · 생성형 AI · 21:50
+
+2. [사천시립도서관, 책·AI 연결… 디지털 역량 강화](https://www.gnmaeil.com/news/articleView.html?idxno=595516)
+   - 경남매일 · 생성형 AI · 21:34
+
+3. [환율 하락·AI 속도조절론 뚫고… K반도체, 3Q 성적표도 ‘A+’](https://v.daum.net/v/20260927210312191)
+   - v.daum.net · AI 반도체 · 21:03
+
+4. [행정안전부, AI로 재난안전 업무 혁신, 우수사례 찾는다](http://www.adtimes.co.kr/news/articleView.html?idxno=1936856)
+   - 행정신문 · 생성형 AI · 20:52
+
+5. [아랍에미리트는 인공지능 사용자들의 자녀 출산율 면에서 세계를 훨씬 앞서고 있습니다.](https://www.vietnam.vn/ko/uae-bo-xa-the-gioi-ve-ty-le-nguoi-dung-ai-tao-sinh)
+   - Vietnam.vn · 생성형 AI · 20:45
+
+6. [라이트 오리진, 범용 파운데이션 인공지능 모델 '라이트-O1' 공개](https://www.irobotnews.com/news/articleView.html?idxno=48680)
+   - 로봇신문 · 인공지능 · 19:43
+
+7. [빌 게이츠 “불순한 세력이 AI 쓰면 10억명 사망할 수 있어”](https://www.hani.co.kr/arti/international/international_general/1279612.html)
+   - 한겨레 · 인공지능 · 19:14
+
+8. [AI는 인류를 파괴하려 하는가? [세계의 창]](https://www.hani.co.kr/arti/opinion/column/1279641.html)
+   - 한겨레 · 인공지능 · 18:47
+
+9. [[기획] AI칩 3년 뒤져… 韓 ‘포스트 삼전닉스’가 없다](https://v.daum.net/v/20260927183644886?f=p)
+   - v.daum.net · AI 반도체 · 18:36
+
+10. [커지는 AI 반도체 시장…광주, ‘NPU·첨단패키징’ 승부수](https://v.daum.net/v/8Uif2brNCY)
+   - v.daum.net · AI 반도체 · 17:55
+
+11. [반도체 ETF '고공행진'…소부장도 상위권 점령](https://www.hankyung.com/article/2026092775881)
+   - 한국경제 · AI 반도체 · 17:32
+
+12. [KT ‘오토모델라우터’, 글로벌 LLM 라우터 벤치마크 2위](https://www.womentimes.co.kr/news/articleView.html?idxno=106504)
+   - 우먼타임스 · LLM · 17:31
+
+13. [CG 없이 대규모 전쟁·액션신 뚝딱…생성형 AI 활용 본격화](https://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20260928.22014008446)
+   - kookje.co.kr · 생성형 AI · 17:25
+
+14. [청주시 영운동 통장협의회, 생성형 AI 활용교육 실시](https://www.ccdn.co.kr/news/articleView.html?idxno=1101850)
+   - 충청매일 · 생성형 AI · 17:15
+
+15. ['AI 반도체 삼각 연대' 이재용·최태원·젠슨 황, 뉴욕서 뭉친다](https://v.daum.net/v/XaEEB7kLTo)
+   - v.daum.net · AI 반도체 · 17:14
+
+16. [겉으론 "성공적 회담"…AI·반도체·대만 문제엔 '딴 생각'](https://www.hankyung.com/article/2026092776681)
+   - 한국경제 · AI 반도체 · 16:59
+
+17. [추석 이후 증시 어디로?…"AI·반도체·금리가 결정적 변수"](https://www.newsis.com/view/NISX20260927_0003804199)
+   - 뉴시스 · AI 반도체 · 16:52
+
+18. [KT, LLM 라우터 세계 2위…AI 모델 선택 기술 글로벌 경쟁력 입증](https://theggnews.com/ko-kr/articles/27900)
+   - theggnews.com · LLM · 16:45
+
+19. [젠슨 황, 뉴욕서 이재용·최태원과 재회…AI 반도체 협력 확대 주목](https://kgnews.co.kr/mobile/article.html?no=913017)
+   - 경기신문 · AI 반도체 · 16:31
+
+20. [KB금융, 올해 AI 관련 혁신금융 21건 지정…이재근호 AX 가속](https://marketin.edaily.co.kr/News/ReadE?newsId=01817126645584384)
+   - 마켓인 · 생성형 AI · 16:22
+
+21. [경북인재개발원, 금년 하반기 생성형 AI교육 확대 강화](https://nuriilbo.com/news/article.html?no=916424)
+   - 누리일보 · 생성형 AI · 15:30
+
+22. [“미·중 안정, 한국엔 양날의 검”…AI·반도체 선택 압박은 여전](https://www.edaily.co.kr/News/Read?newsId=01758086645584384&mediaCodeNo=257)
+   - edaily.co.kr · AI 반도체 · 15:28
+
+23. [AI반도체 1200조 시장 열린다…“공급망 진입 서둘러야”](https://www.sedaily.com/article/20095183?ref=naver)
+   - 서울경제 · AI 반도체 · 15:20
+
+24. [KT ‘오토모델라우터’, 글로벌 LLM 라우터 벤치마크 종합 2위](https://www.mediafine.co.kr/news/articleView.html?idxno=90985)
+   - 미디어파인 · LLM · 14:35
+
+25. [AI 반도체 열풍에 PFAS 생산 확대…커지는 환경비용](https://www.efn.co.kr/news/articleView.html?idxno=3051)
+   - 기후에너지경제 · AI 반도체 · 14:27
+
+26. [구글 연구원, ‘AI 발전 너무 빠르다’ 사표](https://www.chosun.com/economy/tech_it/2026/09/27/NYLYTTHXMZFALJ5HDKKQ2MCAJE/)
+   - 조선일보 · 인공지능 · 14:16
+
+27. ["필요한 프로그램, 공무원이 직접 만든다"…재난업무에도 '바이브 코딩'](https://v.daum.net/v/20260927140842530)
+   - v.daum.net · 생성형 AI · 14:08
+
+28. [기획처, 내부 업무망에 국산 LLM 도입…공무원 AI 활용 확대](https://www.etnews.com/20260927000063)
+   - 전자신문 · LLM · 14:00
+
+29. [AI 인력난 속 베트남 개발팀 활용 확대···한국 기업의 현실적인 선택지로](https://www.journal25.com/news/articleView.html?idxno=557834)
+   - 저널25방송 · LLM · 13:57
+
+30. [공무원이 AI로 재난안전 업무도구 직접 만든다](https://v.daum.net/v/YIPMGfCEcT)
+   - v.daum.net · 생성형 AI · 13:09
+
+...외 10건
+
+## 1. 데이터 품질 지표 (정제 완료 40건 기준)
+
+| 지표 | 값 | 의미 |
+| --- | --- | --- |
+| 총 뉴스 수 | 40건 | 정제를 통과해 저장된 기사 수 |
+| 요약 완료율 | 0.0% (0/40건) | AI 요약이 끝난 기사 비율 |
+| 본문 확보율 | 90.0% (36/40건) | 본문이 300자 이상 확보된 비율. 미만은 크롤링이 본문을 못 찾아 메타 설명으로 대체된 경우 |
+| 평균 본문 길이 | 1497자 | 기사 한 건당 평균 본문 글자 수 |
+| 본문 잘림 비율 | 0.0% (0/40건) | 본문 길이 상한을 넘어 뒷부분이 잘린 비율. 잘린 기사는 AI가 원문 일부만 보고 요약하게 됨 |
+
+## 2. 수집 분포 (정제 완료 40건 기준)
+
+### 카테고리별 뉴스 수
+
+| 카테고리 | 건수 |
+| --- | --- |
+| 생성형 AI | 12 |
+| LLM | 12 |
+| AI 반도체 | 12 |
+| 인공지능 | 4 |
+
+### 소스별 수집 건수
+
+| 소스 | 건수 |
+| --- | --- |
+| google | 40 |
+
+### 수집 방식별 비교
+
+| 수집 방식 | 소스 | 건수 | 평균 본문 | 본문 확보율 |
+| --- | --- | --- | --- | --- |
+| rss+crawl | google | 40건 | 1497자 | 90.0% |
+
+> `rss+crawl` / `api+crawl` 은 RSS·API 로 기사 목록을 받은 뒤 원문을 크롤링한 방식이고, `crawl` 은 목록부터 본문까지 모두 크롤링한 방식입니다.
+>
+> RSS·API 는 목록을 빠르고 안정적으로 받아오지만 본문은 주지 않아 결국 크롤링이 필요하고, 실패하면 짧은 메타 설명으로 대체되어 본문 확보율이 떨어집니다. 반면 전체 크롤링은 본문 확보율이 높은 대신 사이트 구조에 맞춘 코드가 따로 필요하고 요청 간 지연을 둬야 해 느립니다.
+
+### 발행일별 추이
+
+- 집계된 일자 수: 1일
+- 최다 수집일: 2026-09-27 (40건)
+- 일평균: 40.0건
+
+## 3. TOP N 집계
+
+### AI 추출 키워드 TOP 0 (AI 요약 완료 0건 기준)
+
+| 순위 | 키워드 | 등장 기사 수 |
+| --- | --- | --- |
+| - | - | 0 |
+
+## 4. AI 인사이트 분석 (AI 요약 완료 0건 기준)
+
+AI 분석 결과가 없습니다. `python main.py analyze` 를 먼저 실행하세요.
+
+## 5. 차트
+
+### category_counts
+
+![category_counts](charts/category_counts.png)
+
+### daily_trend
+
+![daily_trend](charts/daily_trend.png)
+
+### top_keywords
+
+![top_keywords](charts/top_keywords.png)
+
+### source_share
+
+![source_share](charts/source_share.png)

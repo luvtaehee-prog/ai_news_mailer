@@ -1119,3 +1119,25 @@
 2026-09-27 00:25:58,775 [INFO] report: 리포트 저장: output/reports/report_20260927_002558/report.md
 2026-09-27 00:25:58,775 [INFO] report: 리포트 저장: output/reports/report_20260927_002558/report.txt
 2026-09-27 00:26:01,306 [INFO] mail: 이메일 발송 완료: output/reports/report_20260927_002558 -> (본인 계정) (첨부 4건)
+2026-09-28 00:30:31,264 [INFO] clean: 정제 시작: raw=data/raw, 정책=upsert
+2026-09-28 00:30:31,331 [INFO] clean: raw 로드: 2011건
+2026-09-28 00:30:31,552 [INFO] clean: 정제 통과: 2011건, 제외: 0건
+2026-09-28 00:30:31,553 [INFO] clean: 기준일 2026-09-27 필터: 2011건 -> 40건
+2026-09-28 00:30:31,653 [INFO] clean: 저장 완료: 신규 39, 갱신 0, 스킵 0, 배치중복 0, 제목중복 1 -> 총 1952건 (data/clean/news_clean.jsonl)
+2026-09-28 00:30:32,699 [INFO] analyze: clean 데이터 1952건 로드
+2026-09-28 00:30:32,701 [INFO] analyze: 기준일 2026-09-27 필터: 1952건 -> 40건
+2026-09-28 00:30:32,701 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-09-28 00:30:32,701 [ERROR] analyze: .env 에 OPENAI_API_KEY 가 없습니다. 프로젝트 루트의 .env 에 OPENAI_API_KEY=sk-... 형태로 추가하세요.
+2026-09-28 00:30:33,750 [INFO] analyze: 분석 대상 필터: 375건 -> 0건
+2026-09-28 00:30:33,751 [ERROR] analyze: 분석할 요약 데이터가 없습니다. 먼저 summarize 를 실행하세요.
+2026-09-28 00:30:34,421 [INFO] report: 데이터 로드: clean 1952건, 요약 375건, 트렌드 있음
+2026-09-28 00:30:34,421 [WARNING] report: AI 인사이트(기간 기록 없음)가 이번 리포트 기간(2026-09-27 ~ 2026-09-27)과 달라 제외합니다.
+2026-09-28 00:30:34,422 [INFO] report: 필터 적용: 1952건 -> 40건
+2026-09-28 00:30:34,423 [INFO] report: 한글 폰트 적용: NanumGothic
+2026-09-28 00:30:34,543 [INFO] report: 차트 저장: output/reports/report_20260928_003034/charts/category_counts.png
+2026-09-28 00:30:34,645 [INFO] report: 차트 저장: output/reports/report_20260928_003034/charts/daily_trend.png
+2026-09-28 00:30:34,699 [INFO] report: 차트 저장: output/reports/report_20260928_003034/charts/top_keywords.png
+2026-09-28 00:30:34,765 [INFO] report: 차트 저장: output/reports/report_20260928_003034/charts/source_share.png
+2026-09-28 00:30:34,766 [INFO] report: 리포트 저장: output/reports/report_20260928_003034/report.md
+2026-09-28 00:30:34,767 [INFO] report: 리포트 저장: output/reports/report_20260928_003034/report.txt
+2026-09-28 00:30:37,268 [INFO] mail: 이메일 발송 완료: output/reports/report_20260928_003034 -> (본인 계정) (첨부 4건)
