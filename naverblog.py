@@ -205,11 +205,19 @@ def _try_auto_login(page) -> bool:
         return False
 
 
-def login(blog_id: str = None, user_data_dir: str = DEFAULT_PROFILE_DIR) -> None:
+def _is_logged_in(context) -> bool:
+    """네이버 로그인 쿠키(NID_AUT/NID_SES)가 있으면 로그인된 것으로 본다."""
+    names = {c["name"] for c in context.cookies("https://www.naver.com")}
+    return "NID_AUT" in names and "NID_SES" in names
+
+
+def login(blog_id: str = None, user_data_dir: str = DEFAULT_PROFILE_DIR,
+          wait_minutes: int = 5) -> None:
     """최초 1회 수동 로그인용. 창을 띄우고 사람이 직접 로그인하도록 기다린다.
 
-    로그인(및 캡차)을 사람이 끝내면 세션이 user_data_dir 에 저장되어,
-    이후 post() 는 로그인 없이 바로 글을 쓸 수 있다.
+    '시간이 지나면 닫는' 방식이 아니라, **실제 로그인 쿠키(NID_AUT/NID_SES)가
+    생길 때까지 기다렸다가** 저장한다. 그래야 기기등록·캡차로 시간이 걸려도
+    세션이 확실히 저장된다.
     """
     from playwright.sync_api import sync_playwright
 
@@ -219,17 +227,33 @@ def login(blog_id: str = None, user_data_dir: str = DEFAULT_PROFILE_DIR) -> None
             user_data_dir=user_data_dir, headless=False)
         page = context.new_page()
         page.goto(LOGIN_URL, wait_until="domcontentloaded")
-        print("\n[안내] 열린 창에서 네이버에 직접 로그인하세요. "
-              "(캡차가 나오면 직접 풀어 주세요)")
-        print("      로그인 후 네이버 메인/블로그로 넘어가면 자동으로 세션을 저장하고 닫습니다.")
-        # 로그인 페이지를 벗어날 때까지(=로그인 완료) 최대 3분 대기
-        for _ in range(180):
-            if "nidlogin" not in page.url and "nid.naver.com" not in page.url:
-                break
-            time.sleep(1)
-        page.wait_for_timeout(1500)
-        context.close()
-        print("[완료] 로그인 세션을 저장했습니다:", user_data_dir)
+        print("\n" + "=" * 60)
+        print("[안내] 열린 크롬 창에서 네이버에 직접 로그인하세요.")
+        print("  1) 아이디/비밀번호 입력  2) '로그인 상태 유지' 반드시 체크!")
+        print("  3) 캡차/기기등록이 나오면 직접 완료하세요.")
+        print("  로그인이 확인되면 자동으로 세션을 저장하고 창을 닫습니다.")
+        print("=" * 60)
+
+        # 로그인 쿠키가 생길 때까지 폴링 (기본 5분)
+        deadline = time.time() + wait_minutes * 60
+        saved = False
+        while time.time() < deadline:
+            try:
+                if _is_logged_in(context):
+                    saved = True
+                    break
+            except Exception:
+                pass
+            time.sleep(2)
+
+        if saved:
+            page.wait_for_timeout(1500)  # 쿠키가 디스크에 flush 될 여유
+            context.close()
+            print("[완료] 로그인 세션을 저장했습니다:", user_data_dir)
+        else:
+            context.close()
+            print("[실패] 제한 시간 안에 로그인이 확인되지 않았습니다. "
+                  "'로그인 상태 유지'를 체크했는지 확인하고 다시 실행하세요.")
 
 
 def post(title: str, body_text: str, blog_id: str = None,
